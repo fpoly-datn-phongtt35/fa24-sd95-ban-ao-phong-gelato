@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="httl://thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h4>Mã giảm giá</h4>
+
+    <div class="my-3">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="code">Mã giảm giá</label>
+                <input type="text" class="form-control" id="code" name="code" placeholder="OAS123" th:value="${dataSearch.code}">
+            </div>
+            <!--                <div class="form-group col-md-2">-->
+            <!--                    <label for="name">Tên mã giảm giá</label>-->
+            <!--                    <input type="text" class="form-control" id="name" name="name"-->
+            <!--                           placeholder="Giảm 20.000..." th:value="${dataSearch.detail}">-->
+            <!--                </div>-->
+            <div class="form-group col-md-2">
+                <label>Ngày áp dụng</label>
+                <input type="date" class="form-control" id="startDate", name="startDate" th:value="${#dates.format(dataSearch.startDate, 'yyyy-MM-dd')}">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Ngày kết thúc</label>
+                <input type="date" class="form-control" id="endDate" name="endDate"  th:value="${#dates.format(dataSearch.endDate, 'yyyy-MM-dd')}">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Trạng thái</label>
+                <select class="form-control" id="status" th:value="${dataSearch.status}">
+                    <option value="">Tất cả</option>
+                    <option value="1" th:selected="${dataSearch.status == 1}">Đang hoạt động</option>
+                    <option value="0" th:selected="${dataSearch.status == 0}">Đã đóng</option>
+                </select>
+            </div>
+
+        </div>
+        <button type="button" id="search-btn" class="btn btn-primary m-1"><i class="fa fa-search"></i> Tìm kiếm</button>
+        <a th:href="@{/admin-only/discount-code}" class="btn btn-secondary m-1">
+                 Hủy bỏ
+        </a>
+    </div>
+<table border="1" width="1000" class="table my-3">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Mã giảm giá</th>
+        <!--            <th scope="col">Tên mã giảm giá</th>-->
+        <th scope="col">Ngày áp dụng</th>
+        <th scope="col">Ngày hết hạn</th>
+        <th scope="col">Kiểu</th>
+        <th scope="col">Giá trị giảm</th>
+        <th scope="col">Còn</th>
+        <th scope="col">Trạng thái</th>
+        <th>Công cụ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="discountCode, iStat : ${discountCodes}">
+        <th scope="row" th:text="${iStat.count}"></th>
+        <td th:text="${discountCode.code}"></td>
+        <!--            <td th:text="${discountCode.detail}" class="text-truncate" style="max-width: 150px"></td>-->
+        <td th:text="${#dates.format(discountCode.startDate, 'dd/MM/yyyy')}"></td>
+        <td th:text="${#dates.format(discountCode.endDate, 'dd/MM/yyyy')}"></td>
+        <td th:if="${discountCode.getType() == 1}">Phần trăm</td>
+        <td th:if="${discountCode.getType() == 2}">Số tiền</td>
+        <td th:if="${discountCode.getType() == 1}" th:text="${discountCode.getPercentage() + '%'}"></td>
+        <td th:if="${discountCode.getType() == 2}" th:text="${#numbers.formatDecimal(discountCode.getDiscountAmount(), 0, 'POINT', 0, 'COMMA')}"></td>
+        <td th:text="${discountCode.maximumUsage}"></td>
+        <td th:if="${discountCode.status == 0}">
+            <span class="border border-danger text-danger rounded px-1">Đã đóng</span>
+        </td>
+        <td th:if="${discountCode.status == 1}">
+            <span class="border border-success text-success rounded px-1">Hoạt động</span>
+        </td>
+        <!--            <td th:if="${#dates.createNow() gt discountCode.endDate}">-->
+        <!--                <span class="border border-success text-danger rounded px-1">Đã hết hạn</span>-->
+        <!--            </td>-->
+        <!--            <td th:if="${discountCode == 1}">Hết hạn</td>-->
+        <td>
+            <form th:if="${discountCode.status == 1}" th:action="@{/admin/update-discount-status/0}" method="post" class="form-close-discount d-inline" >
+                <input type="hidden" name="id" th:value="${discountCode.id}">
+                <button type="submit" class="border-0 bg-transparent close-btn cursor-pointer" title="Đóng mã giảm giá">
+                    Dừng
+                </button>
+            </form>
+
+            <form th:if="${discountCode.status == 0}" th:action="@{/admin/update-discount-status/1}" method="post" class="form-open-discount d-inline" >
+                <input type="hidden" name="id" th:value="${discountCode.id}">
+                <button type="submit" class="border-0 bg-transparent close-btn cursor-pointer" title="Mở mã giảm giá">
+                    Mở
+                </button>
+            </form>
+
+            <a th:href="@{'/admin-only/discount-code/edit/' + ${discountCode.id}}" class="cursor-pointer">
+                Sửa
+            </a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+    <a th:href="@{'/admin-only/discount-code-create'}">Thêm</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:inline="javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+    <script th:inline="javascript">
+        var totalPage = /*[[${totalPage}]]*/ '';
+        var currentPage = /*[[${currentPage}]]*/ '';
+
+        $(".form-close-discount").on('submit', function (e) {
+            e.preventDefault();
+            var form = this; // select the form
+
+            Swal.fire({
+                title: 'Đóng mã giảm giá',
+                text: 'Bạn chắc chắc muốn đóng mã giảm giá này?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Hủy',
+                confirmButtonText: 'Xác nhận',
+                reverseButtons: true
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+                    form.submit()
+                }
+            })
+        })
+
+        var url = '/admin-only/discount-code?page=0';
+        $('#search-btn').on('click', function () {
+
+            var code = $('#code').val().trim()
+            // var detail = $("#name").val().trim()
+            var startDate = $("#startDate").val()
+            var endDate = $("#endDate").val()
+            var status = $("#status").val()
+
+            if(startDate && endDate) {
+                if(startDate >= endDate) {
+                    Swal.fire({
+                        text: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
+                        icon: 'error'
+                    })
+                    return
+                }
+
+            }
+
+            if (code) {
+                url += '&code=' + code
+            }
+            // if(detail) {
+            //     url += '&detail=' + detail
+            // }
+            if(startDate) {
+                url += '&startDate=' + startDate
+            }
+            if(endDate) {
+                url += '&endDate=' + endDate
+            }
+            if(status) {
+                url += '&status=' + status
+            }
+            window.location.href = url
+        })
+
+        $('#pagination').twbsPagination({
+            startPage: parseInt(currentPage) + 1,
+            totalPages: parseInt(totalPage),
+            visiblePages: 5,
+            first: '<i class="fas fa-angle-double-left"></i>',
+            next: '<i class="fas fa-angle-left"></i>',
+            prev: '<i class="fas fa-angle-right"></i>',
+            last: '<i class="fas fa-angle-double-right"></i>',
+            initiateStartPageClick:false,
+
+            onPageClick: function (event, page) {
+                var cleanedUrl = url.replace(/[?&]page=\d+/, '');
+                cleanedUrl += '&page=' + page
+                window.location.href = cleanedUrl
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>
