@@ -1,12 +1,10 @@
 package com.example.datn.repositories;
 
 
-import com.example.datn.entities.Product;
+import com.example.datn.entities.Material;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-
-    Product existsByCode(String code);
+public interface MaterialRepository extends JpaRepository<Material, Integer> {
 }
