@@ -2,11 +2,14 @@ package com.example.datn.controllers;
 
 import com.example.datn.dto.DiscountCode.DiscountCodeDto;
 import com.example.datn.dto.DiscountCode.SearchDiscountCodeDto;
+import com.example.datn.entities.DiscountCode;
 import com.example.datn.exceptions.NotFoundException;
 import com.example.datn.exceptions.ShopApiException;
+import com.example.datn.services.serviceImpl.DiscountCodeImpl;
 import com.example.datn.services.serviceImpl.DiscountCodeService;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -25,13 +28,17 @@ public class DiscountCodeController {
         this.discountCodeService = discountCodeService;
     }
 
-    @GetMapping("/admin-only/discount-code")
-    public String viewDiscountCodePage(Model model, SearchDiscountCodeDto searchDiscountCodeDto, @PageableDefault Pageable pageable) {
+    @GetMapping("/discount-code")
+    public String viewDiscountCodePage(Model model, SearchDiscountCodeDto searchDiscountCodeDto,
+                                       @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 5);
         Page<DiscountCodeDto> discountCodes = discountCodeService.getAllDiscountCode(searchDiscountCodeDto, pageable);
-        model.addAttribute("discountCodes", discountCodes);
+
+        model.addAttribute("discountCodes", discountCodes.getContent());
         model.addAttribute("dataSearch", searchDiscountCodeDto);
         model.addAttribute("totalPage", discountCodes.getTotalPages());
         model.addAttribute("currentPage", pageable.getPageNumber());
+
         return "/admin/discount";
     }
 

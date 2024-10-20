@@ -8,6 +8,7 @@ import com.example.datn.exceptions.ShopApiException;
 import com.example.datn.repositories.DiscountCodeRepository;
 import com.example.datn.repositories.Specìication.DiscountCodeSpec;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -82,6 +83,13 @@ public class DiscountCodeImpl implements DiscountCodeService {
     public Page<DiscountCodeDto> getAllAvailableDiscountCode(Pageable pageable) {
         Page<DiscountCode> validCodes = discountCodeRepository.findAllAvailableValid(pageable);
         return validCodes.map(this::convertToDto);
+    }
+
+    @Override
+    public Page<DiscountCode> getDiscountCode(Integer page) {
+        Integer pageSize = 5;
+        Pageable pageable = PageRequest.of(page-1, pageSize);
+        return discountCodeRepository.findAll(pageable);
     }
 
     private DiscountCodeDto convertToDto(DiscountCode discountCode) {
