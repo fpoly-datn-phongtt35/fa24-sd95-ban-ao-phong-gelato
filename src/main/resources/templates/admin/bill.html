@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;ổổổi
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>List of Bills</h1>
+<div class="search-bar">
+    <form th:action="@{/bill/list}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by code...">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th class="center">ID</th>
+        <th class="center">code</th>
+        <th class="center">promotionPrice</th>
+        <th class="center">invoiceType</th>
+        <th class="center">billingAddress</th>
+        <th class="center">returnStatus</th>
+        <th class="center">Amount</th>
+        <th class="center">createDate</th>
+        <th class="center">updateDate</th>
+        <th class="center">customer</th>
+        <th class="center">paymentMethodId</th>
+        <th class="center">billDetail</th>
+        <th class="center">discountCode</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Duyệt qua từng hóa đơn và hiển thị -->
+    <tr th:each="bill : ${bills}">
+        <td class="center" th:text="${bill.id}">Test</td>
+        <td th:text="${bill.code}">Test</td>
+        <td class="center" th:text="${bill.promotionPrice}">Test</td>
+        <td class="center" th:text="${bill.invoiceType}">Test</td>
+        <td class="center" th:text="${bill.billingAddress}">Test</td>
+        <td class="center" th:text="${bill.returnStatus}">Test</td>
+        <td class="center" th:text="${bill.amount}">Test</td>
+        <td class="center" th:text="${bill.createDate}">01/01/2024 10:30</td>
+        <td class="center" th:text="${bill.updateDate}">01/01/2024 10:30</td>
+        <td class="center" th:text="${bill.customer}">Test</td>
+        <td class="center" th:text="${bill.paymentMethodId}">Test</td>
+        <td class="center" th:text="${bill.billDetail}">Test</td>
+        <td class="center" th:text="${bill.discountCode}">Test</td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a href="${/bill/list}" class="btn">Quay lại</a>
+</div>
+
+<!-- Phân trang -->
+<div>
+    <ul>
+        <!-- Nút về trang trước -->
+        <li th:if="${billPage != null and billPage.hasPrevious()}">
+            <a th:href="@{/bill/list(size=${size}, page=${currentPage - 1}, keyword=${keyword})}">Trang trước</a>
+        </li>
+
+        <!-- Hiển thị trang trước, trang hiện tại và trang sau -->
+        <li th:if="${billPage != null}">
+            <!-- Trang trước 1 -->
+        <li th:if="${currentPage > 0}">
+            <a th:href="@{/bill/list(size=${size}, page=${currentPage - 1}, keyword=${keyword})}"
+               th:text="${currentPage}">1</a>
+        </li>
+
+        <!-- Trang hiện tại -->
+        <li>
+            <span th:text="${currentPage + 1}" style="font-weight: bold;"></span>
+        </li>
+
+        <!-- Trang sau 1 -->
+        <li th:if="${currentPage < billPage.totalPages - 1}">
+            <a th:href="@{/bill/list(size=${size}, page=${currentPage + 1}, keyword=${keyword})}"
+               th:text="${currentPage + 2}">3</a>
+        </li>
+        </li>
+
+        <!-- Nút tới trang sau -->
+        <li th:if="${billPage != null and billPage.hasNext()}">
+            <a th:href="@{/bill/list(size=${size}, page=${currentPage + 1}, keyword=${keyword})}">Trang sau</a>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+</html>
