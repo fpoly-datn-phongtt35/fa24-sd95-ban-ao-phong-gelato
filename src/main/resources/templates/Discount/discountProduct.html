@@ -150,45 +150,48 @@
         <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
 
         <div class="mt-3">
-            <table id="myTable" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Mã SP</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Màu</th>
-                    <th>Cỡ</th>
-                    <th>Giá gốc</th>
-                    <th>Giá giảm</th>
-                    <th>Thời gian áp dụng</th>
-                    <th>Thời gian kết thúc</th>
-                    <th>Trạng thái</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="discount : ${discountProducts}">
-                    <td th:text="${discount.productDetail.product.code}"></td>
-                    <td th:text="${discount.productDetail.product.name}"></td>
-                    <td th:text="${discount.productDetail.color.name}"></td>
-                    <td th:text="${discount.productDetail.size.name}"></td>
-                    <td th:text="${#numbers.formatDecimal(discount.productDetail.price, 0, 'POINT', 0, 'COMMA')}"></td>
-                    <td th:text="${#numbers.formatDecimal(discount.discountedAmount, 0, 'POINT', 0, 'COMMA')}"></td>
-                    <td th:text="${#dates.format(discount.startDate, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${#dates.format(discount.endDate, 'dd/MM/yyyy')}"></td>
-                    <td>
-                        <span th:if="${discount.closed}" class="badge badge-danger">Đã đóng</span>
-                        <span th:if="${discount.closed == false}" class="badge badge-success">Hoạt động</span>
-                    </td>
-                    <td>
-                        <!-- Cập nhật button để hoạt động chính xác -->
-                        <button th:if="${discount.closed == false}" th:data-close-id="${discount.id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>
-                        <button th:if="${discount.closed}" th:data-open-id="${discount.id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive"> <!-- Thêm table-responsive để bảng có thể cuộn -->
+                <table id="myTable" class="table table-bordered table-striped mb-0 text-center"> <!-- Thêm class table-bordered và text-center -->
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="align-middle">Mã SP</th> <!-- Thêm class align-middle để căn giữa theo chiều dọc -->
+                        <th class="align-middle">Tên sản phẩm</th>
+                        <th class="align-middle">Màu</th>
+                        <th class="align-middle">Cỡ</th>
+                        <th class="align-middle">Giá gốc</th>
+                        <th class="align-middle">Giá giảm</th>
+                        <th class="align-middle">Thời gian áp dụng</th>
+                        <th class="align-middle">Thời gian kết thúc</th>
+                        <th class="align-middle">Trạng thái</th>
+                        <th class="align-middle">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="discount : ${discountProducts}">
+                        <td th:text="${discount.productDetail.product.code}" class="align-middle"></td>
+                        <td th:text="${discount.productDetail.product.name}" class="align-middle"></td>
+                        <td th:text="${discount.productDetail.color.name}" class="align-middle"></td>
+                        <td th:text="${discount.productDetail.size.name}" class="align-middle"></td>
+                        <td th:text="${#numbers.formatDecimal(discount.productDetail.price, 0, 'POINT', 0, 'COMMA')}" class="align-middle"></td>
+                        <td th:text="${#numbers.formatDecimal(discount.discountedAmount, 0, 'POINT', 0, 'COMMA')}" class="align-middle"></td>
+                        <td th:text="${#dates.format(discount.startDate, 'dd/MM/yyyy')}" class="align-middle"></td>
+                        <td th:text="${#dates.format(discount.endDate, 'dd/MM/yyyy')}" class="align-middle"></td>
+                        <td class="align-middle">
+                            <span th:if="${discount.closed}" class="badge badge-danger">Đã đóng</span>
+                            <span th:if="${discount.closed == false}" class="badge badge-success">Hoạt động</span>
+                        </td>
+                        <td class="align-middle">
+                            <button th:if="${discount.closed == false}" th:data-close-id="${discount.id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>
+                            <button th:if="${discount.closed}" th:data-open-id="${discount.id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
+
 
     <!-- Thêm các thư viện JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
