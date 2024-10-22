@@ -1,4 +1,4 @@
-package com.example.datn.repositories.spec;
+package com.example.datn.repositories;
 
 import com.example.datn.entities.Bill;
 import org.springframework.data.domain.Page;

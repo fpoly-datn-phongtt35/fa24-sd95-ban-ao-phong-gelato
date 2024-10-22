@@ -1,8 +1,7 @@
 package com.example.datn.controllers;
 
 import com.example.datn.entities.Bill;
-import com.example.datn.repositories.spec.BillRepo;
-import com.example.datn.services.BillSrvice;
+import com.example.datn.repositories.BillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +41,6 @@ public class BillController {
         model.addAttribute("currentPage", page);
         model.addAttribute("size", size);
         model.addAttribute("keyword", keyword);  // Giữ lại từ khóa tìm kiếm nếu có
-        return "admin/bill";
+        return "/bill";
     }
 }
