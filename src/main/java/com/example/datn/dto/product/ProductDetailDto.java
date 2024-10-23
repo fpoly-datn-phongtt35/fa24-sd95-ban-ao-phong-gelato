@@ -3,15 +3,9 @@ package com.example.datn.dto.product;
 
 import com.example.datn.entities.Color;
 import com.example.datn.entities.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class ProductDetailDto {
 
     private Integer id;
@@ -20,13 +14,13 @@ public class ProductDetailDto {
 
     private String barcode;
 
+    private double price;
+
     private Integer status;
 
     private Integer productId;
 
-    private Color color;
-
     private Size size;
 
-    private Double price;
+    private Color color;
 }

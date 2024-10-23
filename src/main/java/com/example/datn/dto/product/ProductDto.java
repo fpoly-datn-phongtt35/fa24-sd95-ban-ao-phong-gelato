@@ -1,17 +1,12 @@
 package com.example.datn.dto.product;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class ProductDto {
 
     private Integer id;
@@ -29,4 +24,6 @@ public class ProductDto {
     private LocalDateTime create_date;
 
     private LocalDateTime updated_date;
+
+    private List<ProductDetailDto> productDetailDtos;
 }

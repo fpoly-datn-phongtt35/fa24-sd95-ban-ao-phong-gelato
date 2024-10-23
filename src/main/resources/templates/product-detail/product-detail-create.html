@@ -11,26 +11,22 @@
 <body class="container p-3 mb-2 bg-light text-dark">
 <h4>Thông tin sản phẩm chi tiết</h4>
 <hr>
-<form th:action="${action}" method="post" enctype="multipart/form-data" th:object="${product_detail}">
+<form method="post" th:action="${action}" enctype="multipart/form-data" th:object="${productDetail}">
     <div id="attributes-container">
         <div class="row mt-3 attribute-row">
             <div class="col">
                 Màu sắc:
                 <div class="input-group">
-                    <select name="color" class="form-select" th:field="*{color}">
-                        <th:block th:each="color : ${color}">
-                            <option value="${color.id}" th:text="${color.name}"></option>
-                        </th:block>
+                    <select name="color" th:field="*{color.id}">
+                        <option th:each="color : ${color}" th:value="${color.id}" th:text="${color.name}" class="form-select"></option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 Kích cỡ:
                 <div class="input-group">
-                    <select name="size" class="form-select" th:field="*{size}">
-                        <th:block th:each="size : ${size}">
-                            <option value="${size.id}" th:text="${size.name}"></option>
-                        </th:block>
+                    <select name="size" th:field="*{size.id}">
+                        <option th:each="size : ${size}" th:value="${size.id}" th:text="${size.name}" class="form-select"></option>
                     </select>
                 </div>
             </div>

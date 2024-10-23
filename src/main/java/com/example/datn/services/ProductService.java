@@ -1,20 +1,20 @@
 package com.example.datn.services;
 
-import com.example.datn.dto.product.ProductCreateDto;
+
 import com.example.datn.dto.product.ProductSearchDto;
 import com.example.datn.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
+
 public interface ProductService {
 
-    Page<Product> getProduct(Integer page);
+    Page<Product> getProduct(Pageable pageable);
 
-    Page<ProductSearchDto> getSearchProductAndPagining(Pageable pageable);
+    Product add(Product product) throws IOException;
 
-    Product deleteByStatus(Integer id);
+    Page<ProductSearchDto> searchProduct(Pageable pageable);
 
-    Product createProduct(ProductCreateDto productDto);
 
-    boolean uniqueCode(String code);
 }

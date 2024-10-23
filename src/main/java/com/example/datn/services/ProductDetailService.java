@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductDetailService {
 
-    ProductDetail add(ProductDetail productDetail);
+    ProductDetail add(ProductDetailDto productDetailDto);
 
     ProductDetail productDetailByProductCode(String code);
 

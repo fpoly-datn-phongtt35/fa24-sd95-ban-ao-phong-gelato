@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProductDetailForm {
+public class CreateProductDetailForm {
 
-    private List<ProductDetail> productDetailList;
+    public List<ProductDetail> productDetailList;
 }
