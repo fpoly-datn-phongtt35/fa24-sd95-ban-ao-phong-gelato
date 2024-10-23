@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout-user.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Content page -->
+    <section class="bg0 p-b-60">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                    <form class="mt-5 px-4 pt-4 pb-6 col-6 shadow-sm border" th:action="@{/perform_login}" method="post" id="login-form"
+                          th:object="${user}">
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <p th:text="${errorMessage}"></p>
+                        </div>
+                        <div th:if="${success}" class="alert alert-success">
+                            <p th:text="${success}"></p>
+                        </div>
+                        <div class="text-center">
+                            <h2 class="h2 pd-4">Đăng nhập</h2>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Địa chỉ email"
+                                   th:field="*{email}" required maxlength="100">
+                            <span class="error text-danger text-sm"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu"
+                                   th:field="*{password}" required minlength="6" maxlength="50">
+                            <span class="error text-danger text-sm"></span>
+                        </div>
+
+                        <div class="form-group form-check ml-5">
+                            <input type="checkbox" name="remember" class="form-check-input" id="remember" checked>
+                            <label class="" for="remember">Nhớ mật khẩu</label>
+                        </div>
+
+                        <div th:if="${param.error}">
+                            <p class="text-danger">Tài khoản hoặc mật khẩu không chính xác</p>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">ĐĂNG NHẬP</button>
+                        <div class="forgot-password mt-3">
+                            <a href="/forgot-pass" class="float-right">Quên mật khẩu?</a>
+                        </div>
+                        <div class="signup-link mt-2 col-6">
+                            <p>Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay!</a></p>
+                        </div>
+                    </form>
+
+
+
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#login-form').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true,
+                        maxlength: 100
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 50
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Vui lòng nhập email",
+                        email: "Vui lòng nhập đúng định dạng email",
+                        maxlength: "Email không được quá 100 ký tự"
+                    },
+                    password: {
+                        required: "Vui lòng nhập mật khẩu",
+                        minlength: "Mật khẩu phải có ít nhất 6 ký tự",
+                        maxlength: "Mật khẩu không được quá 50 ký tự"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('text-danger text-sm');
+                    error.insertAfter(element);
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+
+
+</html>
