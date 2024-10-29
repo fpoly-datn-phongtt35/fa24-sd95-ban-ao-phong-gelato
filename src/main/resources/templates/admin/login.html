@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -7,116 +6,107 @@
     <title>Login Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-        *{
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins',sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
-        body{
-            background: #1abc9c;
-            overflow: hidden;
+        body {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        ::selection{
-            background: rgba(26,188,156,0.3);
-        }
-        .container{
-            max-width: 440px;
-            padding: 0 20px;
-            margin: 170px auto;
-        }
-        .wrapper{
+        .container {
+            max-width: 400px;
             width: 100%;
             background: #fff;
-            border-radius: 5px;
-            box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
         }
-        .wrapper .title{
-            height: 90px;
-            background: #16a085;
-            border-radius: 5px 5px 0 0;
-            color: #fff;
-            font-size: 30px;
+        .title {
+            text-align: center;
+            font-size: 24px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #fff;
+            background-color: #16a085;
+            padding: 15px 0;
+            border-radius: 10px 10px 0 0;
         }
-        .wrapper form{
-            padding: 30px 25px 25px 25px;
+        form {
+            padding: 20px 0;
         }
-        .wrapper form .row{
-            height: 45px;
-            margin-bottom: 15px;
+        .row {
             position: relative;
+            margin-bottom: 20px;
         }
-        .wrapper form .row input{
-            height: 100%;
+        .row input {
             width: 100%;
-            outline: none;
-            padding-left: 60px;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            border: 1px solid lightgrey;
             font-size: 16px;
+            color: #333;
             transition: all 0.3s ease;
         }
-        form .row input:focus{
+        .row input:focus {
             border-color: #16a085;
-            box-shadow: inset 0px 0px 2px 2px rgba(26,188,156,0.25);
+            box-shadow: 0 0 8px rgba(22, 160, 133, 0.2);
         }
-        form .row input::placeholder{
-            color: #999;
-        }
-        .wrapper form .row i{
+        .row i {
             position: absolute;
-            width: 47px;
-            height: 100%;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #16a085;
+            font-size: 18px;
+        }
+        .row input::placeholder {
+            color: #aaa;
+        }
+        .button input {
+            width: 100%;
+            padding: 12px;
+            background-color: #16a085;
             color: #fff;
             font-size: 18px;
-            background: #16a085;
-            border: 1px solid #16a085;
-            border-radius: 5px 0 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .wrapper form .pass{
-            margin: -8px 0 20px 0;
-        }
-        .wrapper form .pass a{
-            color: #16a085;
-            font-size: 17px;
-            text-decoration: none;
-        }
-        .wrapper form .pass a:hover{
-            text-decoration: underline;
-        }
-        .wrapper form .button input{
-            color: #fff;
-            font-size: 20px;
             font-weight: 500;
-            padding-left: 0px;
-            background: #16a085;
-            border: 1px solid #16a085;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        form .button input:hover{
-            background: #12876f;
+        .button input:hover {
+            background-color: #13896c;
         }
-        .wrapper form .signup-link{
+        .pass a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #16a085;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+        .pass a:hover {
+            color: #13896c;
+        }
+        .signup-link {
             text-align: center;
-            margin-top: 20px;
-            font-size: 17px;
+            font-size: 15px;
+            color: #555;
         }
-        .wrapper form .signup-link a{
+        .signup-link a {
             color: #16a085;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
-        form .signup-link a:hover{
-            text-decoration: underline;
+        .signup-link a:hover {
+            color: #13896c;
         }
-
         .error {
             color: red;
             font-size: 12px;
@@ -125,52 +115,29 @@
 </head>
 <body>
 <div class="container">
-    <div class="wrapper">
-        <div class="title"><span>Đăng nhập</span></div>
-        <form th:action="@{/admin/admin_login}" method="post" id="login-form">
-            <div class="form-group">
-                <div class="row">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="email" id="email" placeholder="Username hoặc email" required>
-                </div>
-                <span class="error"></span>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
-                </div>
-                <span class="error"></span>
-            </div>
-            <div>
-                <input type="checkbox" name="rememberme" id="rememberme" class="mr-1">&nbsp;Nhớ mật khẩu
-            </div>
-            <div th:if="${param.error}" >
-                <p style="color: red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-
-            </div>
-            <div class="row button">
-                <input type="submit" value="Đăng nhập">
-            </div>
-<!--            <div class="signup-link">Not a member? <a href="#">Signup now</a></div>-->
-        </form>
-    </div>
-
-<!--    <script th:src="@{/admin/assets/js/validator.js}"></script>-->
-<!--    <script>-->
-<!--        Validator({-->
-<!--            form: '#login-form',-->
-<!--            formGroupSelector: '.form-group',-->
-<!--            errorSelector: '.error',-->
-<!--            rules: [-->
-<!--                Validator.isRequired('#email', 'Vui lòng nhập tài khoản'),-->
-<!--                Validator.isRequired('#password', 'Vui lòng nhập mật khẩu'),-->
-<!--                Validator.maxLength('#email', 100),-->
-<!--                Validator.maxLength('#password', 50),-->
-<!--            ]-->
-<!--        });-->
-<!--    </script>-->
+    <div class="title">Đăng nhập</div>
+    <form th:action="@{/admin/admin_login}" method="post" id="login-form">
+        <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" name="email" id="email" placeholder="Username hoặc email" required>
+        </div>
+        <span class="error"></span>
+        <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
+        </div>
+        <span class="error"></span>
+        <div class="pass">
+            <input type="checkbox" name="rememberme" id="rememberme">&nbsp;Nhớ mật khẩu
+        </div>
+        <div th:if="${param.error}">
+            <p style="color: red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+        <div class="button">
+            <input type="submit" value="Đăng nhập">
+        </div>
+        <!-- <div class="signup-link">Chưa có tài khoản? <a href="#">Đăng ký ngay</a></div> -->
+    </form>
 </div>
-
 </body>
 </html>
