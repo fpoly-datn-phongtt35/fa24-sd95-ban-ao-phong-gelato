@@ -8,8 +8,18 @@
     <th:block layout:fragment="head_link"></th:block>
 </head>
 <style>
+    <style>
     .user-menu {
         display: none;
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        background-color: white;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        width: 150px;
     }
 
     .user-menu.active {
@@ -20,6 +30,38 @@
         background-color: #cccccc;
     }
 
+    /* Sử dụng flexbox cho phần user-area để căn chỉnh email và avatar */
+    .user-area {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+    }
+
+    /* Tạo khoảng cách giữa email và avatar */
+    .user-area span {
+        margin-right: 10px;
+    }
+
+    .user-avatar {
+        cursor: pointer;
+        border-radius: 50%;
+        height: 34px;
+        width: 34px;
+    }
+
+    /* Định dạng cho các mục trong menu */
+    .user-menu a {
+        display: block;
+        padding: 10px;
+        color: #333;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .user-menu a:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 <body>
 
@@ -119,25 +161,82 @@
     <header id="header" class="header">
         <div class="col-sm-7">
             <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-
         </div>
 
         <div class="col-sm-5">
+            <!-- Phần user-area căn chỉnh lại với flexbox -->
             <div class="user-area dropdown float-right">
-                <span sec:authentication="principal.username"></span>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="https://png.pngtree.com/png-clipart/20210608/ourlarge/pngtree-dark-gray-simple-avatar-png-image_3418404.jpg" alt="User Avatar" style="border-radius: 50%; height: 34px; width: 34px;">
+                <!-- Hiển thị email người dùng -->
+                <span sec:authentication="principal.username">abc@gmail.com</span>
+
+                <!-- Avatar người dùng (đã loại bỏ href="#" để tránh chuyển trang) -->
+                <a class="dropdown-toggle" id="avatarToggle">
+                    <img class="user-avatar" src="https://png.pngtree.com/png-clipart/20210608/ourlarge/pngtree-dark-gray-simple-avatar-png-image_3418404.jpg" alt="User Avatar">
                 </a>
 
+                <!-- Menu khi nhấp vào avatar -->
                 <div class="user-menu">
                     <a class="nav-link" th:href="@{/}"><i class="fa fa-user"></i> Trang khách</a>
-
                     <a class="nav-link" th:href="@{/user_logout}"><i class="fa fa-power-off"></i> Đăng xuất</a>
                 </div>
             </div>
+
+            <style>
+                .user-menu {
+                    display: none;
+                    position: absolute;
+                    top: 50px;
+                    right: 10px;
+                    background-color: white;
+                    border: 1px solid #cccccc;
+                    border-radius: 5px;
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                    z-index: 10;
+                    width: 150px;
+                }
+
+                .user-menu.active {
+                    display: block;
+                }
+
+                .nav-link:hover {
+                    background-color: #cccccc;
+                }
+
+                .user-area {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    position: relative;
+                }
+
+                .user-area span {
+                    margin-right: 10px;
+                }
+
+                .user-avatar {
+                    cursor: pointer;
+                    border-radius: 50%;
+                    height: 34px;
+                    width: 34px;
+                }
+
+                .user-menu a {
+                    display: block;
+                    padding: 10px;
+                    color: #333;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                .user-menu a:hover {
+                    background-color: #f0f0f0;
+                }
+            </style>
+
         </div>
     </header>
+
 
     <div class="content p-4">
 
@@ -152,14 +251,20 @@
 </th:block>
 
 <script>
-    $('.user-avatar').on('click', function () {
-        if($('.user-menu').hasClass('active')) {
-            $('.user-menu').removeClass('active')
+    // Toggle menu khi nhấp vào avatar
+    document.querySelector('#avatarToggle').addEventListener('click', function (event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+        document.querySelector('.user-menu').classList.toggle('active');
+    });
+
+    // Đóng menu khi nhấp ra ngoài
+    document.addEventListener('click', function(event) {
+        const isClickInsideUserArea = document.querySelector('.user-area').contains(event.target);
+        if (!isClickInsideUserArea) {
+            document.querySelector('.user-menu').classList.remove('active');
         }
-        else {
-            $('.user-menu').addClass('active')
-        }
-    })
+    });
+
 </script>
 <th:block layout:fragment="bottom_link"></th:block>
 
