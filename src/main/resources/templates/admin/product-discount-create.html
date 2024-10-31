@@ -163,7 +163,7 @@
                 </form>
 
                 <div class="grid grid-cols-3 gap-2 mt-6">
-                        <div id="all-product" class="border border-gray-200">
+                    <div id="all-product" class="border border-gray-200">
                         <div class="bg-zinc-50 border border-gray-200">
                             <div class="flex justify-between">
                                 <span class="font-bold py-2 px-2">Danh sách sản phẩm</span>
@@ -175,12 +175,12 @@
                                 <div class="product-item-inner flex justify-between items-center mb-4 mx-4 py-4 border-b border-blue-200">
                                     <div class="product-info flex items-center">
                                         <div class="w-12 h-16 mr-4">
-                                            <img src="https://static-images.vnncdn.net/files/publish/2022/9/3/bien-vo-cuc-thai-binh-346.jpeg"
-                                                 alt="">
+                                            <img src="/uploads/img_1.png"
+                                                 alt="Product Image">
                                         </div>
                                         <div>
                                             <div>
-                                                <span class="font-bold">Áo phông trơn S.Cafe</span>
+                                                <span class="font-bold">Áo phông trơn S</span>
                                             </div>
                                             <div>
                                                 <span class="text-gray-400">
@@ -194,7 +194,7 @@
                                             </div>
                                             <div>
                                                 <span class="text-gray-400">Giá bán: </span>
-                                                <span class="font-bold">10.000đ</span>
+                                                <span class="font-bold">200.000đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
         }
 
 
-         $.ajax({
+        $.ajax({
             method: 'GET',
             type: 'json',
             url: `/api/products-no-pagination/`,
@@ -779,7 +779,7 @@
         }
 
         handleSubmit()
-    //     ============================================ HANDLE SUBMIT ==========================
+        //     ============================================ HANDLE SUBMIT ==========================
         function handleSubmit() {
             $('#save-discount-btn').on('click', async function () {
                 var productDiscounts = []
