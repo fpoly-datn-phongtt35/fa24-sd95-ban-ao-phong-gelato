@@ -29,14 +29,14 @@ public class DiscountCodeController {
 
     @GetMapping("/admin-only/discount-code")
     public String viewDiscountCodePage(Model model, SearchDiscountCodeDto searchDiscountCodeDto,
-                                       @PageableDefault(page = 0, size = 5) Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber(), 5);
-        Page<DiscountCodeDto> discountCodes = discountCodeService.getAllDiscountCode(searchDiscountCodeDto, pageable);
+                                       @RequestParam(name = "page", defaultValue = "1") Integer page) {
+
+        Page<DiscountCodeDto> discountCodes = discountCodeService.getAllDiscountCode(searchDiscountCodeDto, page);
 
         model.addAttribute("discountCodes", discountCodes.getContent());
         model.addAttribute("dataSearch", searchDiscountCodeDto);
         model.addAttribute("totalPage", discountCodes.getTotalPages());
-        model.addAttribute("currentPage", pageable.getPageNumber());
+        model.addAttribute("currentPage", page);
 
         return "/admin/discount";
     }
@@ -114,8 +114,8 @@ public class DiscountCodeController {
 
     @ResponseBody
     @GetMapping("/api/private/discount-code")
-    public Page<DiscountCodeDto> getAllDiscountCodes(SearchDiscountCodeDto searchDiscountCodeDto, Pageable pageable) {
-        return discountCodeService.getAllDiscountCode(searchDiscountCodeDto, pageable);
+    public Page<DiscountCodeDto> getAllDiscountCodes(SearchDiscountCodeDto searchDiscountCodeDto, Integer page) {
+        return discountCodeService.getAllDiscountCode(searchDiscountCodeDto, page);
     }
 
     @ResponseBody
