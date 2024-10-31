@@ -5,15 +5,15 @@
     <title>Giảm giá sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- CSS và JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-    <script
-            src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         td {
             max-width: 200px;
@@ -24,186 +24,177 @@
 </head>
 <body>
 
-   <div class="bg-white min-vh-100">
-       <div class="" layout:fragment="content">
-           <div class="section bg-white px-3 py-3 min-vh-100">
-               <h2 class="mt-3">Quản lý giảm giá sản phẩm</h2>
+<div class="bg-white min-vh-100">
+    <div class="" layout:fragment="content">
+        <div class="section bg-white px-3 py-3 min-vh-100">
+            <h2 class="mt-3">Quản lý giảm giá sản phẩm</h2>
 
-               <nav aria-label="breadcrumb">
-                   <ol class="breadcrumb">
-                       <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                       <li class="breadcrumb-item active" aria-current="page">Giảm giá sản phẩm</li>
-                   </ol>
-               </nav>
-                <div class="d-flex flex-row-reverse">
-                    <a th:href="@{/admin-only/product-discount-create}" class="btn btn-success">Tạo giảm giá +</a>
-                </div>
-               <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Giảm giá sản phẩm</li>
+                </ol>
+            </nav>
 
-               <div class="mt-3">
-                   <table id="myTable" class="table table-striped">
-                       <thead>
-                       <tr>
-                           <th>Mã SP</th>
-                           <th>Tên sản phẩm</th>
-                           <th>Màu</th>
-                           <th>Cỡ</th>
-                           <th>Giá gốc</th>
-                           <th>Giá giảm</th>
-                           <th>Thời gian áp dụng</th>
-                           <th>Thời gian kết thúc</th>
-                           <th>Trạng thái</th>
-                           <th>Thao tác</th>
-                       </tr>
-                       </thead>
-                       <tbody>
-                       <tr th:each="discount : ${productDiscounts}">
-                           <td>
-                               <span th:text="${discount.productDetail.product.code}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${discount.productDetail.product.name}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${discount.productDetail.color.name}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${discount.productDetail.size.name}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${#numbers.formatDecimal(discount.productDetail.price, 0, 'POINT', 0, 'COMMA')}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${#numbers.formatDecimal(discount.discountedAmount, 0, 'POINT', 0, 'COMMA')}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${#dates.format(discount.startDate, 'dd/MM/yyyy')}"></span>
-                           </td>
-                           <td>
-                               <span th:text="${#dates.format(discount.endDate, 'dd/MM/yyyy')}"></span>
-                           </td>
-                           <td>
-                               <span th:if="${discount.closed}" class="badge badge-danger">Đã đóng</span>
-                               <span th:if="${discount.closed == false}" class="badge badge-success">Hoạt động</span>
-                           </td>
-                           <td>
-                               <button th:if="${discount.closed == false}" th:data-close-id="${discount.id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>
-                               <button th:if="${discount.closed}" th:data-open-id="${discount.id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>
+            <div class="d-flex flex-row-reverse">
+                <a th:href="@{/admin-only/product-discount-create}" class="btn btn-custom">Tạo giảm giá +</a>
+            </div>
 
-                           </td>
-                       </tr>
-
-                       </tbody>
-                   </table>
-               </div>
-           </div>
+            <!-- Đặt phần CSS bên ngoài <div> -->
+            <style>
+                .btn-custom {
+                    background-color: #3a5fcd; /* Màu xanh thương hiệu */
+                    color: white;
+                    border-color: #3a5fcd; /* Đảm bảo đường viền có màu đồng nhất */
+                }
+                .btn-custom:hover {
+                    background-color: #2c4ea4; /* Màu đậm hơn khi di chuột */
+                    border-color: #2c4ea4; /* Đảm bảo đường viền cũng thay đổi màu khi di chuột */
+                }
+            </style>
 
 
-       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-       <script th:inline="javascript">
-           $(document).ready( function () {
+            <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
 
-               new DataTable('#myTable', {
-                   order: [],
-                   language: {
-                       search: "Tìm kiếm:",
-                       "lengthMenu": "Hiển thị _MENU_ bản ghi 1 trang",
-                       "zeroRecords": "Không tìm thấy bản ghi nào",
-                       "info": "Hiển thị trang _PAGE_ trong _PAGES_",
-                       "paginate": {
-                           "first":      "<<",
-                           "last":       ">>",
-                           "next":       ">",
-                           "previous":   "<"
-                       },
-                   }
-               })
-                   .on('draw.dt', () => setEvent())
+            <div class="mt-3">
+                <table id="myTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Mã SP</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Màu</th>
+                        <th>Cỡ</th>
+                        <th>Giá gốc</th>
+                        <th>Giá giảm</th>
+                        <th>Thời gian áp dụng</th>
+                        <th>Thời gian kết thúc</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="discount : ${productDiscounts}">
+                        <td><span th:text="${discount.productDetail.product.code}"></span></td>
+                        <td><span th:text="${discount.productDetail.product.name}"></span></td>
+                        <td><span th:text="${discount.productDetail.color.name}"></span></td>
+                        <td><span th:text="${discount.productDetail.size.name}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(discount.productDetail.price, 0, 'POINT', 0, 'COMMA')}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(discount.discountedAmount, 0, 'POINT', 0, 'COMMA')}"></span></td>
+                        <td><span th:text="${#dates.format(discount.startDate, 'dd/MM/yyyy')}"></span></td>
+                        <td><span th:text="${#dates.format(discount.endDate, 'dd/MM/yyyy')}"></span></td>
+                        <td>
+                            <span th:if="${discount.closed}" class="badge bg-danger text-white">Đã đóng</span>
+                            <span th:if="${!discount.closed}" class="badge bg-success text-white">Hoạt động</span>
+                        </td>
+                        <td>
+                            <button th:if="${!discount.closed}" th:data-close-id="${discount.id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>
+                            <button th:if="${discount.closed}" th:data-open-id="${discount.id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-               setEvent()
+<!-- JavaScript khởi tạo DataTables và sự kiện -->
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // Khởi tạo DataTable
+        var table = $('#myTable').DataTable({
+            pageLength: 10, // Số lượng bản ghi mỗi trang
+            lengthMenu: [5, 10, 25, 50, 100], // Tùy chọn số lượng bản ghi
+            order: [],
+            language: {
+                search: "Tìm kiếm:",
+                lengthMenu: "Hiển thị _MENU_ bản ghi mỗi trang",
+                zeroRecords: "Không tìm thấy bản ghi nào",
+                info: "Hiển thị trang _PAGE_ trong _PAGES_",
+                infoEmpty: "Không có bản ghi nào",
+                infoFiltered: "(lọc từ _MAX_ bản ghi)",
+                paginate: {
+                    first: "<<",
+                    last: ">>",
+                    next: ">",
+                    previous: "<"
+                }
+            }
+        });
 
-               function setEvent() {
-                   $('.close-discount-btn').on('click', function () {
-                       var closeId = $(this).attr('data-close-id')
-                       Swal.fire({
-                           title: 'Đóng giảm giá',
-                           text: 'Bạn chắc chắn muốn đóng giảm giá này',
-                           icon: 'warning',
-                           showCancelButton: true,
-                           confirmButtonText: 'Xác nhân',
-                           cancelButtonText: 'Hủy'
-                       }).then(async (result) => {
-                           if (result.isConfirmed) {
-                               await $.ajax({
-                                   type: 'POST',
-                                   url: `/api/private/product-discount/${closeId}/status/true`,
-                                   dataType: 'json',
-                                   success: async function () {
-                                       // Chuyển trang khi người dùng nhấn "OK"
-                                       await Toastify({
-                                           text: "Đóng giảm giá thành công",
-                                           className: "success",
-                                           style: {
-                                               background: "green",
-                                           }
-                                       }).showToast();
-                                       window.location.reload()
+        // Gọi lại setEvent sau mỗi lần vẽ lại bảng
+        table.on('draw', function () {
+            setEvent();
+        });
 
-                                   },
-                                   error: function (xhr, status, error) {
-                                       swal("Error", xhr.responseJSON.message, "error")
-                                   }
-                               })
+        // Hàm đặt sự kiện cho các nút
+        function setEvent() {
+            $('.close-discount-btn').off('click').on('click', function () {
+                var closeId = $(this).attr('data-close-id');
+                Swal.fire({
+                    title: 'Đóng giảm giá',
+                    text: 'Bạn chắc chắn muốn đóng giảm giá này',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: `/api/private/product-discount/${closeId}/status/true`,
+                            dataType: 'json',
+                            success: function () {
+                                Toastify({
+                                    text: "Đóng giảm giá thành công",
+                                    className: "success",
+                                    style: { background: "green" }
+                                }).showToast();
+                                table.ajax.reload();
+                            },
+                            error: function (xhr) {
+                                Swal.fire("Error", xhr.responseJSON.message, "error");
+                            }
+                        });
+                    }
+                });
+            });
 
-                           }
-                       });
-                   })
-                   $('.open-discount-btn').on('click', function () {
-                       var openId = $(this).attr('data-open-id')
-                       Swal.fire({
-                           title: 'Mở giảm giá',
-                           text: 'Bạn chắc chắn muốn mở giảm giá này',
-                           icon: 'warning',
-                           showCancelButton: true,
-                           confirmButtonText: 'Xác nhân',
-                           cancelButtonText: 'Hủy'
-                       }).then(async (result) => {
-                           if (result.isConfirmed) {
-                               await $.ajax({
-                                   type: 'POST',
-                                   url: `/api/private/product-discount/${openId}/status/false`,
-                                   dataType: 'json',
-                                   success: async function () {
-                                       // Chuyển trang khi người dùng nhấn "OK"
-                                       await Toastify({
-                                           text: "Mở giảm giá thành công",
-                                           className: "success",
-                                           style: {
-                                               background: "green",
-                                           }
-                                       }).showToast();
-                                       window.location.reload()
+            $('.open-discount-btn').off('click').on('click', function () {
+                var openId = $(this).attr('data-open-id');
+                Swal.fire({
+                    title: 'Mở giảm giá',
+                    text: 'Bạn chắc chắn muốn mở giảm giá này',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: `/api/private/product-discount/${openId}/status/false`,
+                            dataType: 'json',
+                            success: function () {
+                                Toastify({
+                                    text: "Mở giảm giá thành công",
+                                    className: "success",
+                                    style: { background: "green" }
+                                }).showToast();
+                                table.ajax.reload();
+                            },
+                            error: function (xhr) {
+                                Swal.fire("Error", xhr.responseJSON.message, "error");
+                            }
+                        });
+                    }
+                });
+            });
+        }
 
-                                   },
-                                   error: function (xhr, status, error) {
-                                       swal("Error", xhr.responseJSON.message, "error")
-                                   }
-                               })
-
-                           }
-                       });
-                   })
-               }
-
-
-           });
-
-
-
-       </script>
-       </div>
-   </div>
-
+        // Gọi lại hàm setEvent lần đầu tiên
+        setEvent();
+    });
+</script>
 </body>
 </html>
