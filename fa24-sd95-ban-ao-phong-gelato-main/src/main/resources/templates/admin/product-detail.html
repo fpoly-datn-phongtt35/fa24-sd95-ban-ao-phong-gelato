@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!-- Quay lại trang danh sách sản phẩm -->
+    <div class="d-flex align-items-center justify-content-between action-top">
+        <div class="breadcrum align-items-center">
+            <a class="breadcrum-link d-flex align-items-center" href="/admin/product-all">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     style="width: 24px; height: 24px; margin-left: -9px; margin-right: 6px;">
+                    <path d="M14.298 5.99 8.288 12l6.01 6.01 1.414-1.414L11.116 12l4.596-4.596-1.414-1.414Z"
+                          fill="currentColor"></path>
+                </svg>
+                <h6 class="breadcrum-text">Quay lại danh sách sản phẩm</h6>
+            </a>
+        </div>
+    </div>
+
+    <div class="title-box">
+        <h4 class="title" th:text="${product.name}">Tên sản phẩm</h4>
+    </div>
+
+    <div class="product-detail-section product-info">
+        <div class="product-info-container">
+            <div class="heading">
+                <h5>Thông tin sản phẩm</h5>
+                <div>
+                    <span th:if="${product.status == 0}" class="stocking text-primary">Đang khởi tạo</span>
+                    <span th:if="${product.status == 1}" class="stocking badge badge-success">Còn bán</span>
+                    <span th:if="${product.status == 2}" class="out-of-stock badge badge-danger ">Ngừng bán</span>
+                </div>
+            </div>
+            <div class="spec-list row">
+                <div class="col-md-6">
+                    <div class="spec-item">
+                        <span class="spec-icon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                        <span class="spec-title">Mã sản phẩm</span>
+                        <span class="spec-value" th:text="${product.code}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="spec-item">
+                        <span class="spec-icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+                        <span class="spec-title">Nhãn hàng</span>
+                        <span class="spec-value" th:text="${product.brand.name}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="spec-item">
+                        <span class="spec-icon"><i class="fa fa-magic"></i></span>
+                        <span class="spec-title">Chất liệu</span>
+                        <span class="spec-value" th:text="${product.material.name}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="spec-item">
+                        <span class="spec-icon"><i class="fa fa-calendar"></i></span>
+                        <span class="spec-title">Ngày tạo</span>
+                        <span class="spec-value" th:text="${#temporals.format(product.createDate, 'dd-MM-yyyy HH:mm')}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="spec-item">
+                        <span class="spec-icon"><i class="fa fa-calendar"></i></span>
+                        <span class="spec-title">Ngày cập nhật cuối cùng</span>
+                        <span class="spec-value" th:text="${#temporals.format(product.updatedDate, 'dd-MM-yyyy HH:mm')}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hiển thị ảnh sản phẩm -->
+    <div class="product-detail-section">
+        <div class="image-list-container">
+            <div class="heading">
+                <h5>Ảnh sản phẩm</h5>
+            </div>
+            <div class="image-list row no-gutters">
+                <div th:each="image : ${product.image}" class="col-md-2 image-container">
+                    <img th:src="@{'/' + ${image.link}}" alt="Ảnh sản phẩm" class="w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách các phiên bản sản phẩm -->
+    <div class="product-detail-section">
+        <div class="product-info-container">
+            <div class="heading">
+                <h5>Danh sách các phiên bản</h5>
+            </div>
+            <div class="version-list">
+                <div class="version-item" th:each="version, iter : ${productDetails}">
+                    <div>
+                        <i class="fa fa-info-circle text-dark" aria-hidden="true"></i>
+                        <span class="text-dark font-italic">Phiên bản [[${iter.index + 1}]]</span>
+                    </div>
+                    <div class="row align-items-center text">
+                        <p class="col-md-2">Số lượng: <span class="font-weight-bold" th:text="${version.quantity}"></span></p>
+                        <p class="col-md-2">Giá: <span class="font-weight-bold" th:text="${#numbers.formatDecimal(version.price, 0, 'POINT', 0, 'COMMA')}"></span></p>
+                        <p class="col-md-2">Màu: <span class="font-weight-bold" th:text="${version.color.name}"></span></p>
+                        <p class="col-md-2">Kích cỡ: <span class="font-weight-bold" th:text="${version.size.name}"></span></p>
+                        <p class="col-md-2">Barcode: <span class="font-weight-bold" th:text="${version.barcode}"></span></p>
+                        <div class="display-qr-btn text-primary font-weight-bold cursor-pointer">Hiển thị mã QR</div>
+                    </div>
+                    <div class="qrcode-container">
+                        <div>
+                            <img th:src="'/upload-barcode/' + ${version.getBarcode()} + '.png'" alt="Barcode" class="barcode-img">
+                        </div>
+                        <div th:data-barcode="${version.getBarcode()}" class="print-qr btn btn-primary text-center mb-2">In mã</div>
+                        <span class="close-qr cursor-pointer font-weight-bold">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" th:inline="javascript"></script>
+    <script th:inline="javascript">
+        // Hiển thị và đóng mã QR
+        $('.display-qr-btn').on('click', function () {
+            var versionItem = $(this).closest('.version-item');
+            versionItem.find('.qrcode-container').addClass('active');
+        });
+        $('.close-qr').on('click', function () {
+            $('.qrcode-container.active').removeClass('active');
+        });
+
+        // Chức năng in mã QR
+        $('.print-qr').on('click', function () {
+            var barcode = $(this).attr('data-barcode');
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none'; // Ẩn iframe
+            document.body.appendChild(iframe);
+            iframe.src = `/upload-barcode/${barcode}.png`;
+
+            iframe.onload = function() {
+                setTimeout(function() {
+                    iframe.contentWindow.print();
+                    document.body.removeChild(iframe);
+                }, 200); // Thời gian delay nếu cần thiết
+            };
+        });
+    </script>
+</div>
+</body>
+</html>
