@@ -24,6 +24,20 @@
             z-index: 2;
             display: none;
         }
+        .confirm-button-class {
+            background-color: #6c757d !important;
+            color: white !important;
+        }
+        .confirm-button-class:hover {
+            background-color: #5a6268 !important;
+        }
+        .cancel-button-class {
+            background-color: #6c757d !important;
+            color: white !important;
+        }
+        .cancel-button-class:hover {
+            background-color: #5a6268 !important;
+        }
 
     </style>
 </head>
@@ -121,33 +135,33 @@
                     <div class="flex">
                         <label for="search-dropdown"
                                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
-                        <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z- inline-flex items-center py-2.5 px-4 text-sm
-                            font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
-                                type="button">
-                            <span>Tất cả các loại</span>
-                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                 fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <div id="dropdown"
-                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                                <li>
-                                    <button type="button" data-category-id=""
-                                            class="category-item inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        Tất cả các loại
-                                    </button>
-                                </li>
-                                <li th:each="category: ${products}">
-                                    <button type="button" th:data-category-id="${category.id}"
-                                            class="category-item inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            th:text="${category.name}"></button>
-                                </li>
+<!--                        <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z- inline-flex items-center py-2.5 px-4 text-sm-->
+<!--                            font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"-->
+<!--                                type="button">-->
+<!--                            <span>Tất cả các loại</span>-->
+<!--                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"-->
+<!--                                 fill="none" viewBox="0 0 10 6">-->
+<!--                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                                      stroke-width="2" d="m1 1 4 4 4-4"/>-->
+<!--                            </svg>-->
+<!--                        </button>-->
+<!--                        <div id="dropdown"-->
+<!--                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">-->
+<!--                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">-->
+<!--                                <li>-->
+<!--                                    <button type="button" data-category-id=""-->
+<!--                                            class="category-item inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">-->
+<!--                                        Tất cả các hãng-->
+<!--                                    </button>-->
+<!--                                </li>-->
+<!--                                <li th:each="product: ${products}">-->
+<!--                                    <button type="button" th:data-category-id="${product.brand.id}"-->
+<!--                                            class="category-item inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"-->
+<!--                                            th:text="${product.brand.name}"></button>-->
+<!--                                </li>-->
 
-                            </ul>
-                        </div>
+<!--                            </ul>-->
+<!--                        </div>-->
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -176,12 +190,12 @@
                                 <div class="product-item-inner flex justify-between items-center mb-4 mx-4 py-4 border-b border-blue-200">
                                     <div class="product-info flex items-center">
                                         <div class="w-12 h-16 mr-4">
-                                            <img src="/uploads/img_1.png"
-                                                 alt="Product Image">
+                                            <img src="https://static-images.vnncdn.net/files/publish/2022/9/3/bien-vo-cuc-thai-binh-346.jpeg"
+                                                 alt="">
                                         </div>
                                         <div>
                                             <div>
-                                                <span class="font-bold">Áo phông trơn S</span>
+                                                <span class="font-bold">Áo phông trơn S.Cafe</span>
                                             </div>
                                             <div>
                                                 <span class="text-gray-400">
@@ -195,7 +209,7 @@
                                             </div>
                                             <div>
                                                 <span class="text-gray-400">Giá bán: </span>
-                                                <span class="font-bold">200.000đ</span>
+                                                <span class="font-bold">10.000đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -296,14 +310,15 @@
         })
 
 
-        $(".category-item").on('click', function () {
-            let categoryId = $(this).attr('data-category-id')
-            $('#dropdown-button span').text($(this).text())
-            $('#dropdown-button').attr('selected-id', categoryId)
-            $('#dropdown').removeClass('block')
-            $('#dropdown').addClass('hidden')
-            getListProduct($('#search-dropdown').val(), categoryId)
-        })
+        $(".product-item").on('click', function () {
+            let productId = $(this).attr('data-product-id');
+            $('#dropdown-button span').text($(this).text());
+            $('#dropdown-button').attr('selected-id', productId);
+            $('#dropdown').removeClass('block');
+            $('#dropdown').addClass('hidden');
+            getListProduct($('#search-dropdown').val(), productId);
+        });
+
 
         function onlyAllowNumberInput(e) {
             const key = e.key;
@@ -319,24 +334,24 @@
 
         $.ajax({
             method: 'GET',
-            type: 'json',
-            url: `/api/products-no-pagination/`,
+            dataType: 'json',
+            url: `/api/products-no-pagination`,
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                productListInit = data
-                productListCurrent = productListInit
-                loadHtmlProduct(productListInit)
-                setInitChoosedFalse()
-                paginateProductList(productListInit)
+                productListInit = data;
+                productListCurrent = productListInit;
+                loadHtmlProduct(productListInit);
+                setInitChoosedFalse();
+                paginateProductList(productListInit);
             },
             error: function (xhr, status, error) {
                 Swal.fire({
                     title: "Lỗi",
-                    text: xhr.responseJSON.message,
+                    text: xhr.responseJSON?.message,
                     icon: "error"
                 });
             }
-        })
+        });
 
         function setInitChoosedFalse() {
             productListInit.forEach(product => {
@@ -424,9 +439,9 @@
         var debounceTimer;
         $("#search-dropdown").on('input', function () {
             var searchKey = $(this).val().trim()
-            const categoryId = $('#dropdown-button').attr('selected-id')
-            if(categoryId) {
-                getListProduct(searchKey, categoryId)
+            const productId = $('#dropdown-button').attr('selected-id')
+            if(productId) {
+                getListProduct(searchKey, productId)
             }else  {
                 getListProduct(searchKey, null)
 
@@ -443,12 +458,12 @@
             if(keyword != null && keyword.trim() != "") {
                 url += `?keyword=${keyword}`
             }
-            if(categoryId != null && categoryId.trim() != "") {
+            if(productId != null && productId.trim() != "") {
                 if(url.includes("?")) {
-                    url += `&categoryId=${categoryId}`
+                    url += `&productId=${productId}`
                 }
                 else {
-                    url += `?categoryId=${categoryId}`
+                    url += `?productId=${productId}`
                 }
             }
 
@@ -846,15 +861,19 @@
                             icon: 'success',
                             showCancelButton: true,
                             confirmButtonText: 'Tiếp tục thiết lập',
-                            cancelButtonText: 'Quay lại'
+                            cancelButtonText: 'Quay lại',
+                            customClass: {
+                                confirmButton: 'confirm-button-class',
+                                cancelButton: 'cancel-button-class'
+                            }
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Chuyển trang khi người dùng nhấn "OK"
-                                window.location.reload()
+                                window.location.reload();
                             } else {
-                                window.location.href = '/admin-only/product-discount'
+                                window.location.href = '/admin-only/product-discount';
                             }
                         });
+
                     },
                     error: function (xhr, status, error) {
                         $('#loading-overlay').hide();
