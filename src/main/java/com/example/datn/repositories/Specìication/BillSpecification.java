@@ -1,16 +1,17 @@
-package com.project.DuAnTotNghiep.repository.Specification;
+package com.example.datn.repositories.Specìication;
 
-import com.project.DuAnTotNghiep.dto.Bill.SearchBillDto;
-import com.project.DuAnTotNghiep.entity.Bill;
-import com.project.DuAnTotNghiep.entity.Customer;
-import com.project.DuAnTotNghiep.entity.enumClass.BillStatus;
+import com.example.datn.dto.Bill.SearchBillDto;
+import com.example.datn.entities.Bill;
+import com.example.datn.entities.Customer;
+import com.example.datn.entities.enumClass.BillStatus;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.*;
+import jakarta.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class BillSpecification implements Specification<Bill> {
     private SearchBillDto searchBillDto;
