@@ -1,2 +1,19 @@
-package com.example.datn.dto.Refund;public class SearchRefundDto {
+package com.example.datn.dto.Refund;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class SearchRefundDto {
+    private String billCode;
+    private String billReturnCode;
+    private String customerName;
+    private int status;
+    private String startDate;
+    private String endDate;
+
 }

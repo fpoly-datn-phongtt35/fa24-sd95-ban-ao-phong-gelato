@@ -1,14 +1,14 @@
-package com.project.DuAnTotNghiep.repository.Specification;
+package com.example.datn.repositories.Specìication;
 
-import com.project.DuAnTotNghiep.dto.Bill.SearchBillDto;
-import com.project.DuAnTotNghiep.entity.Bill;
-import com.project.DuAnTotNghiep.entity.enumClass.BillStatus;
+import com.example.datn.dto.Bill.SearchBillDto;
+import com.example.datn.entities.Bill;
+import com.example.datn.entities.enumClass.BillStatus;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
