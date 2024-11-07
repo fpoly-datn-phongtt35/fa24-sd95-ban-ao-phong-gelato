@@ -39,7 +39,7 @@ public class BillController {
     public String getBill(
             Model model,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "sort", defaultValue = "createDate,desc") String sortField,
+            @RequestParam(name = "sort", defaultValue = "create_date,desc") String sortField,
             @RequestParam(name = "maDinhDanh", required = false) String maDinhDanh,
             @RequestParam(name = "ngayTaoStart", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoStart,
             @RequestParam(name  = "ngayTaoEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoEnd,

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "PaymentMethod")
+@Table(name = "payment_method")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

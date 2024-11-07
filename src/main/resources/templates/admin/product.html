@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-layout.html}">
-
-
 <head>
     <meta charset="UTF-8">
     <title>Danh sách sản phẩm</title>
-    <style>
-
-    </style>
 </head>
 <body>
 <div layout:fragment="content">
-
     <h4>Quản lý sản phẩm</h4>
-
     <form th:action="@{/admin/product-all}" method="GET" >
         <div class="my-3">
             <div class="form-row">
@@ -84,8 +77,9 @@
                 <a th:href="@{/admin/product-all(page=0, sort=${sortField == 'chatLieu' && sortDirection == 'asc' ? 'chatLieu,desc' : 'chatLieu,asc'}, maSanPham=${maSanPham}, tenSanPham=${tenSanPham}, nhanHang=${nhanHang}, chatLieu=${chatLieu}, theLoai=${theLoai}, trangThai=${trangThai})}" class="sort-link">↑</a>
                 <a th:href="@{/admin/product-all(page=0, sort=${sortField == 'chatLieu' && sortDirection == 'desc' ? 'chatLieu,asc' : 'chatLieu,desc'}, maSanPham=${maSanPham}, tenSanPham=${tenSanPham}, nhanHang=${nhanHang}, chatLieu=${chatLieu}, theLoai=${theLoai}, trangThai=${trangThai})}" class="sort-link">↓</a>
             </th>
+            </th>
             <th scope="col">Trạng thái</th>
-            <th scope="col"></th>
+            <th scope="col">Chức năng</th>
         </tr>
         </thead>
         <tbody>
@@ -104,7 +98,10 @@
             </span>
             </td>
 
-
+            <td>
+                <a th:href="@{'/admin/product-edit/' + ${item.maSanPham}}"><i class="fa ti-pencil-alt"></i></a>
+                <!--                <a class="cursor-pointer" th:data-product-id="${item.idSanPham}" id="delete-btn"><i class="fa fa-trash-o"></i></a>-->
+            </td>
         </tr>
         </tbody>
     </table>
