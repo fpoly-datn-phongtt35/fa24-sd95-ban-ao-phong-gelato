@@ -1,4 +1,4 @@
-package com.example.datn.controllers;
+package com.example.datn.controllers.admin;
 
 import com.example.datn.dto.DiscountCode.DiscountCodeDto;
 import com.example.datn.dto.DiscountCode.SearchDiscountCodeDto;

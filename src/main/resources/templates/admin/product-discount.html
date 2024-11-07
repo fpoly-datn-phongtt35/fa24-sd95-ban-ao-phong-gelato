@@ -179,20 +179,20 @@
                             previous: "<"
                         },
                     }
-                }).on('draw.dt', () => setEvent())
+                });
 
-                setEvent()
+                setEvent();
 
                 function setEvent() {
-                    // Event handler for closing discount
-                    $('.close-discount-btn').on('click', function () {
-                        var closeId = $(this).attr('data-close-id')
+                    // Using `on` to delegate events ensures the handler works for dynamically added buttons
+                    $('#myTable').on('click', '.close-discount-btn', function () {
+                        var closeId = $(this).attr('data-close-id');
                         Swal.fire({
                             title: 'Đóng giảm giá',
                             text: 'Bạn chắc chắn muốn đóng giảm giá này',
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonText: 'Xác nhân',
+                            confirmButtonText: 'Xác nhận',
                             cancelButtonText: 'Hủy'
                         }).then(async (result) => {
                             if (result.isConfirmed) {
@@ -201,8 +201,7 @@
                                     url: `/api/private/product-discount/${closeId}/status/true`,
                                     dataType: 'json',
                                     success: async function () {
-                                        // Show success notification and update the button state
-                                        await Toastify({
+                                        Toastify({
                                             text: "Đóng giảm giá thành công",
                                             className: "success",
                                             style: {
@@ -212,22 +211,21 @@
                                         updateRow(closeId, 'closed');
                                     },
                                     error: function (xhr, status, error) {
-                                        Swal.fire("Error", xhr.responseJSON.message, "error")
+                                        Swal.fire("Error", xhr.responseJSON.message, "error");
                                     }
-                                })
+                                });
                             }
                         });
                     });
 
-                    // Event handler for opening discount
-                    $('.open-discount-btn').on('click', function () {
-                        var openId = $(this).attr('data-open-id')
+                    $('#myTable').on('click', '.open-discount-btn', function () {
+                        var openId = $(this).attr('data-open-id');
                         Swal.fire({
                             title: 'Mở giảm giá',
                             text: 'Bạn chắc chắn muốn mở giảm giá này',
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonText: 'Xác nhân',
+                            confirmButtonText: 'Xác nhận',
                             cancelButtonText: 'Hủy'
                         }).then(async (result) => {
                             if (result.isConfirmed) {
@@ -236,8 +234,7 @@
                                     url: `/api/private/product-discount/${openId}/status/false`,
                                     dataType: 'json',
                                     success: async function () {
-                                        // Show success notification and update the button state
-                                        await Toastify({
+                                        Toastify({
                                             text: "Mở giảm giá thành công",
                                             className: "success",
                                             style: {
@@ -247,9 +244,9 @@
                                         updateRow(openId, 'active');
                                     },
                                     error: function (xhr, status, error) {
-                                        Swal.fire("Error", xhr.responseJSON.message, "error")
+                                        Swal.fire("Error", xhr.responseJSON.message, "error");
                                     }
-                                })
+                                });
                             }
                         });
                     });
@@ -260,16 +257,13 @@
                     var row = $(`button[data-close-id="${id}"], button[data-open-id="${id}"]`).closest('tr');
                     if (status === 'closed') {
                         row.find('.badge-success').removeClass('badge-success').addClass('badge-danger').text('Đã đóng');
-                        row.find('.close-discount-btn').replaceWith(`<button th:data-open-id="${id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>`);
+                        row.find('.close-discount-btn').replaceWith(`<button data-open-id="${id}" class="open-discount-btn btn btn-outline-success rounded">Mở</button>`);
                     } else {
                         row.find('.badge-danger').removeClass('badge-danger').addClass('badge-success').text('Hoạt động');
-                        row.find('.open-discount-btn').replaceWith(`<button th:data-close-id="${id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>`);
+                        row.find('.open-discount-btn').replaceWith(`<button data-close-id="${id}" class="close-discount-btn btn btn-outline-danger rounded">Đóng</button>`);
                     }
-                    setEvent(); // Re-bind events after update
                 }
             });
-
-
         </script>
     </div>
 </div>

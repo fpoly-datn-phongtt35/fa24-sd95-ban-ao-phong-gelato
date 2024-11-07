@@ -27,7 +27,7 @@ public class BillReturnSpecification implements Specification<BillReturn> {
 
             // Parse the string into a LocalDateTime object
             LocalDateTime localDateTime = LocalDateTime.parse(searchBillReturnDto.getFromDate() + "T00:00:00");
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("returnDate"), localDateTime));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("return_date"), localDateTime));
         }
 
         if(searchBillReturnDto.getToDate() != null && !searchBillReturnDto.getToDate().isEmpty()) {

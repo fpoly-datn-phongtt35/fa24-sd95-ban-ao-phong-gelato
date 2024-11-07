@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
 </head>
 <body>
 <div layout:fragment="content">
@@ -117,8 +116,8 @@
             <td th:text="${#temporals.format(item.ngayTao, 'dd-MM-yyyy HH:mm')}">03843234</td>
             <td th:text="${#numbers.formatDecimal(item.tongTien, 0, 'POINT', 0, 'COMMA')}"></td>
             <td>
-                <span th:if="${item.loaiDon == T(com.project.DuAnTotNghiep.entity.enumClass.InvoiceType).OFFLINE}">Tại quầy</span>
-                <span th:if="${item.loaiDon == T(com.project.DuAnTotNghiep.entity.enumClass.InvoiceType).ONLINE}">Online</span>
+                <span th:if="${item.loaiDon == T(com.example.datn.entities.enumClass.InvoiceType).OFFLINE}">Tại quầy</span>
+                <span th:if="${item.loaiDon == T(com.example.datn.entities.enumClass.InvoiceType).ONLINE}">Online</span>
             </td>
             <td>
                  <span th:if="${item.hinhThucThanhToan == 'THE'}">
@@ -138,26 +137,26 @@
             <td>
 
                     <span class="text-warning p-1 rounded border border-warning font-weight-bold"
-                         th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).CHO_XAC_NHAN}"><i class="fas fa-check-square"></i>&nbsp;Chờ xác nhận
+                         th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN}"><i class="fas fa-check-square"></i>&nbsp;Chờ xác nhận
                     </span>
                     <span class="text-secondary p-1 rounded border border-secondary font-weight-bold"
 
-                         th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).CHO_LAY_HANG}"><i class="fas fa-check-square"></i>&nbsp;Chờ lấy hàng
+                         th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}"><i class="fas fa-check-square"></i>&nbsp;Chờ lấy hàng
                     </span>
                     <span class="text-primary p-1 rounded border border-primary font-weight-bold"
-                         th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).CHO_GIAO_HANG}"><i class="fas fa-check-square"></i>&nbsp;Chờ giao hàng
+                         th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}"><i class="fas fa-check-square"></i>&nbsp;Chờ giao hàng
                     </span>
 
                     <span  class="text-success p-1 rounded border border-success font-weight-bold"
-                          th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).HOAN_THANH}"><i class="fas fa-check-square"></i>&nbsp;Hoàn
+                          th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH}"><i class="fas fa-check-square"></i>&nbsp;Hoàn
                         thành
                     </span>
                     <span  class="text-dark p-1 rounded border border-dark font-weight-bold"
-                       th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).TRA_HANG}"><i class="fas fa-check-square"></i>&nbsp;
+                       th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}"><i class="fas fa-check-square"></i>&nbsp;
                     Đổi trả
                     </span>
 
-                    <span th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).HUY}" class="text-danger p-1 rounded border border-danger font-weight-bold">
+                    <span th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).HUY}" class="text-danger p-1 rounded border border-danger font-weight-bold">
                         <i class="fa fa-times-circle"></i>&nbsp;Hủy
                     </span>
 
@@ -167,20 +166,19 @@
                 <div class="d-flex align-items-center">
                     <form th:action="@{'/admin/update-bill-status/' + ${item.maHoaDon}}" method="get">
                         <input type="hidden" name="trangThaiDonHang" value="HUY">
-                        <span type="button" th:if="${item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).CHO_XAC_NHAN || item.trangThai == T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).CHO_LAY_HANG}" class="cancel-btn bg-transparent mr-2" data-toggle="tooltip" data-placement="top" title="Hủy đơn">
+                        <span type="button" th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN || item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}" class="cancel-btn bg-transparent mr-2" data-toggle="tooltip" data-placement="top" title="Hủy đơn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="red" d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07zm1.41-1.41A8 8 0 1 0 15.66 4.34A8 8 0 0 0 4.34 15.66zm9.9-8.49L11.41 10l2.83 2.83l-1.41 1.41L10 11.41l-2.83 2.83l-1.41-1.41L8.59 10L5.76 7.17l1.41-1.41L10 8.59l2.83-2.83l1.41 1.41z"/></svg>
                         </span>
                     </form>
 
                     <form th:action="@{'/admin/update-bill-status/' + ${item.maHoaDon}}" method="get">
-                        <span type="button" th:if="${item.trangThai != T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).HOAN_THANH &&
-                item.trangThai != T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).HUY && item.trangThai != T(com.project.DuAnTotNghiep.entity.enumClass.BillStatus).TRA_HANG}"
+                        <span type="button" th:if="${item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH &&
+                item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).HUY && item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}"
                                 class=" hover-green btn-update-status" data--toggle="tooltip" data-placement="top" th:data-status="${item.trangThai}"
                                 title="Chuyển sang trạng thái tiếp">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 18a2 2 0 1 0 4 0a2 2 0 1 0-4 0m12 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M6 12v-2a6 6 0 1 1 12 0v2"/><path d="m15 9l3 3l3-3"/></g></svg>
                         </span>
                     </form>
-
                 </div>
             </td>
         </tr>
@@ -188,26 +186,64 @@
     </table>
     <div class="clearfix float-right">
         <ul class="pagination">
+            <!-- Previous Page -->
             <li th:classappend="${items.hasPrevious() ? '' : 'disabled'}" class="page-item">
-                <a th:href="@{/admin/bill-list(page=0, sort=${sortField}, maDinhDanh=${maDinhDanh}, ngayTaoStart=${ngayTaoStart}, ngayTaoEnd=${ngayTaoEnd}, trangThai=${trangThai}, loaiDon=${loaiDon}, hoVaTen=${hoVaTen}, soDienThoai=${soDienThoai})}"
+                <a th:href="@{/admin/bill-list(page=0, sort=${sortField},
+                                          maDinhDanh=${maDinhDanh},
+                                          ngayTaoStart=${ngayTaoStart},
+                                          ngayTaoEnd=${ngayTaoEnd},
+                                          trangThai=${trangThai},
+                                          loaiDon=${loaiDon},
+                                          hoVaTen=${hoVaTen},
+                                          soDienThoai=${soDienThoai})}"
                    class="page-link">
                     <i class="fas fa-angle-double-left"></i>
                 </a>
             </li>
+
+            <!-- Previous Page -->
             <li th:classappend="${items.hasPrevious() ? '' : 'disabled'}" class="page-item">
-                <a th:href="@{/admin/bill-list(page=${items.number - 1}, sort=${sortField}, maDinhDanh=${maDinhDanh}, ngayTaoStart=${ngayTaoStart}, ngayTaoEnd=${ngayTaoEnd}, trangThai=${trangThai}, loaiDon=${loaiDon}, hoVaTen=${hoVaTen}, soDienThoai=${soDienThoai})}"
+                <a th:href="@{/admin/bill-list(page=${items.number - 1},
+                                          sort=${sortField},
+                                          maDinhDanh=${maDinhDanh},
+                                          ngayTaoStart=${ngayTaoStart},
+                                          ngayTaoEnd=${ngayTaoEnd},
+                                          trangThai=${trangThai},
+                                          loaiDon=${loaiDon},
+                                          hoVaTen=${hoVaTen},
+                                          soDienThoai=${soDienThoai})}"
                    class="page-link">
                     <i class="fas fa-angle-left"></i>
                 </a>
             </li>
+
+            <!-- Next Page -->
             <li th:classappend="${items.hasNext() ? '' : 'disabled'}" class="page-item">
-                <a th:href="@{/admin/bill-list(page=${items.number + 1}, sort=${sortField}, maDinhDanh=${maDinhDanh}, ngayTaoStart=${ngayTaoStart}, ngayTaoEnd=${ngayTaoEnd}, trangThai=${trangThai}, loaiDon=${loaiDon}, hoVaTen=${hoVaTen}, soDienThoai=${soDienThoai})}"
+                <a th:href="@{/admin/bill-list(page=${items.number + 1},
+                                          sort=${sortField},
+                                          maDinhDanh=${maDinhDanh},
+                                          ngayTaoStart=${ngayTaoStart},
+                                          ngayTaoEnd=${ngayTaoEnd},
+                                          trangThai=${trangThai},
+                                          loaiDon=${loaiDon},
+                                          hoVaTen=${hoVaTen},
+                                          soDienThoai=${soDienThoai})}"
                    class="page-link">
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
+
+            <!-- Last Page -->
             <li th:classappend="${items.hasNext() ? '' : 'disabled'}" class="page-item">
-                <a th:href="@{/admin/bill-list(page=${items.totalPages - 1},sort=${sortField}, maDinhDanh=${maDinhDanh}, ngayTaoStart=${ngayTaoStart}, ngayTaoEnd=${ngayTaoEnd}, trangThai=${trangThai}, loaiDon=${loaiDon}, hoVaTen=${hoVaTen}, soDienThoai=${soDienThoai})}"
+                <a th:href="@{/admin/bill-list(page=${items.totalPages - 1},
+                                          sort=${sortField},
+                                          maDinhDanh=${maDinhDanh},
+                                          ngayTaoStart=${ngayTaoStart},
+                                          ngayTaoEnd=${ngayTaoEnd},
+                                          trangThai=${trangThai},
+                                          loaiDon=${loaiDon},
+                                          hoVaTen=${hoVaTen},
+                                          soDienThoai=${soDienThoai})}"
                    class="page-link">
                     <i class="fas fa-angle-double-right"></i>
                 </a>

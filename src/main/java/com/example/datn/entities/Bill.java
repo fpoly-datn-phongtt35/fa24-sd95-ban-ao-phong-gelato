@@ -23,8 +23,11 @@ public class Bill implements Serializable{
     private String code;
 
     private double promotionPrice;
+
     @Column(name = "create_date")
     private LocalDateTime createDate;
+
+    @Column(name = "update_date")
     private LocalDateTime updateDate;
 
     @Enumerated(EnumType.STRING)
@@ -43,11 +46,11 @@ public class Bill implements Serializable{
     private Boolean returnStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id") // sửa thành customer_id
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "payment_method_id") // sửa thành payment_method_id
+    @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bill")

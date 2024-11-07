@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "BillDetail")
+@Table(name = "bill_detail")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,13 +17,13 @@ public class BillDetail implements Serializable {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productDetailId")
+    @JoinColumn(name = "product_detail_id")
     private ProductDetail productDetail;
 
     private Double momentPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billId")
+    @JoinColumn(name = "bill_id")
     private Bill bill;
 
     private Integer returnQuantity;

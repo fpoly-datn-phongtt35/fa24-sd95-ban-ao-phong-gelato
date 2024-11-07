@@ -224,47 +224,52 @@ public class ProductController {
                                       @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                       RedirectAttributes redirectAttributes) throws IOException {
         String randomUpdateKey = (String) session.getAttribute("randomUpdateKey");
-
         Product part1Data = (Product) session.getAttribute("editProductPart1" + randomUpdateKey);
         if (part1Data == null) {
-            // Nếu dữ liệu phần 1 không tồn tại, điều hướng người dùng trở lại phần 1
             return "redirect:/admin/product-all";
-        } else  {
-            List<ProductDetail> productDetails = form.getProductDetailList();
-            for (ProductDetail productDetail : productDetails) {
-                productDetail.setProduct(part1Data);
-            }
-            part1Data.setProductDetails(productDetails);
-            List<Image> images = new ArrayList<>();
-            List<Image> beforeImages = imageService.getAllImagesByProductId(part1Data.getId());
-            for (Image image: beforeImages
-                 ) {
-                if(!imageRemoveIds.contains(image.getId())) {
-                    images.add(image);
-                }else {
-                    FileUploadUtil.deleteFile(image.getLink());
-                }
-            }
-
-            if(files != null) {
-                if (!files.isEmpty() ) {
-                    for (MultipartFile file : files) {
-                        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-                        String fileNameAfter = FileUploadUtil.saveFile(uploadDirectory, fileName, file);
-                        images.add(new Image(null, fileNameAfter, LocalDateTime.now(), LocalDateTime.now(), "uploads/"+fileNameAfter, file.getContentType(),     part1Data));
-                    }
-                }
-            }
-            imageService.removeImageByIds(imageRemoveIds);
-            part1Data.setImage(images);
-            part1Data.setUpdatedDate(LocalDateTime.now());
-            productService.save(part1Data);
         }
 
+        List<ProductDetail> productDetails = form.getProductDetailList();
+        for (ProductDetail productDetail : productDetails) {
+            productDetail.setProduct(part1Data);
+        }
+        part1Data.setProductDetails(productDetails);
+
+        // Initialize imageRemoveIds if null to avoid NullPointerException
+        imageRemoveIds = (imageRemoveIds == null) ? new ArrayList<>() : imageRemoveIds;
+
+        List<Image> images = new ArrayList<>();
+        List<Image> beforeImages = imageService.getAllImagesByProductId(part1Data.getId());
+
+        for (Image image : beforeImages) {
+            if (!imageRemoveIds.contains(image.getId())) {
+                images.add(image);
+            } else {
+                FileUploadUtil.deleteFile(image.getLink());
+            }
+        }
+
+        if (files != null && !files.isEmpty()) {
+            for (MultipartFile file : files) {
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+                String fileNameAfter = FileUploadUtil.saveFile(uploadDirectory, fileName, file);
+                images.add(new Image(null, fileNameAfter, LocalDateTime.now(), LocalDateTime.now(), "uploads/" + fileNameAfter, file.getContentType(), part1Data));
+            }
+        }
+
+        imageService.removeImageByIds(imageRemoveIds);
+        part1Data.setImage(images);
+        part1Data.setUpdatedDate(LocalDateTime.now());
+        productService.save(part1Data);
+
+        // Clean up session attributes
         session.removeAttribute("randomUpdateKey");
         session.removeAttribute("editProductPart1" + randomUpdateKey);
         redirectAttributes.addFlashAttribute("successMessage", "Sản phẩm được chỉnh sửa thành công");
-        return "redirect:/admin/chi-tiet-san-pham/" + part1Data.getCode();
+        String productCode = (part1Data.getCode() != null) ? part1Data.getCode().trim() : "defaultCode";
+        return "redirect:/admin/chi-tiet-san-pham/" + productCode;
+
+//        return "redirect:/admin/chi-tiet-san-pham/" + part1Data.getCode();
     }
 
     @ModelAttribute("listSize")

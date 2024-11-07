@@ -23,13 +23,13 @@ public class ProductRestController {
         return productService.getAllProductApi(pageable);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000") // Thay thế bằng domain của bạn
+//    @CrossOrigin(origins = "http://localhost:3000") // Thay thế bằng domain của bạn
     @GetMapping("/api/products-no-pagination")
     public List<ProductDto> getAllProductsApi(@RequestBody(required = false) SearchProductDto searchRequest) {
         if (searchRequest == null) {
             searchRequest = new SearchProductDto();
         }
-        System.out.println("Search request received: " + searchRequest); // Log để kiểm tra
+//        System.out.println("Search request received: " + searchRequest); // Log để kiểm tra
         return productService.getAllProductNoPaginationApi(searchRequest);
     }
 

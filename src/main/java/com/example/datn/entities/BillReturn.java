@@ -22,15 +22,17 @@ public class BillReturn {
 
     @Nationalized
     private String returnReason;
-
+    @Column(name = "return_date")
     private LocalDateTime returnDate;
 
     private Integer percentFeeExchange;
+    @Column(name = "return_money")
     private Double returnMoney;
 
     private boolean isCancel;
 
     // 0:Chờ xác nhận 1: Chờ giao hàng 2: Đang giao hàng 3: Hoàn thành 4: Hủy
+    @Column(name = "return_status")
     private int returnStatus;
 
     @OneToOne

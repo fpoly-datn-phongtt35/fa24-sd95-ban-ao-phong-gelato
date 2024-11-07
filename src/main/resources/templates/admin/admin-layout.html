@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:replace="fragments-admin::page_head('Admin page')">
+<head th:replace="~{fragments-admin::page_head('Admin page')}">
     <script>
 
     </script>
@@ -246,7 +246,7 @@
     </div>
 </div>
 
-<th:block th:replace="fragments-admin::script">
+<th:block th:replace="~{fragments-admin::script}">
 
 </th:block>
 

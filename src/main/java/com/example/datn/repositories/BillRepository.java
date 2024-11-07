@@ -30,30 +30,55 @@ import java.util.List;
 
 @Repository
 public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecificationExecutor<Bill> {
-    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
-            "AS soDienThoai,b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
-            "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra, pmt.orderId as maGiaoDich " +
+    @Query(value = "SELECT DISTINCT b.id AS maHoaDon, " +
+            "b.code AS maDinhDanh, " +
+            "a.name AS hoVaTen, " +
+            "a.phone_Number AS soDienThoai, " +
+            "b.create_Date AS ngayTao, " +
+            "b.amount AS tongTien, " +
+            "b.status AS trangThai, " +
+            "b.invoice_Type AS loaiDon, " +
+            "pm.name AS hinhThucThanhToan, " +
+            "COALESCE(br.code, '') AS maDoiTra, " +
+            "pmt.order_Id AS maGiaoDich " +
             "FROM Bill b " +
-            "JOIN Payment pmt on b.id = pmt.bill.id " +
-            "LEFT JOIN Customer a ON b.customer.id = a.id " +
-            "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
-            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id",
+            "JOIN Payment pmt ON b.id = pmt.bill_id " +
+            "LEFT JOIN Customer a ON b.customer_id = a.id " +
+            "LEFT JOIN bill_detail bd ON b.id = bd.bill_id " +
+            "LEFT JOIN Payment_Method pm ON b.payment_Method_id = pm.id " +
+            "LEFT JOIN Bill_Return br ON b.id = br.bill_id",
             nativeQuery = true)
     Page<BillDtoInterface> listBill(Pageable pageable);
 
-    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
-            "AS soDienThoai, b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
-            "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra " +
-            "FROM Bill b " +
-            "LEFT JOIN Customer a ON b.customer.id = a.id " +
-            "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
-            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id left join BillReturn br on b.id = br.bill.id " +
-            "WHERE (:maDinhDanh IS NULL OR b.code LIKE CONCAT('%', :maDinhDanh, '%')) " +
-            "AND (:ngayTaoStart IS NULL OR :ngayTaoEnd IS NULL OR (b.createDate BETWEEN :ngayTaoStart AND :ngayTaoEnd)) " +
-            "AND (:trangThai IS NULL OR b.status = :trangThai) " +
-            "AND (:loaiDon IS NULL OR b.invoiceType= :loaiDon) "+
-            "AND (:soDienThoai IS NULL OR a.phoneNumber IS NULL OR a.phoneNumber LIKE CONCAT('%', :soDienThoai, '%')) "+
-            "AND (:hoVaTen IS NULL OR a.name IS NULL OR a.name LIKE CONCAT('%', :hoVaTen, '%'))")
+    @Query(value = "SELECT DISTINCT \n" +
+            "    b.id AS maHoaDon,\n" +
+            "    b.code AS maDinhDanh, \n" +
+            "    a.name AS hoVaTen, \n" +
+            "    a.phone_Number AS soDienThoai, \n" +
+            "    b.create_Date AS ngayTao, \n" +
+            "    b.amount AS tongTien, \n" +
+            "    b.status AS trangThai, \n" +
+            "    b.invoice_Type AS loaiDon, \n" +
+            "    pm.name AS hinhThucThanhToan, \n" +
+            "    COALESCE(br.code, '') AS maDoiTra\n" +
+            "FROM \n" +
+            "    Bill b\n" +
+            "LEFT JOIN \n" +
+            "    Customer a ON b.customer_id = a.id\n" +
+            "LEFT JOIN \n" +
+            "    Bill_Detail bd ON b.id = bd.bill_id\n" +
+            "LEFT JOIN \n" +
+            "    Payment_Method pm ON b.payment_Method_id = pm.id\n" +
+            "LEFT JOIN \n" +
+            "    Bill_Return br ON b.id = br.bill_id\n" +
+            "WHERE \n" +
+            "    (:maDinhDanh IS NULL OR b.code LIKE CONCAT('%', :maDinhDanh, '%'))\n" +
+            "    AND (:ngayTaoStart IS NULL OR :ngayTaoEnd IS NULL OR b.create_Date BETWEEN :ngayTaoStart AND :ngayTaoEnd)\n" +
+            "    AND (:trangThai IS NULL OR b.status = :trangThai)\n" +
+            "    AND (:loaiDon IS NULL OR b.invoice_Type = :loaiDon)\n" +
+            "    AND (:soDienThoai IS NULL OR a.phone_Number IS NULL OR a.phone_Number LIKE CONCAT('%', :soDienThoai, '%'))\n" +
+            "    AND (:hoVaTen IS NULL OR a.name IS NULL OR a.name LIKE CONCAT('%', :hoVaTen, '%'))\n",
+    nativeQuery = true)
     Page<BillDtoInterface> listSearchBill(
             @Param("maDinhDanh") String maDinhDanh,
             @Param("ngayTaoStart") LocalDateTime ngayTaoStart,
@@ -145,7 +170,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "ORDER BY MONTH(b.create_date)", nativeQuery = true)
     List<Object[]> statisticRevenueMonthInYear(String year);
 
-    @Query("select b from Bill b where b.status = 'HOAN_THANH' AND b.createDate between :fromDate and :toDate")
+    @Query(value = "select b from Bill b where b.status = 'HOAN_THANH' AND b.create_Date between :fromDate and :toDate", nativeQuery = true)
     List<Bill> findAllCompletedByDate(@Param("fromDate") LocalDateTime fromDate,@Param("toDate") LocalDateTime toDate);
 
     @Query("select count(b) from Bill b where b.status='CHO_XAC_NHAN'")
@@ -189,29 +214,29 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "join payment_method pme on pme.id = b.payment_method_id where b.status='HUY' and pme.name='CHUYEN_KHOAN' order by b.update_date desc", nativeQuery = true)
     List<RefundDto> findListNeedRefund();
 
-    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
-            "AS soDienThoai,b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
-            "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra, pmt.orderId as maGiaoDich " +
+    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phone_Number " +
+            "AS soDienThoai,b.create_Date AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoice_Type " +
+            "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra, pmt.order_Id as maGiaoDich " +
             "FROM Bill b " +
-            "JOIN Payment pmt on b.id = pmt.bill.id " +
-            "LEFT JOIN Customer a ON b.customer.id = a.id " +
-            "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
-            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id")
+            "JOIN Payment pmt on b.id = pmt.bill_id " +
+            "LEFT JOIN Customer a ON b.customer_id = a.id " +
+            "LEFT JOIN Bill_Detail bd ON b.id = bd.bill_id " +
+            "LEFT JOIN Payment_Method pm ON b.payment_Method_id = pm.id LEFT JOIN Bill_Return br on b.id = br.bill_id",nativeQuery = true)
     List<BillDtoInterface> listBill();
 
-    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
-            "AS soDienThoai, b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
+    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phone_Number " +
+            "AS soDienThoai, b.create_Date AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoice_Type " +
             "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra " +
             "FROM Bill b " +
-            "LEFT JOIN Customer a ON b.customer.id = a.id " +
-            "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
-            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id left join BillReturn br on b.id = br.bill.id " +
+            "LEFT JOIN Customer a ON b.customer_id = a.id " +
+            "LEFT JOIN Bill_Detail bd ON b.id = bd.bill_id " +
+            "LEFT JOIN Payment_Method pm ON b.payment_Method_id = pm.id left join Bill_Return br on b.id = br.bill_id " +
             "WHERE (:maDinhDanh IS NULL OR b.code LIKE CONCAT('%', :maDinhDanh, '%')) " +
-            "AND (:ngayTaoStart IS NULL OR :ngayTaoEnd IS NULL OR (b.createDate BETWEEN :ngayTaoStart AND :ngayTaoEnd)) " +
+            "AND (:ngayTaoStart IS NULL OR :ngayTaoEnd IS NULL OR (b.create_Date BETWEEN :ngayTaoStart AND :ngayTaoEnd)) " +
             "AND (:trangThai IS NULL OR b.status = :trangThai) " +
-            "AND (:loaiDon IS NULL OR b.invoiceType= :loaiDon) "+
-            "AND (:soDienThoai IS NULL OR a.phoneNumber IS NULL OR a.phoneNumber LIKE CONCAT('%', :soDienThoai, '%')) "+
-            "AND (:hoVaTen IS NULL OR a.name IS NULL OR a.name LIKE CONCAT('%', :hoVaTen, '%'))")
+            "AND (:loaiDon IS NULL OR b.invoice_Type= :loaiDon) "+
+            "AND (:soDienThoai IS NULL OR a.phone_Number IS NULL OR a.phone_Number LIKE CONCAT('%', :soDienThoai, '%')) "+
+            "AND (:hoVaTen IS NULL OR a.name IS NULL OR a.name LIKE CONCAT('%', :hoVaTen, '%'))",nativeQuery = true)
     List<BillDtoInterface> listSearchBill( @Param("maDinhDanh") String maDinhDanh,
                                            @Param("ngayTaoStart") LocalDateTime ngayTaoStart,
                                            @Param("ngayTaoEnd") LocalDateTime ngayTaoEnd,
