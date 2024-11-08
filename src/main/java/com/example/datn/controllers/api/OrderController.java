@@ -27,7 +27,6 @@ public class OrderController {
     @ResponseBody
     @PostMapping("/api/orderAdmin")
     public OrderDto orderAdmin(@RequestBody OrderDto orderDto) {
-        System.out.println("Received orderAdmin request with data: " + orderDto);
         return cartService.orderAdmin(orderDto);
     }
 
