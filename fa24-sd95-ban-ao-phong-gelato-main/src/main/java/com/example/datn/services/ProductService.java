@@ -4,6 +4,7 @@ package com.example.datn.services;
 import com.example.datn.dto.Product.ProductDto;
 import com.example.datn.dto.Product.ProductSearchDto;
 import com.example.datn.dto.Product.SearchProductDto;
+import com.example.datn.entities.Image;
 import com.example.datn.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

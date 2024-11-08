@@ -54,30 +54,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) throws IOException {
+    public Product save(Product product) {
+        Product existingProduct = productRepository.findById(product.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        if(product.getCode().trim() == "" || product.getCode() == null) {
-            Product productCurrent = productRepository.findTopByOrderByIdDesc();
-            Long nextCode = (productCurrent == null) ? 1 : productCurrent.getId() + 1;
-            String productCode = "SP" + String.format("%04d", nextCode);
-            product.setCode(productCode);
+        // Cập nhật các thuộc tính
+        existingProduct.setName(product.getName());
+        existingProduct.setBrand(product.getBrand());
+        existingProduct.setMaterial(product.getMaterial());
+        existingProduct.setStatus(product.getStatus());
+        existingProduct.setGender(product.getGender());
+        existingProduct.setDescribe(product.getDescribe());
+
+        // Cập nhật danh sách chi tiết sản phẩm nếu có
+        if (product.getProductDetails() != null) {
+            existingProduct.getProductDetails().clear();
+            existingProduct.getProductDetails().addAll(product.getProductDetails());
         }
 
-        Double minPrice = Double.valueOf(1000000000);
-        for (ProductDetail productDetail:
-             product.getProductDetails()) {
-            if(productDetail.getPrice() < minPrice) {
-                minPrice = productDetail.getPrice();
-            }
-            QRCodeService.generateQRCode(productDetail.getBarcode(), productDetail.getBarcode());
+        // Cập nhật danh sách ảnh nếu có
+        if (product.getImage() != null) {
+            existingProduct.getImage().clear();
+            existingProduct.getImage().addAll(product.getImage());
         }
 
-        product.setPrice(minPrice);
-        product.setDeleteFlag(false);
-        product.setCreateDate(LocalDateTime.now());
-        product.setUpdatedDate(LocalDateTime.now());
-        return productRepository.save(product);
+        return productRepository.save(existingProduct);
     }
+
 
     @Override
     public Product delete(Long id)  {

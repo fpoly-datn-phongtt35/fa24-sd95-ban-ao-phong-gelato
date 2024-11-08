@@ -1,4 +1,4 @@
-package com.example.datn.controllers;
+package com.example.datn.controllers.admin;
 
 
 import org.springframework.stereotype.Controller;

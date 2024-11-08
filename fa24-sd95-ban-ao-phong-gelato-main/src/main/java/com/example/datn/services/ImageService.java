@@ -10,5 +10,6 @@ import java.util.List;
 public interface ImageService {
     List<Image> getAllImagesByProductId(Long productId);
     void removeImageByIds(List<Long> ids);
+
     Image getImageById(Long id);
 }

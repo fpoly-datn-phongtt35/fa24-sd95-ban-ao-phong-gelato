@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ImageServiceImpl implements ImageService {
 
@@ -31,13 +35,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void removeImageByIds(List<Long> ids) {
-        imageRepository.deleteAllById(ids);
+    public Image getImageById(Long id) {
+        return imageRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Image getImageById(Long id) {
-        return imageRepository.findById(id).orElse(null);
+    public void removeImageByIds(List<Long> ids) {
+        imageRepository.deleteAllById(ids);
     }
 //    @Override
 //    public List<Image> saveALL(List<Image> images) {
@@ -58,3 +62,4 @@ public class ImageServiceImpl implements ImageService {
 //        imageRepository.deleteById(id);
 //    }
 }
+

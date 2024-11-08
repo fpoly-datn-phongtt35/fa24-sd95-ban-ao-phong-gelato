@@ -93,10 +93,9 @@
                     <!-- Hiển thị danh sách ảnh hiện tại -->
                     <div class="col-md-3" th:each="image : ${product.image}">
                         <div class="image-item">
-                            <img th:src="@{${image.link}}" alt="Ảnh sản phẩm" style="width: 100%; height: auto;">
+                            <img th:src="'/uploads/' + ${image.name}" alt="Ảnh sản phẩm" style="width: 100%; height: auto;">
                             <div class="form-check mt-2">
                                 <input class="form-check-input" type="checkbox" th:value="${image.id}" name="imageRemoveIds">
-                                <label class="form-check-label">Xóa ảnh này</label>
                             </div>
                         </div>
                     </div>

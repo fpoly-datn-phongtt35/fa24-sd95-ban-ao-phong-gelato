@@ -35,7 +35,7 @@
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label>Số lượng cònxxxx</label>
+                <label>Số lượng còn</label>
                 <input type="text" class="form-control" id="maximumUsage" name="maximumUsage" placeholder="1234" th:value="${dataSearch.maximumUsage}">
             </div>
         </div>
@@ -105,11 +105,23 @@
         </tbody>
     </table>
     <a th:href="@{'/admin-only/discount-code-create'}" class="btn btn-primary btn-sm">Thêm</a>
-
-    <div class="float-right">
-        <ul id="pagination" class=""></ul>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm justify-content-end">
+            <li th:if="${currentPage > 1}" class="page-item">
+                <a class="page-link" th:href="@{'?page=' + ${currentPage - 1}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1, totalPage)}" class="page-item" th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{'?page=' + ${i}}" th:text="${i}"></a>
+            </li>
+            <li th:if="${currentPage < totalPage}" class="page-item">
+                <a class="page-link" th:href="@{'?page=' + ${currentPage + 1}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:inline="javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
@@ -131,49 +143,38 @@
                 reverseButtons: true
             }).then(async (result) => {
                 if (result.isConfirmed) {
-
                     form.submit()
                 }
             })
-        })
+        });
 
-        var url = '/admin-only/discount-code?page=0';
+        // Generate URL based on current location and parameters
+        let baseUrl = new URL(window.location.href);
+        let searchParams = new URLSearchParams(baseUrl.search);
+
         $('#search-btn').on('click', function () {
+            searchParams.set('page', 0); // reset page to 0 on new search
 
-            var code = $('#code').val().trim()
-            // var detail = $("#name").val().trim()
-            var startDate = $("#startDate").val()
-            var endDate = $("#endDate").val()
-            var status = $("#status").val()
+            let code = $('#code').val().trim();
+            let startDate = $("#startDate").val();
+            let endDate = $("#endDate").val();
+            let status = $("#status").val();
 
-            if(startDate && endDate) {
-                if(startDate >= endDate) {
-                    Swal.fire({
-                        text: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
-                        icon: 'error'
-                    })
-                    return
-                }
-
+            if (startDate && endDate && startDate >= endDate) {
+                Swal.fire({
+                    text: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
+                    icon: 'error'
+                });
+                return;
             }
 
-            if (code) {
-                url += '&code=' + code
-            }
-            // if(detail) {
-            //     url += '&detail=' + detail
-            // }
-            if(startDate) {
-                url += '&startDate=' + startDate
-            }
-            if(endDate) {
-                url += '&endDate=' + endDate
-            }
-            if(status) {
-                url += '&status=' + status
-            }
-            window.location.href = url
-        })
+            if (code) searchParams.set('code', code);
+            if (startDate) searchParams.set('startDate', startDate);
+            if (endDate) searchParams.set('endDate', endDate);
+            if (status) searchParams.set('status', status);
+
+            window.location.href = baseUrl.pathname + '?' + searchParams.toString();
+        });
 
         $('#pagination').twbsPagination({
             startPage: parseInt(currentPage) + 1,
@@ -183,12 +184,11 @@
             next: '<i class="fas fa-angle-left"></i>',
             prev: '<i class="fas fa-angle-right"></i>',
             last: '<i class="fas fa-angle-double-right"></i>',
-            initiateStartPageClick:false,
+            initiateStartPageClick: false,
 
             onPageClick: function (event, page) {
-                var cleanedUrl = url.replace(/[?&]page=\d+/, '');
-                cleanedUrl += '&page=' + page
-                window.location.href = cleanedUrl
+                searchParams.set('page', page - 1); // page is 1-indexed in twbsPagination
+                window.location.href = baseUrl.pathname + '?' + searchParams.toString();
             }
         });
     </script>

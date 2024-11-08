@@ -23,7 +23,8 @@ public class DiscountCodeImpl implements DiscountCodeService {
     }
 
     @Override
-    public Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Pageable pageable) {
+    public Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Integer page) {
+        Pageable pageable = PageRequest.of(page -1, 5);
         Specification<DiscountCode> spec = new DiscountCodeSpec(searchDiscountCodeDto);
         Page<DiscountCode> discountCodes = discountCodeRepository.findAll(spec, pageable);
         return discountCodes.map(this::convertToDto);
@@ -31,7 +32,7 @@ public class DiscountCodeImpl implements DiscountCodeService {
 
     @Override
     public DiscountCodeDto saveDiscountCode(DiscountCodeDto discountCodeDto) {
-       if (discountCodeRepository.existsByCode(discountCodeDto.getCode())) {
+        if (discountCodeRepository.existsByCode(discountCodeDto.getCode())) {
             throw new ShopApiException(HttpStatus.BAD_REQUEST, "Mã giảm giá "+discountCodeDto.getCode()+" đã tồn tại");
         }
         DiscountCode discountCode = convertToEntity(discountCodeDto);

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DiscountCodeService {
-    Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Pageable pageable);
+    Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Integer page);
     DiscountCodeDto saveDiscountCode(DiscountCodeDto discountCodeDto);
     DiscountCodeDto updateDiscountCode(DiscountCodeDto discountCodeDto);
 
