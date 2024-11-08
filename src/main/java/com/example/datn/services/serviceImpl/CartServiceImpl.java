@@ -254,7 +254,6 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public OrderDto orderAdmin(OrderDto orderDto) {
-        System.out.println("Processing orderAdmin with data: " + orderDto);
         Bill billCurrent = billRepository.findTopByOrderByIdDesc();
         int nextCode = (billCurrent == null) ? 1 : Integer.parseInt(billCurrent.getCode().substring(2)) + 1;
         String billCode = "HD" + String.format("%03d", nextCode);
