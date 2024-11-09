@@ -3,8 +3,10 @@ package com.example.datn.services.serviceImpl;
 
 import com.example.datn.dto.ProductDiscount.ProductDiscountCreateDto;
 import com.example.datn.dto.ProductDiscount.ProductDiscountDto;
+import com.example.datn.entities.Color;
 import com.example.datn.entities.ProductDetail;
 import com.example.datn.entities.ProductDiscount;
+import com.example.datn.entities.Size;
 import com.example.datn.exceptions.NotFoundException;
 import com.example.datn.repositories.ProductDetailRepository;
 import com.example.datn.repositories.ProductDiscountRepository;
@@ -17,7 +19,6 @@ import java.util.stream.Collectors;
 @Service
 public class ProductDiscountServiceImpl implements ProductDiscountService {
     private final ProductDetailRepository productDetailRepository;
-
     private final ProductDiscountRepository productDiscountRepository;
 
     public ProductDiscountServiceImpl(ProductDetailRepository productDetailRepository, ProductDiscountRepository productDiscountRepository) {
@@ -27,12 +28,36 @@ public class ProductDiscountServiceImpl implements ProductDiscountService {
 
     @Override
     public List<ProductDiscount> getAllProductDiscount() {
-        return null;
+        return productDiscountRepository.findAll();
+    }
+
+    @Override
+    public List<ProductDiscount> getAllProductDiscount(Color color, Size size) {
+        if (color != null && size != null) {
+            return productDiscountRepository.findByProductDetail_ColorAndProductDetail_Size(color, size);
+        } else if (color != null) {
+            return productDiscountRepository.findByProductDetail_Color(color);
+        } else if (size != null) {
+            return productDiscountRepository.findByProductDetail_Size(size);
+        } else {
+            return productDiscountRepository.findAll();
+        }
+    }
+
+    @Override
+    public List<ProductDiscount> getDiscountsByColor(Color color) {
+        return productDiscountRepository.findByProductDetail_Color(color);
+    }
+
+    @Override
+    public List<ProductDiscount> getDiscountsBySize(Size size) {
+        return productDiscountRepository.findByProductDetail_Size(size);
     }
 
     @Override
     public ProductDiscountDto updateCloseProductDiscount(Long discountId, boolean closed) {
-        ProductDiscount productDiscount = productDiscountRepository.findById(discountId).orElseThrow(() -> new NotFoundException("Product discount not found"));
+        ProductDiscount productDiscount = productDiscountRepository.findById(discountId)
+                .orElseThrow(() -> new NotFoundException("Product discount not found"));
         productDiscount.setClosed(closed);
         return convertToDto(productDiscountRepository.save(productDiscount));
     }
@@ -41,7 +66,7 @@ public class ProductDiscountServiceImpl implements ProductDiscountService {
     public List<ProductDiscountDto> createProductDiscountMultiple(ProductDiscountCreateDto productDiscountCreateDto) {
         List<ProductDiscount> productDiscountList = productDiscountCreateDto.getProductDiscounts().stream().map(productDiscountDto -> {
             ProductDiscount productDiscount = productDiscountRepository.findByProductDetail_Id(productDiscountDto.getProductDetailId());
-            if(productDiscount != null) {
+            if (productDiscount != null) {
                 productDiscountDto.setId(productDiscount.getId());
             }
             productDiscountDto.setClosed(false);
@@ -58,7 +83,8 @@ public class ProductDiscountServiceImpl implements ProductDiscountService {
         productDiscount.setClosed(productDiscountDto.isClosed());
         productDiscount.setStartDate(productDiscountDto.getStartDate());
         productDiscount.setEndDate(productDiscountDto.getEndDate());
-        ProductDetail productDetail = productDetailRepository.findById(productDiscountDto.getProductDetailId()).orElseThrow(() -> new NotFoundException("Product detail id not found"));
+        ProductDetail productDetail = productDetailRepository.findById(productDiscountDto.getProductDetailId())
+                .orElseThrow(() -> new NotFoundException("Product detail id not found"));
         productDiscount.setProductDetail(productDetail);
         return productDiscount;
     }

@@ -13,7 +13,7 @@ import com.example.datn.exceptions.ShopApiException;
 import com.example.datn.repositories.ProductDetailRepository;
 import com.example.datn.repositories.ProductDiscountRepository;
 import com.example.datn.repositories.ProductRepository;
-import com.example.datn.repositories.Specìication.ProductSpecification;
+import com.example.datn.repositories.Specification.ProductSpecification;
 import com.example.datn.services.ProductService;
 import com.example.datn.utils.QRCodeService;
 import org.springframework.beans.factory.annotation.Autowired;

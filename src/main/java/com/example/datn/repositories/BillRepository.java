@@ -4,16 +4,10 @@ import com.example.datn.dto.Bill.BillDetailDtoInterface;
 import com.example.datn.dto.Bill.BillDetailProduct;
 import com.example.datn.dto.Bill.BillDtoInterface;
 import com.example.datn.dto.Refund.RefundDto;
-import com.example.datn.dto.Statistic.DayInMonthStatistic;
-import com.example.datn.dto.Statistic.MonthInYearStatistic;
 import com.example.datn.dto.Statistic.OrderStatistic;
-import com.example.datn.entities.Account;
 import com.example.datn.entities.Bill;
-import com.example.datn.entities.Customer;
-import com.example.datn.entities.Product;
 import com.example.datn.entities.enumClass.BillStatus;
 import com.example.datn.entities.enumClass.InvoiceType;
-import com.example.datn.repositories.Specìication.BillSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Repository
