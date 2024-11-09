@@ -1,4 +1,4 @@
-package com.example.datn.repositories.Specìication;
+package com.example.datn.repositories.Specification;
 
 import com.example.datn.dto.Bill.SearchBillDto;
 import com.example.datn.entities.Bill;

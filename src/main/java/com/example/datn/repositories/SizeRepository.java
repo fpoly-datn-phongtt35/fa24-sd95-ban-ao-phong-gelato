@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SizeRepository extends JpaRepository<Size, Long> {
     @Query(value = "select distinct s from Size s join ProductDetail pd on s.id = pd.size.id where pd.product = :product")
@@ -26,4 +27,7 @@ public interface SizeRepository extends JpaRepository<Size, Long> {
     boolean existsByCodeAndDeleteFlagFalse(String code);
 
     Size findByCodeAndDeleteFlagTrue(String code);
+    // Thêm phương thức để tìm đối tượng Size theo tên
+    Optional<Size> findByName(String name);
+    //Phương thức này tìm kiếm đối tượng Size theo thuộc tính name. Sử dụng Optional giúp xử lý trường hợp không tìm thấy đối tượng để tránh lỗi NullPointerException.
 }
