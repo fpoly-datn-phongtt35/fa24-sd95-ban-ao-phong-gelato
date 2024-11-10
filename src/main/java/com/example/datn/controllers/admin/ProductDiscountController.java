@@ -55,6 +55,18 @@ public class ProductDiscountController {
             @RequestParam(required = false) String color,
             @RequestParam(required = false) String size) {
 
+        // Lấy danh sách các màu sắc và kích cỡ từ repository
+        List<Color> colors = colorRepository.findAll();
+        List<Size> sizes = sizeRepository.findAll();
+
+        // Thêm danh sách vào model để hiển thị trong giao diện
+        model.addAttribute("colors", colors);
+        model.addAttribute("sizes", sizes);
+
+        // Thêm giá trị lọc hiện tại vào model để hiển thị lại trên giao diện
+        model.addAttribute("selectedColor", color);
+        model.addAttribute("selectedSize", size);
+
         Color colorEntity = null;
         Size sizeEntity = null;
 
