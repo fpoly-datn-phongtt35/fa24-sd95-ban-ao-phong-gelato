@@ -166,7 +166,7 @@ public class ProductController {
                 }
             }
             part1Data.setImage(images);
-            productService.save(part1Data);
+            productService.add(part1Data);
         }
 
         session.removeAttribute("randomCreateKey");

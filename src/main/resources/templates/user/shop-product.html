@@ -16,20 +16,25 @@
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10 filter-gender">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" th:classappend="${dataFilter.gender == null} ? 'how-active1'" data-filter="">
+                    <a href="/product" th:classappend="${dataFilter.gender == null} ? 'how-active1'"
+                       class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Tất cả
-                    </button>
+                    </a>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" th:classappend="${dataFilter.gender == '1'} ? 'how-active1'" data-filter="1">
+                    <a href="/product?gender=1" th:classappend="${dataFilter.gender == '1'} ? 'how-active1'"
+                       class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Nam
-                    </button>
+                    </a>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" th:classappend="${dataFilter.gender == '2'} ? 'how-active1'" data-filter="2">
+                    <a href="/product?gender=2" th:classappend="${dataFilter.gender == '2'} ? 'how-active1'"
+                       class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Nữ
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" th:classappend="${dataFilter.gender == '3'} ? 'how-active1'" data-filter="3">
+                    </a>
+
+                    <a href="/product?gender=3" th:classappend="${dataFilter.gender == '3'} ? 'how-active1'"
+                       class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Unisex
-                    </button>
+                    </a>
 
                 </div>
 
@@ -143,10 +148,10 @@
                             </div>
 
                             <div class="flex-w p-t-4 m-r--5 category-filter">
-                                <th:block th:each="category: ${categories}">
+                                <th:block th:each="brand: ${brands}">
                                     <a
-                                            class="category-item-filter flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5" th:data-category="${category.id}">
-                                        [[${category.name}]]
+                                            class="category-item-filter flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5" th:data-category="${brand.id}">
+                                        [[${brand.name}]]
                                     </a>
                                 </th:block>
 
@@ -169,7 +174,7 @@
                             <span class="ribbon1"><span>Sale</span></span>
                         </div>
                         <div class="block2-pic hov-img0" style="height: 250px">
-<!--                            <img th:src="${product.image.get(0).link}" alt="IMG-PRODUCT" style="height: 100%">-->
+                            <!--                            <img th:src="${product.image.get(0).link}" alt="IMG-PRODUCT" style="height: 100%">-->
                             <img th:src="${product.imageUrl}" alt="IMG-PRODUCT" style="height: 100%; width: 100%">
                             <a th:href="@{'/product-detail/' + ${product.code}}"
                                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " th:data-product-id="${product.id}">
@@ -198,10 +203,10 @@
             <nav th:if="${products.totalPages > 0}" class="pagination is-centered mt-4" role="navigation" aria-label="pagination" >
                 <ul class="pagination-list">
                     <li>
-                        <a th:if="${products.pageable.pageNumber != 0 && url == null}" th:href="@{/getproduct?page=0}" class="pagination-link" aria-label="First">
+                        <a th:if="${products.pageable.pageNumber != 0 && url == null}" th:href="@{/product?page=0}" class="pagination-link" aria-label="First">
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                         </a>
-                        <a th:if="${products.pageable.pageNumber != 0 && url != null}" th:href="@{'/getproduct?page=0' + ${url}}" class="pagination-link" aria-label="First">
+                        <a th:if="${products.pageable.pageNumber != 0 && url != null}" th:href="@{'/product?page=0' + ${url}}" class="pagination-link" aria-label="First">
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                         </a>
                         <a th:unless="${products.pageable.pageNumber != 0}" class="pagination-link is-disabled" aria-label="First">
@@ -209,10 +214,10 @@
                         </a>
                     </li>
                     <li>
-                        <a th:if="${products.pageable.pageNumber > 0 && url!=null}" th:href="@{'/getproduct?page=' + ${products.pageable.pageNumber - 1}}" class="pagination-link" aria-label="Previous">
+                        <a th:if="${products.pageable.pageNumber > 0 && url!=null}" th:href="@{'/product?page=' + ${products.pageable.pageNumber - 1}}" class="pagination-link" aria-label="Previous">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                         </a>
-                        <a th:if="${products.pageable.pageNumber > 0 && url!=null}" th:href="@{'/getproduct?page=' + ${products.pageable.pageNumber - 1}}" class="pagination-link" aria-label="Previous">
+                        <a th:if="${products.pageable.pageNumber > 0 && url!=null}" th:href="@{'/product?page=' + ${products.pageable.pageNumber - 1}}" class="pagination-link" aria-label="Previous">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                         </a>
                         <a th:unless="${products.pageable.pageNumber > 0}" class="pagination-link is-disabled" aria-label="Previous">
@@ -221,19 +226,19 @@
                     </li>
 
                     <li th:each="page : ${#numbers.sequence(0, products.totalPages - 1)}">
-                        <a th:if="${url == null}" th:href="@{'/getproduct?page=' + ${page}}" th:classappend="${page == products.pageable.pageNumber} ? 'is-current'" class="pagination-link" aria-label="Page [[${page + 1}]]">
+                        <a th:if="${url == null}" th:href="@{'/product?page=' + ${page}}" th:classappend="${page == products.pageable.pageNumber} ? 'is-current'" class="pagination-link" aria-label="Page [[${page + 1}]]">
                             [[${page + 1}]]
                         </a>
-                        <a th:if="${url != null}" th:href="@{'/getproduct?page=' + ${page} + ${url}}" th:classappend="${page == products.pageable.pageNumber} ? 'is-current'" class="pagination-link" aria-label="Page [[${page + 1}]]">
+                        <a th:if="${url != null}" th:href="@{'/product?page=' + ${page} + ${url}}" th:classappend="${page == products.pageable.pageNumber} ? 'is-current'" class="pagination-link" aria-label="Page [[${page + 1}]]">
                             [[${page + 1}]]
                         </a>
                     </li>
 
                     <li>
-                        <a th:if="${products.pageable.pageNumber < products.totalPages - 1 && url == null}" th:href="@{'/getproduct?page=' + ${products.pageable.pageNumber + 1}}" class="pagination-link" aria-label="Next">
+                        <a th:if="${products.pageable.pageNumber < products.totalPages - 1 && url == null}" th:href="@{'/product?page=' + ${products.pageable.pageNumber + 1}}" class="pagination-link" aria-label="Next">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
-                        <a th:if="${products.pageable.pageNumber < products.totalPages - 1 && url !=null }" th:href="@{'/getproduct?page=' + ${products.pageable.pageNumber + 1} + ${url} }" class="pagination-link" aria-label="Next">
+                        <a th:if="${products.pageable.pageNumber < products.totalPages - 1 && url !=null }" th:href="@{'/product?page=' + ${products.pageable.pageNumber + 1} + ${url} }" class="pagination-link" aria-label="Next">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
 

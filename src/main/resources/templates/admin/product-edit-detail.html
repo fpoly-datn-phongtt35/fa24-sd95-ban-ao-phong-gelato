@@ -80,7 +80,8 @@
                     <label for="file-input" class="label-select-img">
                         <i class="fa fa-plus"></i>
                     </label>
-                    <input id="file-input" type="file" multiple accept="image/*"/>
+                    <input id="file-input" type="file" name="removeImageId" multiple accept="image/*"/>
+                    <input type="hidden" >
                 </div>
             </div>
         </div>
@@ -171,6 +172,9 @@
             removeImageId.push(selectedImageEle.find('.exists-image').attr("data-image"))
             selectedImageEle.remove()
         })
+        $('form').on('submit', function () {
+            $('#file-input').val(JSON.stringify(removeImageId));
+        });
 
         // Xử lý thêm thuộc tính
         function addItem() {
