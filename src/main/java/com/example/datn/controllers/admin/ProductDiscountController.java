@@ -49,12 +49,8 @@ public class ProductDiscountController {
     }
 
     @GetMapping("/admin-only/product-discount")
-    public String viewProductDiscountPage(
-            Model model,
-            Pageable pageable,
-            @RequestParam(required = false) String color,
-            @RequestParam(required = false) String size) {
-
+    public String viewProductDiscountPage(Model model, @RequestParam(required = false, name = "color") String color,
+                                          @RequestParam(required = false, name = "size") String size) {
         // Lấy danh sách các màu sắc và kích cỡ từ repository
         List<Color> colors = colorRepository.findAll();
         List<Size> sizes = sizeRepository.findAll();

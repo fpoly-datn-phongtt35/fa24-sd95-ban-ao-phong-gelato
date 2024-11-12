@@ -25,12 +25,15 @@ public interface ProductDiscountRepository extends JpaRepository<ProductDiscount
     ProductDiscount findValidDiscountByProductDetailId(@Param("productDetailId") Long productDetailId);
 
     // Thêm phương thức truy vấn dựa trên đối tượng Color
+//    @Query("SELECT pd FROM ProductDiscount pd WHERE pd.productDetail.color = :color")
     List<ProductDiscount> findByProductDetail_Color(Color color);
 
     // Thêm phương thức truy vấn dựa trên đối tượng Size
+//    @Query("SELECT pd FROM ProductDiscount pd WHERE pd.productDetail.size = :size")
     List<ProductDiscount> findByProductDetail_Size(Size size);
 
     // Thêm phương thức truy vấn dựa trên đối tượng Color và Size
+//    @Query("SELECT pd FROM ProductDiscount pd WHERE pd.productDetail.color = :color AND pd.productDetail.size = :size")
     List<ProductDiscount> findByProductDetail_ColorAndProductDetail_Size(Color color, Size size);
 
 
