@@ -15,7 +15,6 @@ public class PaymentMethod implements Serializable{
     @Id
     private Long id;
 
-    @Nationalized
     @Enumerated(EnumType.STRING)
     private PaymentMethodName name;
     private int status;

@@ -36,14 +36,7 @@
                                 th:text="${material.name}" th:selected="${material.id == chatLieu}"></option>
                     </select>
                 </div>
-                <div class="form-group col-md-2">
-                    <label>Thể loại</label>
-                    <select class="form-select" id="theLoai" name="theLoai" th:value="${theLoai}">
-                        <option th:value="null">Tất cả</option>
-                        <option th:value="${category.id}" th:each="category: ${listCategory}"
-                                th:text="${category.name}" th:selected="${category.id == theLoai}"></option>
-                    </select>
-                </div>
+               
                 <div class="form-group col-md-2">
                     <label>Trạng thái</label>
                     <select class="form-select" id="trangThai" name="trangThai" th:value="${trangThai}">
