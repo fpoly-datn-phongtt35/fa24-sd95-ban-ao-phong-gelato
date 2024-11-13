@@ -133,7 +133,7 @@ public class BillController {
     public void exportBill(
             HttpServletResponse response,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "sort", defaultValue = "createDate,desc") String sortField,
+            @RequestParam(name = "sort", defaultValue = "create_Date,desc") String sortField,
             @RequestParam(name = "ngayTaoStart", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoStart,
             @RequestParam(name  = "ngayTaoEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoEnd,
             UriComponentsBuilder uriBuilder
