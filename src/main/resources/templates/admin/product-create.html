@@ -100,20 +100,18 @@
     <h4>Thông tin sản phẩm</h4>
     <form th:object="${product}" th:method="post" th:action="${action}" id="formProduct1">
         <div class="my-3">
+            <div class="form-group col-md-6" style="display: none">
+                <label>Mã sản phẩm</label>
+                <input type="text" class="form-control" th:field="*{code}" placeholder="---Mã tự động nếu để trống---">
+                <span class="error"></span>
+            </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Mã sản phẩm</label>
-                    <input type="text" class="form-control" th:field="*{code}" placeholder="---Mã tự động nếu để trống---">
-                    <span class="error"></span>
-                </div>
                 <div class="form-group col-md-6">
                     <label>Tên sản phẩm</label>
                     <span class="red_require"> *</span>
-                    <input type="text" class="form-control" th:field="*{name}">
+                    <input type="text" class="form-control" th:field="*{name}" placeholder="Mời nhập tên sản phẩm">
                     <span class="error"></span>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="select-container">
                         <label>Nhãn hàng</label>
@@ -123,10 +121,8 @@
                                     th:text="${brand.name}"></option>
                         </select>
                         <span id="add-brand" class="plus-icon"><i class="fas fa-plus"></i></span>
-
                     </div>
                 </div>
-
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -162,7 +158,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Mô tả</label>
-                    <textarea class="form-control" th:field="*{describe}" rows="3"></textarea>
+                    <textarea class="form-control" th:field="*{describe}" rows="3" placeholder="Mời nhập mô tả (nếu có)"></textarea>
                     <span class="error"></span>
                 </div>
             </div>

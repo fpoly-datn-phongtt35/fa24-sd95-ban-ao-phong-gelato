@@ -97,23 +97,12 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Chất liệu</label>
                     <span class="red_require"> *</span>
                     <select class="form-select" th:field="*{material}">
                         <option th:value="${material.id}" th:each="material: ${listMaterial}"
                                 th:text="${material.name}"></option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Trạng thái</label>
-                    <span class="red_require"> *</span>
-                    <select class="form-select" th:field="*{status}">
-                        <!--                        <option th:value="0" th:text="'Đang khởi tạo'" ></option>-->
-                        <option th:value="1" th:text="'Còn bán'"></option>
-                        <option th:value="2" th:text="'Ngừng bán'"></option>
                     </select>
                 </div>
             </div>
@@ -127,6 +116,17 @@
                         <option th:value="3" th:text="'Unisex'"></option>
                     </select>
                 </div>
+                <div class="form-group col-md-6">
+                    <label>Trạng thái</label>
+                    <span class="red_require"> *</span>
+                    <select class="form-select" th:field="*{status}">
+                        <!--                        <option th:value="0" th:text="'Đang khởi tạo'" ></option>-->
+                        <option th:value="1" th:text="'Còn bán'"></option>
+                        <option th:value="2" th:text="'Ngừng bán'"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Mô tả</label>
                     <textarea class="form-control" th:field="*{describe}" th:text="${product.describe}"

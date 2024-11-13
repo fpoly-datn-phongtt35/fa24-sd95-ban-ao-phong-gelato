@@ -6,7 +6,7 @@ import com.example.datn.entities.DiscountCode;
 import com.example.datn.exceptions.NotFoundException;
 import com.example.datn.exceptions.ShopApiException;
 import com.example.datn.repositories.DiscountCodeRepository;
-import com.example.datn.repositories.Specìication.DiscountCodeSpec;
+import com.example.datn.repositories.Specification.DiscountCodeSpec;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

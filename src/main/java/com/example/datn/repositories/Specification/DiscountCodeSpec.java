@@ -1,4 +1,4 @@
-package com.example.datn.repositories.Specìication;
+package com.example.datn.repositories.Specification;
 
 import com.example.datn.dto.DiscountCode.SearchDiscountCodeDto;
 import com.example.datn.entities.DiscountCode;
