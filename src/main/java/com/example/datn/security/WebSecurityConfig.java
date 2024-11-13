@@ -62,17 +62,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public AuthenticationSuccessHandler successHandler() {
-//        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-//        var r=SecurityContextHolder.getContext();
-//        successHandler.setDefaultTargetUrl("/"); // Đường dẫn mặc định nếu không có SavedRequest
-//        successHandler.setUseReferer(true); // Có thể tùy chọn, nếu bạn muốn sử dụng địa chỉ trước đó
-//
-//        return successHandler;
-//    }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();

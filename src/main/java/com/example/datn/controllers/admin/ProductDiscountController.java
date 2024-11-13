@@ -63,9 +63,6 @@ public class ProductDiscountController {
         model.addAttribute("selectedColor", color);
         model.addAttribute("selectedSize", size);
 
-        // Lấy danh sách các màu sắc và kích cỡ từ repository
-        List<Color> colors = colorRepository.findAll();
-        List<Size> sizes = sizeRepository.findAll();
 
         // Thêm danh sách vào model để hiển thị trong giao diện
         model.addAttribute("colors", colors);
