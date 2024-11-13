@@ -13,7 +13,7 @@ import com.example.datn.exceptions.ShopApiException;
 import com.example.datn.repositories.ProductDetailRepository;
 import com.example.datn.repositories.ProductDiscountRepository;
 import com.example.datn.repositories.ProductRepository;
-import com.example.datn.repositories.Specìication.ProductSpecification;
+import com.example.datn.repositories.Specification.ProductSpecification;
 import com.example.datn.services.ProductService;
 import com.example.datn.utils.QRCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,34 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) throws IOException {
+        Product existingProduct = productRepository.findById(product.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
+        // Cập nhật các thuộc tính
+        existingProduct.setName(product.getName());
+        existingProduct.setBrand(product.getBrand());
+        existingProduct.setMaterial(product.getMaterial());
+        existingProduct.setStatus(product.getStatus());
+        existingProduct.setGender(product.getGender());
+        existingProduct.setDescribe(product.getDescribe());
+
+        // Cập nhật danh sách chi tiết sản phẩm nếu có
+        if (product.getProductDetails() != null) {
+            existingProduct.getProductDetails().clear();
+            existingProduct.getProductDetails().addAll(product.getProductDetails());
+        }
+
+        // Cập nhật danh sách ảnh nếu có
+        if (product.getImage() != null) {
+            existingProduct.getImage().clear();
+            existingProduct.getImage().addAll(product.getImage());
+        }
+
+        return productRepository.save(existingProduct);
+    }
+
+    @Override
+    public Product add(Product product) throws IOException {
         if(product.getCode().trim() == "" || product.getCode() == null) {
             Product productCurrent = productRepository.findTopByOrderByIdDesc();
             Long nextCode = (productCurrent == null) ? 1 : productCurrent.getId() + 1;
@@ -65,7 +92,7 @@ public class ProductServiceImpl implements ProductService {
 
         Double minPrice = Double.valueOf(1000000000);
         for (ProductDetail productDetail:
-             product.getProductDetails()) {
+                product.getProductDetails()) {
             if(productDetail.getPrice() < minPrice) {
                 minPrice = productDetail.getPrice();
             }

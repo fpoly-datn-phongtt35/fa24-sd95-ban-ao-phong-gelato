@@ -1,15 +1,14 @@
-package com.example.datn.repositories.Specìication;
+package com.example.datn.repositories.Specification;
 
 import com.example.datn.dto.Bill.SearchBillDto;
 import com.example.datn.entities.Bill;
-import com.example.datn.entities.enumClass.BillStatus;
 import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 

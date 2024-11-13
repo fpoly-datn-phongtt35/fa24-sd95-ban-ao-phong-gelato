@@ -20,6 +20,8 @@ public interface ProductService {
 
     Product save(Product product) throws IOException;
 
+    Product add(Product product) throws IOException;
+
     Product delete(Long id);
 
 

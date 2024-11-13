@@ -10,9 +10,7 @@ import com.example.datn.entities.enumClass.InvoiceType;
 import com.example.datn.exceptions.NotFoundException;
 import com.example.datn.repositories.BillRepository;
 import com.example.datn.repositories.ProductDetailRepository;
-import com.example.datn.repositories.ProductRepository;
-import com.example.datn.repositories.Specìication.BillSpecification;
-import com.example.datn.repositories.Specìication.ProductSpecification;
+import com.example.datn.repositories.Specification.BillSpecification;
 import com.example.datn.services.BillService;
 import com.example.datn.utils.UserLoginUtil;
 import org.apache.poi.common.usermodel.HyperlinkType;
@@ -26,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import jakarta.servlet.http.HttpServletResponse;
-import javax.swing.text.DateFormatter;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.NumberFormat;
