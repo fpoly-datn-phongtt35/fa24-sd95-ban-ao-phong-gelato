@@ -36,17 +36,12 @@
                                 th:text="${material.name}" th:selected="${material.id == chatLieu}"></option>
                     </select>
                 </div>
-
-               
-                <div class="form-group col-md-2">
-
                 <div class="form-group col">
-
                     <label>Trạng thái</label>
                     <select class="form-select form-control" id="trangThai" name="trangThai" th:value="${trangThai}">
                         <option th:value="null">Tất cả</option>
-                        <option value="1" th:text="'Còn bán'" th:selected="${trangThai == 1}"></option>
-                        <option value="2" th:text="'Ngừng bán'" th:selected="${trangThai == 2}"></option>
+                        <option th:value="1" th:text="'Còn bán'" th:selected="${trangThai == 1}"></option>
+                        <option th:value="2" th:text="'Ngừng bán'" th:selected="${trangThai == 2}"></option>
                     </select>
                 </div>
             </div>
@@ -54,7 +49,6 @@
                 <button type="submit" class="btn btn-primary m-1"><i class="fa fa-search"></i> Tìm kiếm</button>
                 <a th:href="@{/admin/product-all}" class="btn btn-secondary m-1"> Hủy bỏ</a>
             </div>
-        </div>
     </form>
     <a href="/admin/product-create" class="btn btn-success my-3 float-right"><i class="fa fa-plus-square"></i> <span>Thêm sản phẩm</span></a>
     <table class="table my-3">
