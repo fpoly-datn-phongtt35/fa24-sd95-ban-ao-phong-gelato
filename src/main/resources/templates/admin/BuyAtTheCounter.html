@@ -495,8 +495,7 @@
 
             <div class="payment-method-group mt-4">
                 <input type="radio" th:value="1" name="paymentMethod" id="payment-offline" checked> <label
-                    class="mr-2">Tiền
-                mặt</label>
+                    class="mr-2">Tiền mặt</label>
                 <!-- <input type="radio" th:value="4" name="paymentMethod" id="payment-card"> <label
                 class="mr-2">Thẻ</label> -->
                 <input type="radio" value="3" name="paymentMethod" id="payment-online"> <label class="mr-2">Chuyển
@@ -1450,20 +1449,22 @@
                     $('#voucher-modal').addClass('hidden')
                 }
 
-                //===========================================ẤN NÚT THANH TOÁN=====================
+                // Xử lý sự kiện nút "Thanh toán"
                 $('#submitBtn').on('click', handleSubmit);
 
-                var dataSendIfChuyenKhoan
+                let dataSendIfChuyenKhoan;
+
                 async function handleSubmit() {
-                    const customerId = $(".selected-customer.active").attr("selected-id") || ""
-                    const voucherId = $(".selected-voucher.active").attr("selected-id") || ""
-                    var orderDetails = []
+                    const customerId = $(".selected-customer.active").attr("selected-id") || "";
+                    const voucherId = $(".selected-voucher.active").attr("selected-id") || "";
+                    let orderDetails = [];
+
                     $(".product-select-body.active .product-select-item").each(function () {
                         orderDetails.push({
                             productDetailId: $(this).attr("data-product-detail-id"),
                             quantity: $(this).find(".product-select-quantity").val()
-                        })
-                    })
+                        });
+                    });
 
                     if (orderDetails.length <= 0) {
                         Swal.fire({
@@ -1474,23 +1475,14 @@
                         return;
                     }
 
-                    if(pay.customerPay == '') {
-                        Swal.fire({
-                            title: "Lỗi",
-                            text: "Vui lòng nhập số tiền khách đưa",
-                            icon: "error"
-                        });
-                        return;
-                    }
+                    const customerPay = $('#customerPayInput').val();
 
-                    const promotionPrice = parseInt(removeAnyNonDigit($("#voucher-discount").text())) + parseInt(removeAnyNonDigit($("#product-discount").text()))
 
-                    var paymentMethodId = $('input[name="paymentMethod"]:checked').val()
+                    const promotionPrice = parseInt(removeAnyNonDigit($("#voucher-discount").text())) + parseInt(removeAnyNonDigit($("#product-discount").text()));
+                    const paymentMethodId = $('input[name="paymentMethod"]:checked').val();
 
-                    var dataSend = {
-                        customer: {
-                            id: customerId
-                        },
+                    const dataSend = {
+                        customer: { id: customerId },
                         paymentMethodId: paymentMethodId,
                         billingAddress: "Cửa hàng Quang đẹp trai",
                         promotionPrice: promotionPrice,
@@ -1498,20 +1490,43 @@
                         orderDetailDtos: orderDetails
                     };
 
-                    // Xử lý khi pt thanh toán là chuyển khoản
                     if (paymentMethodId == 3) {
                         $(".qr-payment-container").removeClass('hidden');
-                        $(".qr-payment-container").find('img').attr("src", `https://img.vietqr.io/image/TPB-09682510204-compact2.jpg?amount=${pay.requireMoney}&addInfo=Thanh%20%20toan%20don%20hang&accountName=Tran%20Ngoc%20Quang`);                        dataSendIfChuyenKhoan = dataSend;
+                        $(".qr-payment-container").find('img').attr("src", `https://img.vietqr.io/image/TPB-09682510204-compact2.jpg?amount=${pay.requireMoney}&addInfo=Thanh%20%20toan%20don%20hang&accountName=Tran%20Ngoc%20Quang`);
+                        dataSendIfChuyenKhoan = dataSend;
                     } else {
-                        // Execute the AJAX request directly for other payment methods
                         await handleAjaxRequest(dataSend);
                     }
                 }
 
-                // Gọi thanh toán
+// Gọi thanh toán
                 async function handleAjaxRequest(dataSend) {
-                    //============================================== XỬ LÝ THANH TOÁN =============================================
+                    const paymentMethod = $('input[name="paymentMethod"]:checked').val();
+                    const customerPayInput = parseFloat($('#customerPayInput').val().replace(/\./g, '').replace(/,/g, '.'));
+                    const lastPrice = parseFloat($('#last-price').text().replace(/\./g, '').replace(/,/g, '.'));
+
+
+                    if (paymentMethod == 1) { // Tiền mặt
+                        if (!customerPayInput || isNaN(parseFloat(customerPayInput))) {
+                            Swal.fire({
+                                title: "Lỗi",
+                                text: "Vui lòng nhập số tiền khách đưa",
+                                icon: "error"
+                            });
+                            return;
+                        } else if (customerPayInput < lastPrice) {
+                            Swal.fire({
+                                title: "Lỗi",
+                                text: "Số tiền khách đưa phải lớn hơn hoặc bằng số tiền cần thanh toán",
+                                icon: "error"
+                            });
+                            return;
+                        }
+                    }
+
+                    // Xử lý thanh toán
                     $('#loading-overlay').show();
+
                     await $.ajax({
                         type: 'POST',
                         url: '/api/orderAdmin',
@@ -1519,42 +1534,36 @@
                         contentType: "application/json; charset=utf-8",
                         success: async function (data) {
                             $('#loading-overlay').hide();
-                            $(".product-select-body.active").html('')
-                            resetPayArea()
+                            $(".product-select-body.active").html('');
+                            resetPayArea();
                             Toastify({
                                 text: "Thanh toán thành công",
                                 className: "info",
                                 style: {
-                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)"
                                 }
                             }).showToast();
 
-                            //Lấy bill vừa lưu
-                            var generateUrl = `/admin/generate-pdf/${data.billId}`;
-                            // Fetch the HTML content from the controller
+                            const generateUrl = `/admin/generate-pdf/${data.billId}`;
                             await fetch(generateUrl)
                                 .then(response => response.text())
                                 .then(htmlContent => {
-
-                                    // Config máy in
-                                    var printWindow = window.open('', '', 'width=800,height=1000');
+                                    const printWindow = window.open('', '', 'width=800,height=1000');
                                     printWindow.document.open();
-
                                     printWindow.document.write(htmlContent);
                                     printWindow.document.close();
                                     printWindow.print();
-
                                 })
                                 .catch(error => {
                                     $('#loading-overlay').hide();
                                     Swal.fire({
                                         title: "Lỗi",
-                                        text: "Lỗi export pdf phía server",
+                                        text: "Lỗi xuất PDF phía server",
                                         icon: "error"
                                     });
                                 });
                         },
-                        error: function (xhr, status, error) {
+                        error: function (xhr) {
                             $('#loading-overlay').hide();
                             Swal.fire({
                                 title: "Lỗi",
@@ -1562,23 +1571,24 @@
                                 icon: "error"
                             });
                         }
-                    })
+                    });
                 }
 
+// Xử lý sự kiện nút thanh toán
                 $("#confirm-pay").click(function () {
                     handleAjaxRequest(dataSendIfChuyenKhoan);
                 });
 
-                // Xử lý click nút close modal khi chuyển khoản
+// Xử lý khi đóng modal chuyển khoản
                 $(".close-modal-payment").click(function () {
                     $(".qr-payment-container").addClass('hidden');
+                });
 
-                })
-
-                // Format dạng 1.000
+// Format dạng 1.000
                 function formatNumber(number) {
                     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 }
+
 
 //-------------------------- ========XỬ LÝ QUÉT MÃ========== ================================-----------------------------------------------------
                 var video = document.getElementById("qr-video");
