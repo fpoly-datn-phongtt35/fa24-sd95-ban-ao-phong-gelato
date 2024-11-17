@@ -49,8 +49,16 @@ public class ProductDiscountController {
     }
 
     @GetMapping("/admin-only/product-discount")
-    public String viewProductDiscountPage(Model model, @RequestParam(required = false, name = "color") String color,
-                                          @RequestParam(required = false, name = "size") String size) {
+    public String viewProductDiscountPage(Model model) {
+        List<ProductDiscount> productDiscountList = productDiscountRepository.findAll();
+        model.addAttribute("productDiscounts", productDiscountList);
+        return "/admin/product-discount";
+    }
+
+    @GetMapping("/admin-only/product-discount-create")
+    public String viewProductDiscountCreatePage(Model model, @RequestParam(required = false, name = "color") String color,
+                                                @RequestParam(required = false, name = "size") String size) {
+        List<Product> products = productRepository.findAll();
         // Lấy danh sách các màu sắc và kích cỡ từ repository
         List<Color> colors = colorRepository.findAll();
         List<Size> sizes = sizeRepository.findAll();
@@ -86,14 +94,7 @@ public class ProductDiscountController {
         }
 
         List<ProductDiscount> productDiscountList = productDiscountService.getAllProductDiscount(colorEntity, sizeEntity);
-        model.addAttribute("productDiscounts", productDiscountList);
-        return "/admin/product-discount";
-    }
-
-    @GetMapping("/admin-only/product-discount-create")
-    public String viewProductDiscountCreatePage(Model model) {
-        List<Product> products = productRepository.findAll();
-        model.addAttribute("products", products);
+        model.addAttribute("products", productDiscountList);
         return "/admin/product-discount-create";
     }
 

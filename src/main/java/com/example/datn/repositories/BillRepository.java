@@ -128,22 +128,14 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "    b.status = 'HOAN_THANH';", nativeQuery = true)
     Double calculateTotalRevenue();
 
-    @Query(value = "SELECT\n" +
-            "    COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS total\n" +
-            "FROM\n" +
-            "    bill b\n" +
-            "LEFT JOIN\n" +
-            "    bill_return br ON b.id = br.bill_id\n" +
-            "LEFT JOIN\n" +
-            "    return_detail rd ON br.id = rd.id\n" +
-            "LEFT JOIN\n" +
-            "    product_detail pd ON rd.product_detail_id = pd.id\n" +
-            "WHERE\n" +
-            "    b.status = 'HOAN_THANH'\n" +
-            "    AND (\n" +
-            "        (b.create_date BETWEEN :startDate AND :endDate)\n" +
-
-            "    )", nativeQuery = true)
+    @Query(value = "SELECT " +
+            "COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS total " +
+            "FROM bill b " +
+            "LEFT JOIN bill_return br ON b.id = br.bill_id " +
+            "LEFT JOIN return_detail rd ON br.id = rd.id " +
+            "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
+            "WHERE b.status = 'HOAN_THANH' " +
+            "AND (b.create_date BETWEEN CONVERT(DATETIME, :startDate, 120) AND CONVERT(DATETIME, :endDate, 120))", nativeQuery = true)
     Double calculateTotalRevenueFromDate(String startDate, String endDate);
 
 
@@ -181,24 +173,16 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "FORMAT(b.create_date, 'MM-yyyy');", nativeQuery = true)
     List<Object[]> statisticRevenueFormMonth(String fromDate, String toDate);
 
-    @Query(value = "SELECT \n" +
-            "    CONVERT(varchar, b.create_date, 23) AS date,\n" +
-            "    COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue\n" +
-            "FROM \n" +
-            "    bill b \n" +
-            "    LEFT JOIN bill_return br ON b.id = br.bill_id \n" +
-            "    LEFT JOIN return_detail rd ON br.id = rd.id\n" +
-            "    LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
-            "WHERE \n" +
-            "    b.status = 'HOAN_THANH' AND \n" +
-            "    (\n" +
-            "        (b.create_date BETWEEN :fromDate AND :toDate)\n" +
-            "    )\n" +
-            "GROUP BY \n" +
-            "    CONVERT(varchar, b.create_date, 23)\n" +
-            "ORDER BY \n" +
-            "    CONVERT(varchar, b.create_date, 23)", nativeQuery = true)
-    List<Object[]> statisticRevenueDaily(String fromDate, String toDate);
+    @Query(value = "SELECT CONVERT(varchar, b.create_date, 23) AS date, " +
+            "COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue " +
+            "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id " +
+            "LEFT JOIN return_detail rd ON br.id = rd.id " +
+            "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
+            "WHERE b.status = 'HOAN_THANH' AND " +
+            "b.create_date BETWEEN CONVERT(DATETIME, :fromDate, 120) AND CONVERT(DATETIME, :toDate, 120) " +
+            "GROUP BY CONVERT(varchar, b.create_date, 23) " +
+            "ORDER BY CONVERT(varchar, b.create_date, 23)", nativeQuery = true)
+    List<Object[]> statisticRevenueDaily(@Param("fromDate") String fromDate, @Param("toDate") String toDate);
 
     @Query(value = "select status, count(b.status) as quantity, sum(b.amount) as revenue from bill b group by b.status", nativeQuery = true)
     List<OrderStatistic> statisticOrder();
