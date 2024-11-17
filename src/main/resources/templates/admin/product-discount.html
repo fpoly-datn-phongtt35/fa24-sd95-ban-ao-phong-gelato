@@ -102,34 +102,34 @@
             <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
 
             <div class="mt-3">
-                <form id="filterForm" class="d-flex mb-3">
-                    <div class="me-2">
-                        <label for="colorFilter" class="form-label">Màu sắc</label>
-                        <select id="colorFilter" name="color" class="form-select">
-                            <option value="">Chọn màu sắc</option>
-                            <th:block th:each="color : ${colors}">
-                                <option th:value="${color.name}" th:text="${color.name}" th:selected="${color.name == selectedColor}"></option>
+<!--                <form id="filterForm" class="d-flex mb-3">-->
+<!--                    <div class="me-2">-->
+<!--                        <label for="colorFilter" class="form-label">Màu sắc</label>-->
+<!--                        <select id="colorFilter" name="color" class="form-select">-->
+<!--                            <option value="">Chọn màu sắc</option>-->
+<!--                            <th:block th:each="color : ${colors}">-->
+<!--                                <option th:value="${color.name}" th:text="${color.name}" th:selected="${color.name == selectedColor}"></option>-->
 
 
-                            </th:block>
-                        </select>
-                    </div>
-                    <div class="me-2">
-                        <label for="sizeFilter" class="form-label">Kích cỡ</label>
-                        <select id="sizeFilter" name="size" class="form-select">
-                            <option value="">Chọn kích cỡ</option>
-                            <th:block th:each="size : ${sizes}">
-                                <option th:value="${size.name}" th:text="${size.name}" th:selected="${size.name == selectedSize}"></option>
-                            </th:block>
-                        </select>
-                    </div>
-                    <button type="button" id="filterBtn" class="btn btn-primary align-self-end me-2">
-                        <i class="bi bi-funnel"></i> Lọc
-                    </button>
-                    <button type="button" id="resetBtn" class="btn btn-secondary align-self-end ms-2">
-                        <i class="bi bi-x-circle"></i> Hủy
-                    </button>
-                </form>
+<!--                            </th:block>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="me-2">-->
+<!--                        <label for="sizeFilter" class="form-label">Kích cỡ</label>-->
+<!--                        <select id="sizeFilter" name="size" class="form-select">-->
+<!--                            <option value="">Chọn kích cỡ</option>-->
+<!--                            <th:block th:each="size : ${sizes}">-->
+<!--                                <option th:value="${size.name}" th:text="${size.name}" th:selected="${size.name == selectedSize}"></option>-->
+<!--                            </th:block>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <button type="button" id="filterBtn" class="btn btn-primary align-self-end me-2">-->
+<!--                        <i class="bi bi-funnel"></i> Lọc-->
+<!--                    </button>-->
+<!--                    <button type="button" id="resetBtn" class="btn btn-secondary align-self-end ms-2">-->
+<!--                        <i class="bi bi-x-circle"></i> Hủy-->
+<!--                    </button>-->
+<!--                </form>-->
 
                 <table id="myTable" class="table table-striped">
                     <thead>
@@ -192,22 +192,22 @@
                     }
                 });
 
-                // Thiết lập sự kiện cho nút Lọc
-                $('#filterBtn').on('click', function () {
-                    var color = $('#colorFilter').val();
-                    var size = $('#sizeFilter').val();
-                    var url = `/admin-only/product-discount?color=${encodeURIComponent(color)}&size=${encodeURIComponent(size)}`;
-                    window.location.href = url; // Điều hướng đến URL có tham số lọc
-                });
-                // Sự kiện cho nút Hủy
-                $('#resetBtn').on('click', function () {
-                    // Xóa giá trị trong các ô input lọc
-                    $('#colorFilter').val('');
-                    $('#sizeFilter').val('');
-
-                    // Điều hướng về trang không có tham số lọc
-                    window.location.href = '/admin-only/product-discount';
-                });
+                // // Thiết lập sự kiện cho nút Lọc
+                // $('#filterBtn').on('click', function () {
+                //     var color = $('#colorFilter').val();
+                //     var size = $('#sizeFilter').val();
+                //     var url = `/admin-only/product-discount?color=${encodeURIComponent(color)}&size=${encodeURIComponent(size)}`;
+                //     window.location.href = url; // Điều hướng đến URL có tham số lọc
+                // });
+                // // Sự kiện cho nút Hủy
+                // $('#resetBtn').on('click', function () {
+                //     // Xóa giá trị trong các ô input lọc
+                //     $('#colorFilter').val('');
+                //     $('#sizeFilter').val('');
+                //
+                //     // Điều hướng về trang không có tham số lọc
+                //     window.location.href = '/admin-only/product-discount';
+                // });
                 // Thiết lập sự kiện cho các nút Đóng/Mở giảm giá
                 setEvent();
                 function setEvent() {

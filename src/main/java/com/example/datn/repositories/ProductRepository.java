@@ -25,12 +25,13 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     Page<Product> findAllByStatus(int status, Pageable pageable);
     Page<Product> findAllByStatusAndDeleteFlag(int status, boolean deleteFlag, Pageable pageable);
+
     @Query(value = "SELECT p.id as id, " +
             "p.code as code, " +
             "p.name as name, " +
             "br.name as brandName, " +
             "mt.name as materialName, " +
-            "p.price as price " +  // Nếu bạn cần lấy giá, hãy thêm trường này
+            "p.price as price " +
             "FROM Product p " +
             "INNER JOIN Brand br ON br.id = p.brand.id " +
             "INNER JOIN Material mt ON mt.id = p.material.id " +
@@ -58,35 +59,22 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "            join product p on p.id = pd.product_id left join bill_return br on br.bill_id = b.id\n" +
             "            join brand on brand.id = p.brand_id" +
             "            where b.status = 'HOAN_THANH'\n" +
-            "            group by p.id, p.code, p.name, brand.name, cat.name order by totalQuantity DESC", nativeQuery = true)
+            "            group by p.id, p.code, p.name, brand.name order by totalQuantity DESC", nativeQuery = true)
     List<BestSellerProduct> getBestSellerProduct();
 
-    @Query(value = "SELECT top(10)  p.id, p.code, p.name, (SELECT top(1) image.link FROM image WHERE image.product_id = p.id) as imageUrl , brand.name as brand, cat.name as category, COALESCE(SUM(bd.quantity),0) AS totalQuantity, COALESCE(SUM(bd.return_quantity),0) AS totalQuantityReturn, SUM(bd.quantity * bd.moment_price) as revenue\n" +
+    @Query(value = "SELECT top(10)  p.id, p.code, p.name, (SELECT top(1) image.link FROM image WHERE image.product_id = p.id) as imageUrl , brand.name as brand, COALESCE(SUM(bd.quantity),0) AS totalQuantity, COALESCE(SUM(bd.return_quantity),0) AS totalQuantityReturn, SUM(bd.quantity * bd.moment_price) as revenue\n" +
             "             from bill b join bill_detail bd on b.id = bd.bill_id join product_detail pd on pd.id = bd.product_detail_id \n" +
             "            join product p on p.id = pd.product_id left join bill_return br on br.bill_id = b.id\n" +
-            "            join brand on brand.id = p.brand_id join category cat on cat.id = p.category_id\n" +
+            "            join brand on brand.id = p.brand_id\n" +
             "            where b.status = 'HOAN_THANH' and b.create_date BETWEEN :fromDate AND :toDate \n" +
-            "            group by p.id, p.code, p.name, brand.name, cat.name order by totalQuantity DESC", nativeQuery = true)
+            "            group by p.id, p.code, p.name, brand.name order by totalQuantity DESC", nativeQuery = true)
     List<BestSellerProduct> getBestSellerProduct(String fromDate, String toDate);
-
-//    @Query(value = "SELECT  p.id, p.code, p.name, COALESCE(SUM(bd.quantity),0) AS totalQuantity, COALESCE(SUM(bd.return_quantity),0) AS totalQuantityReturn, SUM(bd.quantity * bd.moment_price) as revenue\n" +
-//            "FROM bill b\n" +
-//            "\t JOIN bill_detail bd ON bd.id = b.id\n" +
-//            "\t JOIN product_detail pd ON bd.id = pd.id\n" +
-//            "\t JOIN product p on p.id = pd.product_id\n" +
-//            "\tleft join bill_return br ON b.id = br.bill_id\n" +
-//            "\tleft JOIN return_detail rd ON br.id = rd.id\n" +
-//            "\t JOIN image i on i.product_id = p.id\n" +
-//            "WHERE b.status = 'HOAN_THANH' AND b.create_date BETWEEN :fromDate AND :toDate\n" +
-//            "GROUP BY p.id, p.code, p.name",nativeQuery = true)
-//    List<ProductStatistic> getStatisticProduct(String fromDate, String toDate);
 
     @Query(value = "SELECT\n" +
             "    p.id,\n" +
             "    p.code,\n" +
             "    p.name,\n" +
             "    brand.name AS brand,\n" +
-            "    cat.name AS category,\n" +
             "    COALESCE(SUM(bd.quantity), 0) AS totalQuantity,\n" +
             "    COALESCE(SUM(bd.return_quantity), 0) AS totalQuantityReturn,\n" +
             "    COALESCE(SUM(bd.quantity * bd.moment_price), 0) AS revenue\n" +
@@ -100,10 +88,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "    bill b ON bd.bill_id = b.id\n" +
             "LEFT JOIN\n" +
             "    brand ON brand.id = p.brand_id \n" +
-            "LEFT JOIN\n" +
-            "    category cat ON cat.id = p.category_id\n" +
             "WHERE (b.status = 'HOAN_THANH' AND b.create_date between :fromDate AND :toDate OR b.status IS NULL) \n" +
             "GROUP BY\n" +
-            "    p.id, p.code, p.name, brand.name, cat.name;", nativeQuery = true)
+            "    p.id, p.code, p.name, brand.name;", nativeQuery = true)
     List<ProductStatistic> getStatisticProduct(String fromDate, String toDate);
 }
