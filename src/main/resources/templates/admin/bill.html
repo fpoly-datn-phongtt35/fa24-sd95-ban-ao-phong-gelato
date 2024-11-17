@@ -30,7 +30,7 @@
                 <div class="form-group col-md-2">
                     <label for="trangThai">Trạng thái</label>
                     <select class="form-select" id="trangThai" name="trangThai">
-                        <option value="">Tất cả</option>
+
                         <option value="CHO_XAC_NHAN" th:selected="${trangThai == 'CHO_XAC_NHAN'}">Chờ xác nhận</option>
                         <option value="CHO_LAY_HANG" th:selected="${trangThai == 'CHO_LAY_HANG'}">Chờ lấy hàng</option>
                         <option value="CHO_GIAO_HANG" th:selected="${trangThai == 'CHO_GIAO_HANG'}">Chờ giao hàng</option>
@@ -61,9 +61,9 @@
             </div>
             <button type="submit" class="btn btn-primary m-1"><i class="fa fa-search"></i> Tìm kiếm</button>
             <a th:href="@{/admin/bill-list}" class="btn btn-secondary m-1"> Hủy bỏ</a>
-            <a href="#" onclick="exportToExcel()">
-                <button type="button" class="btn btn-success m-1"><i class="far fa-file-excel"></i> Export</button>
-            </a>
+<!--            <a href="#" onclick="exportToExcel()">-->
+<!--                <button type="button" class="btn btn-success m-1"><i class="far fa-file-excel"></i> Export</button>-->
+<!--            </a>-->
         </div>
     </form>
 
@@ -336,26 +336,26 @@
             });
         });
 
-        function exportToExcel() {
-            var page = document.getElementById("pageValue").value;
-            var sort = document.getElementById("sortValue").value;
-            var ngayTaoStart = document.getElementById("ngayTaoStart").value;
-            var ngayTaoEnd = document.getElementById("ngayTaoEnd").value;
-
-            Swal.fire({
-                title: "Xác nhận ?",
-                text: "Xác nhận export file excel ?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        var exportUrl = `/admin/export-bill?page=${page}&sort=${sort}&ngayTaoStart=${ngayTaoStart}&ngayTaoEnd=${ngayTaoEnd}`;
-                        window.location.href = exportUrl;
-                    }
-                });
-        }
+        // function exportToExcel() {
+        //     var page = document.getElementById("pageValue").value;
+        //     var sort = document.getElementById("sortValue").value;
+        //     var ngayTaoStart = document.getElementById("ngayTaoStart").value;
+        //     var ngayTaoEnd = document.getElementById("ngayTaoEnd").value;
+        //
+        //     Swal.fire({
+        //         title: "Xác nhận ?",
+        //         text: "Xác nhận export file excel ?",
+        //         icon: "warning",
+        //         buttons: true,
+        //         dangerMode: true,
+        //     })
+        //         .then((willDelete) => {
+        //             if (willDelete) {
+        //                 var exportUrl = `/admin/export-bill?page=${page}&sort=${sort}&ngayTaoStart=${ngayTaoStart}&ngayTaoEnd=${ngayTaoEnd}`;
+        //                 window.location.href = exportUrl;
+        //             }
+        //         });
+        // }
 
 
 
