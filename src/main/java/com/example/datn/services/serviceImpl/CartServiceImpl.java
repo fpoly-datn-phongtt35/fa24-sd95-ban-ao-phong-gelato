@@ -17,7 +17,6 @@ import com.example.datn.repositories.*;
 import com.example.datn.services.CartService;
 import com.example.datn.utils.RandomUtils;
 import com.example.datn.utils.UserLoginUtil;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -40,9 +38,10 @@ public class CartServiceImpl implements CartService {
     private final DiscountCodeRepository discountCodeRepository;
     private final PaymentRepository paymentRepository;
     private final PayMentMethodRepository paymentMethodRepository;
+    private final  BillDetailRepository billDetailRepository;
     private AtomicLong invoiceCounter = new AtomicLong(1);
 
-    public CartServiceImpl(CartRepository cartRepository, ProductDiscountRepository productDiscountRepository, CustomerRepository customerRepository, AccountRepository accountRepository, ProductRepository productRepository, ProductDetailRepository productDetailRepository, BillRepository billRepository, DiscountCodeRepository discountCodeRepository, PaymentRepository paymentRepository, PayMentMethodRepository paymentMethodRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ProductDiscountRepository productDiscountRepository, CustomerRepository customerRepository, AccountRepository accountRepository, ProductRepository productRepository, ProductDetailRepository productDetailRepository, BillRepository billRepository, DiscountCodeRepository discountCodeRepository, PaymentRepository paymentRepository, PayMentMethodRepository paymentMethodRepository, BillDetailRepository billDetailRepository) {
         this.cartRepository = cartRepository;
         this.productDiscountRepository = productDiscountRepository;
         this.customerRepository = customerRepository;
@@ -53,6 +52,7 @@ public class CartServiceImpl implements CartService {
         this.discountCodeRepository = discountCodeRepository;
         this.paymentRepository = paymentRepository;
         this.paymentMethodRepository = paymentMethodRepository;
+        this.billDetailRepository = billDetailRepository;
     }
 
     @Override
@@ -333,6 +333,7 @@ public class CartServiceImpl implements CartService {
 
         return new OrderDto(billNew.getId().toString(), orderDto.getCustomer(), billNew.getInvoiceType(), billNew.getStatus(), billNew.getPaymentMethod().getId(), billNew.getBillingAddress(), billNew.getPromotionPrice(), null, null, null);
     }
+
 
     @Override
     public void deleteCart(Long id) {

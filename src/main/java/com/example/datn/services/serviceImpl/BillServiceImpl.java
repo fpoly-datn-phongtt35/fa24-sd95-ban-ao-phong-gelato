@@ -295,57 +295,99 @@ public class BillServiceImpl implements BillService {
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></meta>\n" +
                 "    <title>Hóa đơn bán hàng</title>\n" +
+                "    <style>\n" +
+                "        body {\n" +
+                "            font-family: SVN-Times New Roman;\n" +
+                "            background-color: #f8f9fa;\n" +
+                "            margin: 0;\n" +
+                "            padding: 0;\n" +
+                "            display: flex;\n" +
+                "            justify-content: center;\n" +
+                "            align-items: center;\n" +
+                "            height: 100vh;\n" +
+                "        }\n" +
+                "        .invoice-container {\n" +
+                "            width: 60%; /* Thu nhỏ khung hóa đơn */\n" +
+                "            max-width: 600px;\n" +
+                "            background-color: #ffffff;\n" +
+                "            padding: 20px;\n" +
+                "            border: 1px solid #ccc;\n" +
+                "            border-radius: 10px;\n" +
+                "            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n" +
+                "        }\n" +
+                "        h1, h3, h4, h5 {\n" +
+                "            text-align: center;\n" +
+                "            margin: 10px 0;\n" +
+                "        }\n" +
+                "        table {\n" +
+                "            width: 100%;\n" +
+                "            border-collapse: collapse;\n" +
+                "            margin-top: 20px;\n" +
+                "        }\n" +
+                "        th, td {\n" +
+                "            padding: 10px;\n" +
+                "            text-align: left;\n" +
+                "            border: 1px solid #ddd;\n" +
+                "        }\n" +
+                "        th {\n" +
+                "            background-color: #f2f2f2;\n" +
+                "        }\n" +
+                "        .summary {\n" +
+                "            margin-top: 20px;\n" +
+                "            font-size: 16px;\n" +
+                "            text-align: right;\n" + // Thêm căn lề phải
+                "        }\n" +
+                "    </style>\n" +
                 "</head>\n" +
-                "<body style=\"font-family: SVN-Times New Roman;\">\n" +
-                "<h1 style=\"text-align: center\">HÓA ĐƠN BÁN HÀNG</h1>\n" +
-                "<h3 style=\"text-align: center\"> Tòa nhà FPT Polytechnic, Cổng số 2, 13 P. Trịnh Văn Bô</h3>\n" +
-                "<h3 style=\"text-align: center\">Xuân Phương, Nam Từ Liêm, Hà Nội</h3>\n\n" +
-                "<h5> Mã hóa đơn: " + billDetailDtoInterface.getMaDinhDanh() + "</h5>\n" +
-                "<h5> Họ và tên: " + customerName + "</h5>\n" +
-                "<h5> Số điện thoại :" + customerPhone + "</h5>\n" +
-                "<h5> Email: " + email + "</h5>\n" +
-                "<h5> Địa chỉ:" + address + "</h5>\n" +
-                "<h5> Ngày thanh toán: " + billDetailDtoInterface.getCreatedDate().format(formatter) + "</h5>\n" +
-                "<h3>Danh sách sản phẩm:</h3>\n" +
-                "<table border=\"1\" style=\"border-collapse: collapse;\">\n" +
-                "<tr>\n" +
-                "<th>Tên sản phẩm</th>\n" +
-                "<th>Màu sắc</th>\n" +
-                "<th>Kích cỡ</th>\n" +
-                "<th>Giá tiền</th>\n" +
-                "<th>Số lượng</th>\n" +
-                "<th>Tổng tiền</th>\n" +
-                "</tr>\n";
-        Double totalMoney = Double.valueOf(0);
-        for (BillDetailProduct item:
-                billDetailProduct) {
+                "<body>\n" +
+                "    <div class=\"invoice-container\">\n" +
+                "        <h1>GELATO SHOP</h1>\n" +
+                "        <h4>Tòa nhà The Zei, số 6 Lê Đức Thọ</h3>\n" +
+                "        <h4>Điện thoại : 0375242863 - 0975132276 </h3>\n" +
+                "        <h5>Mã hóa đơn: " + billDetailDtoInterface.getMaDinhDanh() + "</h5>\n" +
+                "        <h5>Ngày thanh toán: " + billDetailDtoInterface.getCreatedDate().format(formatter) + "</h5>\n" +
+                "        <h5>Họ và tên: " + customerName + "</h5>\n" +
+                "        <h5>Số điện thoại: " + customerPhone + "</h5>\n" +
+                "        <table>\n" +
+                "            <tr>\n" +
+                "                <th>Tên sản phẩm</th>\n" +
+                "                <th>Màu sắc</th>\n" +
+                "                <th>Kích cỡ</th>\n" +
+                "                <th>Giá tiền</th>\n" +
+                "                <th>Số lượng</th>\n" +
+                "                <th>Tổng tiền</th>\n" +
+                "            </tr>\n";
+
+        Double totalMoney = 0.0;
+        for (BillDetailProduct item : billDetailProduct) {
             totalMoney += item.getGiaTien() * item.getSoLuong();
         }
+
         Locale locale = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        for (int i = 0; i < billDetailProduct.size(); i++) {
-            String productName = billDetailProduct.get(i).getTenSanPham();
-            String color = billDetailProduct.get(i).getTenMau();
-            String size = billDetailProduct.get(i).getKichCo();
-            String price = currencyFormatter.format(billDetailProduct.get(i).getGiaTien());
-            String quantity = String.valueOf(billDetailProduct.get(i).getSoLuong());
-            String total = currencyFormatter.format(billDetailProduct.get(i).getTongTien());
 
+        for (BillDetailProduct item : billDetailProduct) {
             htmlContent += "<tr>\n" +
-                    "<td>" + productName + "</td>\n" +
-                    "<td>" + color + "</td>\n" +
-                    "<td>" + size + "</td>\n" +
-                    "<td>" + price + "</td>\n" +
-                    "<td>" + quantity + "</td>\n" +
-                    "<td>" + total + "</td>\n" +
+                    "<td>" + item.getTenSanPham() + "</td>\n" +
+                    "<td>" + item.getTenMau() + "</td>\n" +
+                    "<td>" + item.getKichCo() + "</td>\n" +
+                    "<td>" + currencyFormatter.format(item.getGiaTien()) + "</td>\n" +
+                    "<td>" + item.getSoLuong() + "</td>\n" +
+                    "<td>" + currencyFormatter.format(item.getTongTien()) + "</td>\n" +
                     "</tr>\n";
         }
+
         htmlContent += "</table>\n" +
-                "<h5>Tổng tiền: " + currencyFormatter.format(totalMoney) + "</h5>\n" +
-                "<h5>Tiền giảm giá: " + currencyFormatter.format(billDetailDtoInterface.getTienKhuyenMai()) + "</h5>\n" +
-                "<h4>Tổng tiền thanh toán: " + currencyFormatter.format(totalMoney - billDetailDtoInterface.getTienKhuyenMai()) + "</h4>\n" +
+                "        <div class=\"summary\">\n" +
+                "            <p>Tổng tiền: " + currencyFormatter.format(totalMoney) + "</p>\n" +
+                "            <p>Tiền giảm giá: " + currencyFormatter.format(billDetailDtoInterface.getTienKhuyenMai()) + "</p>\n" +
+                "            <p><strong>Tổng tiền thanh toán: " + currencyFormatter.format(totalMoney - billDetailDtoInterface.getTienKhuyenMai()) + "</strong></p>\n" +
+                "        </div>\n" +
+                "        <h3 style=\"text-align: center; margin-top: 30px;\">Xin chân thành cảm ơn Quý khách!</h3>\n" +
+                "    </div>\n" +
                 "</body>\n" +
                 "</html>";
+
         return htmlContent;
     }
 
