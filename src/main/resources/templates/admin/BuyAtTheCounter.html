@@ -1573,6 +1573,36 @@
                         }
                     });
                 }
+                // Hàm reset lại các trường
+                function resetPayArea() {
+                    // Reset các trường khách hàng
+                    $(".selected-customer").html('<span class="font-bold italic text-gray-500">--Khách lẻ--</span>');
+
+                    // Reset voucher
+                    $("#voucher-discount").text('0'); // Reset giảm giá voucher về 0
+
+                    // Vô hiệu hóa việc áp dụng voucher
+                    $(".voucher-choose-btn").removeClass('applied'); // Xóa lớp áp dụng voucher
+                    $(".voucher-choose-btn").text('Click vào để chọn'); // Đặt lại text mặc định của nút voucher
+
+                    // Reset tổng tiền và tiền khách đưa
+                    $("#last-price").text('0');
+                    $("#customerPayInput").val('');
+
+                    // Reset tổng tiền hiển thị ở phần tổng cộng
+                    $(".all-price").text('0');
+
+                    // Reset tiền thừa
+                    $("#money-change").text('0');
+
+                    // Đóng mã QR nếu có
+                    $(".qr-payment-container").addClass('hidden');
+
+                    // Reset phương thức thanh toán
+                    $('input[name="paymentMethod"][value="1"]').prop('checked', true);  // Chọn lại phương thức tiền mặt mặc định
+                }
+
+
 
 // Xử lý sự kiện nút thanh toán
                 $("#confirm-pay").click(function () {
