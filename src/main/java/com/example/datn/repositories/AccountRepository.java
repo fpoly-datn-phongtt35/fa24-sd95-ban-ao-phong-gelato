@@ -13,7 +13,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 
     @Query(value = "SELECT CONCAT('T', MONTH(a.create_date)) AS month, COUNT(a.id) AS count FROM Account a" +
-            " WHERE a.create_date between '2023-01-01' AND '2023-12-31' " +
+            " WHERE a.create_date between '2024-01-01' AND '2024-12-31' " +
             "GROUP BY MONTH(create_date)", nativeQuery = true)
     List<Object[]> getMonthlyAccountStatistics(String startDate, String endDate);
 
