@@ -92,13 +92,17 @@
             <div class="top-product mt-4 col-md-8">
                 <div class="mb-2 d-flex justify-content-between">
                     <h5>Danh sách sản phẩm bán chạy nhất</h5>
-                    <select class="form-select" style="width: 200px" id="best-seller-time-select">
-                        <option value="">Tất cả thời gian</option>
-                        <option value="7">7 ngày trước</option>
-                        <option value="15">15 ngày trước</option>
-                        <option value="30">1 tháng trước</option>
-                    </select>
+                    <div class="d-flex">
+                        <select class="form-select" style="width: 200px; margin-right: 10px;" id="best-seller-time-select">
+                            <option value="">Tất cả thời gian</option>
+                            <option value="7">7 ngày trước</option>
+                            <option value="15">15 ngày trước</option>
+                            <option value="30">1 tháng trước</option>
+                        </select>
+                        <button id="apply-filter-btn" class="btn btn-primary">Lọc</button>
+                    </div>
                 </div>
+
                 <table class="table mt-3">
                     <thead>
                     <tr>
@@ -159,27 +163,90 @@
 <!--            // var monthEndInput = document.getElementById("monthEnd");-->
 <!--            // monthEndInput.value = formatMonth(monthEnd, 'month');-->
 
-<!--            // // Function to format the date as "YYYY-MM"-->
-<!--            // function formatMonth(date, format) {-->
-<!--            //     var year = date.getFullYear();-->
-<!--            //     var month = String(date.getMonth() + 1).padStart(2, '0');-->
-<!--            //     if (format === 'month') {-->
-<!--            //         return year + '-' + month;-->
-<!--            //     } else {-->
-<!--            //         var day = String(date.getDate()).padStart(2, '0');-->
-<!--            //         return year + '-' + month + '-' + day;-->
-<!--            //     }-->
-<!--            // }-->
 
-        <!--    // Function to format the date as "YYYY-MM-DD"-->
-        <!--    function formatDate(date) {-->
-        <!--        var year = date.getFullYear();-->
-        <!--        var month = String(date.getMonth() + 1).padStart(2, '0');-->
-        <!--        var day = String(date.getDate()).padStart(2, '0');-->
-        <!--        return year + '-' + month + '-' + day;-->
-        <!--    }-->
-        <!--</script>-->
+
+
         <script>
+            document.getElementById('apply-filter-btn').addEventListener('click', function () {
+                applyFilters();
+            });
+
+            function applyFilters() {
+                var timeValue = document.getElementById('best-seller-time-select').value;
+                var currentDate = new Date();
+                var fromDate = '';
+
+                if (timeValue == '7') {
+                    var sevenDaysAgo = new Date();
+                    sevenDaysAgo.setDate(currentDate.getDate() - 7);
+                    fromDate = formatToYYYYMMDD(sevenDaysAgo);
+                } else if (timeValue == '15') {
+                    var fifteenDaysAgo = new Date();
+                    fifteenDaysAgo.setDate(currentDate.getDate() - 15);
+                    fromDate = formatToYYYYMMDD(fifteenDaysAgo);
+                } else if (timeValue == '30') {
+                    var thirtyDaysAgo = new Date();
+                    thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+                    fromDate = formatToYYYYMMDD(thirtyDaysAgo);
+                }
+
+                if (fromDate) {
+                    callApiGetBestSellerInTime(fromDate, formatToYYYYMMDD(new Date()));
+                } else {
+                    callApiGetBestSellerAll();
+                }
+            }
+
+            async function callApiGetBestSellerInTime(fromDate, toDate) {
+                await $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: `/api/get-bestseller-product-time?fromDate=${fromDate}&toDate=${toDate}`,
+                    success: function (data) {
+                        loadHtmlBestSeller(data);
+                    }
+                });
+            }
+
+            function callApiGetBestSellerAll() {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '/api/get-bestseller-product-all',
+                    success: function (data) {
+                        loadHtmlBestSeller(data);
+                    }
+                });
+            }
+
+            function loadHtmlBestSeller(data) {
+                var html = '';
+                data.forEach(product => {
+                    var price = formatNumber(parseFloat(product.revenue));
+                    html += `<tr scope="row">
+            <td>
+                <a class="text-primary" href="/admin/chi-tiet-san-pham/${product.code}">${product.name}</a>
+            </td>
+            <td><img src="/${product.imageUrl}" alt="" width="50"></td>
+            <td>${product.totalQuantity}</td>
+            <td>${price}</td>
+        </tr>`;
+                });
+
+                document.getElementById('best-seller-list').innerHTML = html;
+            }
+
+            function formatToYYYYMMDD(date) {
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString().padStart(2, '0');
+                var dd = date.getDate().toString().padStart(2, '0');
+                return yyyy + '-' + mm + '-' + dd;
+            }
+
+            function formatNumber(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
 
             $('.by-date').show()
             $('.by-month').hide()
@@ -195,25 +262,7 @@
                     }
                 })
             }
-            // var table = new DataTable('#product-table', {
-            //     order: [],
-            //     info: false,
-            //     lengthMenu: [
-            //         [5, 10, 15, 20],
-            //         [5, 10, 15, 20],
-            //     ],
-            //     language: {
-            //         search: "Tìm kiếm:",
-            //         "lengthMenu": "",
-            //         "zeroRecords": "Không tìm thấy bản ghi nào",
-            //         "paginate": {
-            //             "first":      "<<",
-            //             "last":       ">>",
-            //             "next":       ">",
-            //             "previous":   "<"
-            //         },
-            //     }
-            // });
+
             async function loadHtmlProduct(productList) {
                 var html = ''
                 table.destroy()
@@ -233,111 +282,9 @@
                     </tr>`
                 })
 
-                // await $('#product-list').html(html);
-                //  table = new DataTable('#product-table', {
-                //     order: [],
-                //     info: false,
-                //     lengthMenu: [
-                //         [5, 10, 15, 20],
-                //         [5, 10, 15, 20],
-                //     ],
-                //     language: {
-                //         search: "Tìm kiếm:",
-                //         "lengthMenu": "",
-                //         "zeroRecords": "Không tìm thấy bản ghi nào",
-                //         "paginate": {
-                //             "first":      "<<",
-                //             "last":       ">>",
-                //             "next":       ">",
-                //             "previous":   "<"
-                //         },
-                //     }
-                // });
+
 
             }
-
-
-
-
-
-            // // Validate
-            // $('#apply-statistic').on('click', async function () {
-            //
-            //     const startDate = $('#dateStart').val()
-            //     const toDate = $('#dateEnd').val()
-            //     if (!startDate) {
-            //         Toastify({
-            //             text: "Vui lòng nhâp ngày bắt đầu",
-            //             className: "error",
-            //             style: {
-            //                 background: "red",
-            //                 color: "white"
-            //             }
-            //         }).showToast();
-            //         return
-            //     }
-            //
-            //     if (toDate == "") {
-            //         Toastify({
-            //             text: "Vui lòng nhâp ngày kết thúc",
-            //             className: "error",
-            //             style: {
-            //                 background: "red",
-            //                 color: "white"
-            //             }
-            //         }).showToast();
-            //         return;
-            //     }
-
-                // if (startDate >= toDate) {
-                //     Toastify({
-                //         text: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
-                //         className: "error",
-                //         style: {
-                //             background: "red",
-                //             color: "white"
-                //         }
-                //     }).showToast();
-                //     return;
-                // }
-
-            //     $('#loading-overlay').show()
-            //     await $.ajax({
-            //         type: 'GET',
-            //         dataType: 'json',
-            //         url: `/api/get-statistic-product-time?fromDate=${startDate}&toDate=${toDate}`,
-            //         success: function (data) {
-            //             $('#loading-overlay').hide()
-            //             loadHtmlProduct(data)
-            //         },
-            //         error: function () {
-            //             Swal.fire({
-            //                 title: "Lỗi",
-            //                 text: "Có lỗi xảy ra",
-            //                 icon: "error"
-            //             })
-            //             $('#loading-overlay').hide();
-            //
-            //         }
-            //     })
-            //
-            //
-            // })
-
-            // $('#time-category').on('change', function () {
-            //     var value = $(this).val()
-            //
-            //     if(value == 1) {
-            //         $('.by-date').show()
-            //         $('.by-month').hide()
-            //     }
-            //
-            //     if(value == 2) {
-            //         $('.by-date').hide()
-            //         $('.by-month').show()
-            //     }
-            // })
-            //
 
             callApiGetBestSellerAll()
             function loadDonutCharBestSeller(labelList, dataList) {
@@ -353,13 +300,13 @@
                             label: 'Doanh thu',
                             data: dataList,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.6)',  // Màu đỏ nhạt
-                                'rgba(54, 162, 235, 0.6)',  // Màu xanh dương nhạt
-                                'rgba(255, 206, 86, 0.6)',  // Màu vàng nhạt
-                                'rgba(75, 192, 192, 0.6)',  // Màu xanh ngọc nhạt
-                                'rgba(153, 102, 255, 0.6)', // Màu tím nhạt
-                                'rgba(255, 159, 64, 0.6)',  // Màu cam nhạt
-                                'rgba(201, 203, 207, 0.6)'  // Màu xám nhạt
+                                'rgba(255, 182, 193, 0.6)',  // Màu hồng pastel
+                                'rgba(173, 216, 230, 0.6)',  // Màu xanh pastel
+                                'rgba(144, 238, 144, 0.6)',  // Màu xanh lá nhạt
+                                'rgba(255, 239, 184, 0.6)',  // Màu vàng nhạt
+                                'rgba(216, 191, 216, 0.6)',  // Màu tím nhạt
+                                'rgba(245, 245, 220, 0.6)',  // Màu be nhạt
+                                'rgba(220, 220, 220, 0.6)'   // Màu xám nhạt
                             ],
                             hoverOffset: 4
                         }]
@@ -486,30 +433,6 @@
             function removeAnyNonDigit(value) {
                 return value.replace(/\D/g, '');
             }
-
-            // $('#export').on('click', exportToExcel)
-
-            // async function exportToExcel() {
-            //     /* fetch JSON data and parse */
-            //     const url = `/api/get-statistic-product-time?fromDate=${$('#dateStart').val()}&toDate=${$('#dateEnd').val()}`;
-            //     const raw_data = await (await fetch(url)).json();
-            //
-            //     /* generate worksheet and workbook */
-            //     const worksheet = XLSX.utils.json_to_sheet(raw_data);
-            //     const workbook = XLSX.utils.book_new();
-            //     XLSX.utils.book_append_sheet(workbook, worksheet, "SanPham");
-            //
-            //     const heading =[
-            //         ["Mã sản phẩm", "Tên sản phẩm", "Nhãn hiệu", "Số lượng bán", "Số lượng đổi trả", "Doanh thu"]
-            //     ]
-            //
-            //     /* fix headers */
-            //     XLSX.utils.sheet_add_aoa(worksheet,heading , {origin: "A1"});
-            //
-            //
-            //     /* create an XLSX file and try to save to Presidents.xlsx */
-            //     XLSX.writeFile(workbook, "thong-ke-san-pham.xlsx", {compression: true});
-            // }
         </script>
     </div>
 </body>
