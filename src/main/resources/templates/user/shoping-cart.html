@@ -78,7 +78,7 @@
                         <div th:if="${carts.size() == 0}" class="d-flex flex-column align-items-center">
                             <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
                             <h3><strong>Giỏ hàng hiện tại trống</strong></h3>
-                            <a th:href="@{/getproduct}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Tiếp tục mua sắm</a>
+                            <a th:href="@{/product}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Tiếp tục mua sắm</a>
                         </div>
                         <div class="wrap-table-shopping-cart">
 
@@ -92,6 +92,7 @@
                                     <th class="column-1">Màu</th>
                                     <th class="column-4">Số lượng</th>
                                     <th class="column-5">Tổng</th>
+                                    <th class="column-1">Thao tác</th>
                                 </tr>
                                 <tr class="table-row product-item" th:each="cart : *{carts}">
                                     <input type="hidden" th:value="${cart.id}" class="cartId">
@@ -114,16 +115,17 @@
                                             <div class="btn-num-product-down js-update-cart-down cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
-
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                   th:name="'num-product'+${cart.id}" th:value="${cart.quantity}">
-
+                                                   th:name="'num-product'+${cart.id}" th:value="${cart.quantity}" th:min="1" th:max="20">
                                             <div class="btn-num-product-up js-update-cart-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="column-5 total-money"></td>
+                                    <td>
+                                        <button type="button" class="how-itemcart1 btn btn-danger">Xóa</button>
+                                    </td>
                                 </tr>
 
                             </table>
@@ -135,10 +137,10 @@
                                     <i class="fa fa-tags" aria-hidden="true"></i>
                                     Chọn mã giảm giá
                                 </span>
-<!--                            <div-->
-<!--                                    class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">-->
-<!--                                Update Cart-->
-<!--                            </div>-->
+                            <!--                            <div-->
+                            <!--                                    class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">-->
+                            <!--                                Update Cart-->
+                            <!--                            </div>-->
                         </span>
                         <div id="selected-voucher" class="p-l-2" data-selected="">
 
@@ -195,12 +197,12 @@
                                 <button type="button" class="bg2 size-102" id="add-address">Thêm địa chỉ +</button>
                                 <!--                                    -->
                                 <div id="address-select-group" style="display: none">
-<!--                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">-->
-<!--                                        <select class="js-select2" name="province" id="province">-->
+                                    <!--                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">-->
+                                    <!--                                        <select class="js-select2" name="province" id="province">-->
 
-<!--                                        </select>-->
-<!--                                        <div class="dropDownSelect2"></div>-->
-<!--                                    </div>-->
+                                    <!--                                        </select>-->
+                                    <!--                                        <div class="dropDownSelect2"></div>-->
+                                    <!--                                    </div>-->
                                     <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
                                         <select class="js-select2" name="district" id="district">
 
@@ -230,19 +232,19 @@
                         </div>
                     </div>
 
-<!--                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">-->
-<!--                        <div class="size-208 w-full-ssm">-->
-<!--									<span class="stext-110 cl2">-->
-<!--										Phí ship:-->
-<!--									</span>-->
+                    <!--                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">-->
+                    <!--                        <div class="size-208 w-full-ssm">-->
+                    <!--									<span class="stext-110 cl2">-->
+                    <!--										Phí ship:-->
+                    <!--									</span>-->
 
-<!--                        </div>-->
-<!--                        <div class="size-209">-->
-<!--									<span class="mtext-110 cl2">-->
-<!--                                        0 VND-->
-<!--									</span>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="size-209">-->
+                    <!--									<span class="mtext-110 cl2">-->
+                    <!--                                        0 VND-->
+                    <!--									</span>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <div class="flex-w flex-t bor12 p-t-15 p-b-30">
                         <div class="size-208 w-full-ssm">
 									<span class="stext-110 cl2">
@@ -279,11 +281,11 @@
                         <div class="size-209 p-t-1">
                             <div class="form-group">
                                 <input type="radio" class="custom-radio" value="3" name="paymentMethod" id="payment-online" checked>
-                                <label for="payment-online">Chuyển khoản</label>
+                                <label for="payment-online">Thanh toán qua thẻ ngân hàng (Card Payment)</label>
                             </div>
                             <div class="form-group">
                                 <input type="radio" class="custom-radio" value="1" name="paymentMethod" id="payment-offline">
-                                <label for="payment-offline">Tiền mặt</label>
+                                <label for="payment-offline">Thanh toán khi nhận hàng (COD)</label>
                             </div>
                         </div>
                     </div>
@@ -292,7 +294,7 @@
                     </div>
                     <label class="checkbox d-flex">
                         <input type="checkbox" class="mr-2" id="term">
-                        Tôi đồng ý với <a style="color: blue" data-toggle="modal" data-target="#exampleModalCenter2">&nbsp; điều khoản &nbsp</a> của cửa hàng
+                        Tôi đồng ý với <a style="color: blue" data-toggle="modal" data-target="#exampleModalCenter2">&nbsp; điều khoản &nbsp</a> của cửa hàng.
                     </label>
                     <button type="button" id="submitBtn" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" disabled>
                         Đặt hàng
@@ -305,7 +307,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" style="max-width24: 100%">
                 <div class="modal-header">
-                    <h5 class="modal-title" style="font-size: px; font-weight: bold">Điều khoản</h5>
+                    <h5 class="modal-title" style="font-weight: bold">Điều khoản</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -336,12 +338,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:inline="javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script th:inline="javascript">
+        if (window.location.pathname === '/shopping-cart') {
+            window.location.href = window.location.href;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnsUp = document.querySelectorAll('.js-update-cart-up');
+            const btnsDown = document.querySelectorAll('.js-update-cart-down');
+            const inputs = document.querySelectorAll('.num-product');
+
+            btnsUp.forEach((btn, index) => {
+                btn.addEventListener('click', function () {
+                    const input = inputs[index];
+                    let currentValue = parseInt(input.value);
+                    input.value = currentValue + 1;
+                });
+            });
+
+            btnsDown.forEach((btn, index) => {
+                btn.addEventListener('click', function () {
+                    const input = inputs[index];
+                    let currentValue = parseInt(input.value);
+
+                    if (currentValue > 1) {
+                        input.value = currentValue - 1;
+                    }
+                });
+            });
+        });
         $(document).ready(function () {
-            var voucherList = /*[[${discountCodes}]]*/ ''
+            var voucherList = [[${discountCodes}]]
             var voucherChoosed;
 
-            $('.how-itemcart1').on('click', function () {
-                var cartId = $(this).parent().parent().find('.cartId').val()
+            $('.how-itemcart1').on('click', function (event) {
+                event.preventDefault(); // Prevent the default button action (like form submission)
+                var cartId = $(this).parent().parent().find('.cartId').val();
                 Swal.fire({
                     title: 'Xóa sản phẩm',
                     text: 'Bạn chắc chắc muốn xóa sản phẩm này khỏi giỏ hàng?',
@@ -356,20 +386,22 @@
                             type: 'POST',
                             url: `http://localhost:8080/api/deleteCart/${cartId}`,
                             success: function (data) {
-
+                                console.log('Item deleted successfully');
+                            },
+                            error: function (err) {
+                                console.error('Error deleting item:', err);
                             }
-                        })
+                        });
 
-                        $(this).parent().parent().remove()
+                        $(this).parent().parent().remove();
                         calculateTotal();
 
-                        var currentQua = parseInt(localStorage.getItem("cartQuantity"))
-                        $(".js-show-cart").attr("data-notify", currentQua - 1)
+                        var currentQua = parseInt(localStorage.getItem("cartQuantity")) || 0;
+                        $(".js-show-cart").attr("data-notify", currentQua - 1);
                     }
                 });
+            });
 
-
-            })
             // var addressSelected = {
             //     street: '',
             //     ward: '',
@@ -610,20 +642,20 @@
             }
 
 
-                $('.btn-num-product-down').on('click', function(){
-                    var numProduct = Number($(this).next().val());
+            $('.btn-num-product-down').on('click', function(){
+                var numProduct = Number($(this).next().val());
 // $(this).next().val(numProduct - 1)
-                    var row = $(this).closest('.table-row');
-                    $('#selected-voucher').html('')
-                    $('#selected-voucher').attr('data-selected', "")
-                    voucherChoosed = null
-                    calculateVoucherPrice()
+                var row = $(this).closest('.table-row');
+                $('#selected-voucher').html('')
+                $('#selected-voucher').attr('data-selected', "")
+                voucherChoosed = null
+                calculateVoucherPrice()
 
 
-                        updateSubtotal(row);
-                        calculateTotal();
-                        updateToServer(row, row.find(".num-product").val())
-                });
+                updateSubtotal(row);
+                calculateTotal();
+                updateToServer(row, row.find(".num-product").val())
+            });
 
             $('.btn-num-product-up').on('click', function(){
                 // var numProduct = Number($(this).prev().val());
@@ -697,6 +729,7 @@
                 submitBtn.prop('disabled', !checkbox.prop('checked'));
             });
 
+
             // =============================HANDLE SUBMIT==============================
             $("#submitBtn").on('click', async function () {
                 var voucherId = $("#selected-voucher").attr('data-selected')
@@ -765,7 +798,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     // Chuyển trang khi người dùng nhấn "OK"
-                                    window.location.href = '/getproduct';
+                                    window.location.href = '/product';
                                 }
                                 else {
                                     window.location.reload()
@@ -831,7 +864,7 @@
 
             for (var i = 0; i < data.results.length; i++) {
                 var option = document.createElement("option");
-                    option.text = data.results[i].province_name;
+                option.text = data.results[i].province_name;
                 option.value = data.results[i].province_id;
                 selectElement.appendChild(option);
             }
