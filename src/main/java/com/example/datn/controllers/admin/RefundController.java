@@ -24,18 +24,18 @@ public class RefundController {
         this.paymentRepository = paymentRepository;
     }
 
-//    @GetMapping("/admin-only/need-refund-mng")
-//    public String viewRefundPage(SearchRefundDto searchRefundDto, Model model) {
-//        model.addAttribute("refundList", billRepository.findListNeedRefund());
-//        return "/admin/refund-mng";
-//    }
-//
-//    @PostMapping("/admin/confirm-refund/{id}")
-//    public String confirmRefund(@PathVariable String id, RedirectAttributes redirectAttributes) {
-//        Payment payment = paymentRepository.findByOrderId(id);
-//        payment.setStatusExchange(1);
-//        paymentRepository.save(payment);
-//        redirectAttributes.addFlashAttribute("successMessage", "Xác nhận hoàn " + payment.getAmount() + " cho mã giao dịch " + payment.getOrderId() + " thành công");
-//        return "redirect:/admin-only/need-refund-mng";
-//    }
+    @GetMapping("/admin-only/need-refund-mng")
+    public String viewRefundPage(SearchRefundDto searchRefundDto, Model model) {
+        model.addAttribute("refundList", billRepository.findListNeedRefund());
+        return "/admin/refund-mng";
+    }
+
+    @PostMapping("/admin/confirm-refund/{id}")
+    public String confirmRefund(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        Payment payment = paymentRepository.findByOrderId(id);
+        payment.setStatusExchange(1);
+        paymentRepository.save(payment);
+        redirectAttributes.addFlashAttribute("successMessage", "Xác nhận hoàn " + payment.getAmount() + " cho mã giao dịch " + payment.getOrderId() + " thành công");
+        return "redirect:/admin-only/need-refund-mng";
+    }
 }

@@ -23,10 +23,6 @@
                 <div>
                     <label for="returnStatus">Trạng thái</label>
                     <select class="form-select" name="returnStatus" id="returnStatus">
-                        <option value="">Tất cả</option>
-                        <option value="0">Chờ xác nhận</option>
-                        <option value="1">Chờ lấy hàng</option>
-                        <option value="2">Chờ giao hàng</option>
                         <option value="3">Hoàn thành</option>
                         <option value="4">Đã hủy</option>
                     </select>
@@ -133,7 +129,7 @@
     <!--        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
 
     <script th:inline="javascript">
-        // $('#myTable').DataTable();
+        $('#myTable').DataTable();
         new DataTable('#myTable', {
             order: [],
             language: {
