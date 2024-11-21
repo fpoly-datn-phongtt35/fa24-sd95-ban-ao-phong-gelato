@@ -2,14 +2,17 @@ package com.example.datn.controllers.user;
 
 
 
+import com.example.datn.dto.Account.AccountDto;
 import com.example.datn.dto.AddressShipping.AddressShippingDto;
 import com.example.datn.dto.Cart.CartDto;
 import com.example.datn.dto.DiscountCode.DiscountCodeDto;
 import com.example.datn.exceptions.NotFoundException;
+import com.example.datn.services.AccountService;
 import com.example.datn.services.AddressShippingService;
 import com.example.datn.services.BillService;
 import com.example.datn.services.CartService;
 import com.example.datn.services.serviceImpl.DiscountCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,9 @@ public class ShoppingCartController {
 
     private final AddressShippingService addressShippingService;
 
+    @Autowired
+    private AccountService accountService;
+
     public ShoppingCartController(CartService cartService, BillService billService, DiscountCodeService discountCodeService, AddressShippingService addressShippingService) {
         this.cartService = cartService;
         this.billService = billService;
@@ -40,8 +46,10 @@ public class ShoppingCartController {
         List<CartDto> cartDtoList = cartService.getAllCartByAccountId();
         Page<DiscountCodeDto> discountCodeList = discountCodeService.getAllAvailableDiscountCode(PageRequest.of(0, 15));
         List<AddressShippingDto> addressShippingDtos = addressShippingService.getAddressShippingByAccountId();
+        AccountDto accountDto = accountService.getAccountLogin();
         model.addAttribute("discountCodes", discountCodeList.getContent());
         model.addAttribute("addressShippings", addressShippingDtos);
+        model.addAttribute("profile", accountDto);
         model.addAttribute("carts", cartDtoList);
         return "user/shoping-cart";
     }
@@ -63,6 +71,5 @@ public class ShoppingCartController {
     public void updateCart(@RequestBody CartDto cartDto) throws NotFoundException {
         cartService.updateCart(cartDto);
     }
-
 }
 

@@ -99,9 +99,7 @@
                             <form method="POST" th:action="'/cancel-bill/' + ${bill.id}" class="form-cancel-order">
                                 <button type="submit" class="btn btn-danger" id="cancel-bill" th:if="${
                                     bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
-                                     bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG }"
-                                >
-
+                                     bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG }">
                                     Hủy đơn
                                 </button>
 
@@ -188,23 +186,46 @@
 
             $(".form-cancel-order").on('submit', function (e) {
                 e.preventDefault();
-                var form = this; // select the form
+                var form = this;
 
                 Swal.fire({
                     title: 'Hủy đơn hàng',
-                    text: 'Bạn chắc chắc muốn hủy đơn hàng này?',
+                    html: `
+                    <p>Vui lòng nhập lý do hủy đơn hàng:</p>
+                    <textarea id="cancelReason" class="swal2-textarea" placeholder="Nhập lý do hủy..." style="font-size: 15px; width: 100%;"></textarea>
+                    `,
                     icon: 'warning',
                     showCancelButton: true,
                     cancelButtonText: 'Hủy',
                     confirmButtonText: 'Xác nhận',
-                    reverseButtons: true
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-
-                        form.submit()
+                    reverseButtons: true,
+                    preConfirm: () => {
+                        const reason = document.getElementById('cancelReason').value.trim();
+                        if (!reason) {
+                            Swal.showValidationMessage('Lý do hủy đơn không được để trống!');
+                            return false;
+                        }
+                        return reason;
                     }
-                })
-            })
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('<input>').attr({
+                            type: 'hidden',
+                            name: 'cancelReason',
+                            value: result.value
+                        }).appendTo(form);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Thành công",
+                            text: "Hủy đơn hàng thành công !"
+                        }).then(() => {
+                            form.submit();
+                        });
+                    }
+                });
+            });
+
 
             var tabActivec = /*[[${status}]]*/ '';
 
