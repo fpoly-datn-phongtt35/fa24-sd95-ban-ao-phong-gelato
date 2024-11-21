@@ -697,6 +697,8 @@
                             title: "Lỗi",
                             text: "Chưa chọn màu sắc hoặc kích cỡ !",
                             confirmButtonText: "Đồng ý"
+                        }) .then(() => {
+                            location.reload();
                         });
                         return Promise.reject("Chưa chọn màu hoặc kích cỡ.");
                     }
@@ -707,6 +709,8 @@
                             title: "Lỗi",
                             text: "Sản phẩm với thuộc tính này đã hết hàng",
                             confirmButtonText: "Đồng ý"
+                        }) .then(() => {
+                            location.reload();
                         });
                         return Promise.reject("Sản phẩm hết hàng.");
                     }
@@ -717,6 +721,8 @@
                             title: "Lỗi",
                             text: "Số lượng thêm vào giỏ hàng lớn hơn số lượng tồn",
                             confirmButtonText: "Đồng ý"
+                        }) .then(() => {
+                            location.reload();
                         });
                         return Promise.reject("Số lượng vượt tồn kho.");
                     }
@@ -741,7 +747,9 @@
                             icon: 'success',
                             title: "Thành công",
                             text: nameProduct + "đã được thêm vào giỏ hang thành công ! ",
-                            confirmButtonText: "Ok"
+                            confirmButtonText: "Đồng ý"
+                        }) .then(() => {
+                            location.reload();
                         });
 
                         if (isUserLoggedIn) {
@@ -755,7 +763,7 @@
                             localStorage.setItem("cartQuantity", cartData.length.toString());
                         }
 
-                        return Promise.resolve(response); // Trả về thành công
+                        return Promise.resolve(response);
                     } catch (error) {
                         $('#loading-overlay').hide();
 
@@ -763,7 +771,7 @@
                         swal("Lỗi", errorMessage, "error");
 
                         $('.num-product').val(1);
-                        return Promise.reject(error); // Trả về lỗi
+                        return Promise.reject(error);
                     }
                 }
 
@@ -780,6 +788,8 @@
                             title: "Lỗi",
                             text: "Chưa chọn màu sắc hoặc kích cỡ !",
                             confirmButtonText: "Đồng ý"
+                        }) .then(() => {
+                            location.reload();
                         });
                         return;
                     }
@@ -789,6 +799,8 @@
                             icon: 'error',
                             title: 'Lỗi',
                             text: 'Sản phẩm với thuộc tính này đã hết hàng !'
+                        }) .then(() => {
+                            location.reload();
                         });
                         return;
                     }
@@ -798,6 +810,8 @@
                             icon: 'error',
                             title: 'Lỗi',
                             text: 'Số lượng muốn mua lớn hơn số lượng tồn !'
+                        }) .then(() => {
+                            location.reload();
                         });
                         return;
                     }
