@@ -891,13 +891,17 @@
                     success: function (data) {
                     },
                     error: function (xhr, status, error) {
-                        swal("Lỗi", xhr.responseJSON.message, "error")
-                        row.find(".num-product").val(1)
+                        Swal.fire({
+                            title: "Thông báo",
+                            text: xhr.responseJSON.message,
+                            icon: "warning"
+                        })
+                        row.find(".js-update-cart-up").val(1)
                         updateToServer(row, 1)
                     }
 
                 })
-            }, 500);
+            }, 200);
         }
 
         function loadProvinceSelect(data) {
