@@ -1016,12 +1016,34 @@
                 }
 
                 function resetPayArea() {
-                    allPrice.innerText = '0'
-                    lastPrice.innerText = '0'
-                    $("#customerPayInput").val(0)
-                    $("#money-change").text(0)
-                    $("#search-product").val('')
+                    // Reset các trường khách hàng
+                    $(".selected-customer").html('<span class="font-bold italic text-gray-500">--Khách lẻ--</span>');
+
+                    // Reset voucher
+                    $("#voucher-discount").text('0'); // Reset giảm giá voucher về 0
+
+                    // Vô hiệu hóa việc áp dụng voucher
+                    $(".voucher-choose-btn").removeClass('applied'); // Xóa lớp áp dụng voucher
+                    $(".voucher-choose-btn").text('Click vào để chọn'); // Đặt lại text mặc định của nút voucher
+
+                    // Reset tổng tiền và tiền khách đưa
+                    $("#last-price").text('0');
+                    $("#customerPayInput").val('');
+
+                    // Reset tổng tiền hiển thị ở phần tổng cộng
+                    $(".all-price").text('0');
+
+                    // Reset tiền thừa
+                    $("#money-change").text('0');
+
+                    // Đóng mã QR nếu có
+                    $(".qr-payment-container").addClass('hidden');
+
+                    // Reset phương thức thanh toán
+                    $('input[name="paymentMethod"][value="1"]').prop('checked', true);  // Chọn lại phương thức tiền mặt mặc định
                 }
+
+
 
                 function calculateAllPrice() {
                     var totalPrice = 0;
@@ -1501,32 +1523,8 @@
 
 // Gọi thanh toán
                 async function handleAjaxRequest(dataSend) {
-                    const paymentMethod = $('input[name="paymentMethod"]:checked').val();
-                    const customerPayInput = parseFloat($('#customerPayInput').val().replace(/\./g, '').replace(/,/g, '.'));
-                    const lastPrice = parseFloat($('#last-price').text().replace(/\./g, '').replace(/,/g, '.'));
-
-
-                    if (paymentMethod == 1) { // Tiền mặt
-                        if (!customerPayInput || isNaN(parseFloat(customerPayInput))) {
-                            Swal.fire({
-                                title: "Lỗi",
-                                text: "Vui lòng nhập số tiền khách đưa",
-                                icon: "error"
-                            });
-                            return;
-                        } else if (customerPayInput < lastPrice) {
-                            Swal.fire({
-                                title: "Lỗi",
-                                text: "Số tiền khách đưa phải lớn hơn hoặc bằng số tiền cần thanh toán",
-                                icon: "error"
-                            });
-                            return;
-                        }
-                    }
-
-                    // Xử lý thanh toán
+                    //============================================== XỬ LÝ THANH TOÁN =============================================
                     $('#loading-overlay').show();
-
                     await $.ajax({
                         type: 'POST',
                         url: '/api/orderAdmin',
@@ -1534,36 +1532,42 @@
                         contentType: "application/json; charset=utf-8",
                         success: async function (data) {
                             $('#loading-overlay').hide();
-                            $(".product-select-body.active").html('');
-                            resetPayArea();
+                            $(".product-select-body.active").html('')
+                            resetPayArea()
                             Toastify({
                                 text: "Thanh toán thành công",
                                 className: "info",
                                 style: {
-                                    background: "linear-gradient(to right, #00b09b, #96c93d)"
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
                                 }
                             }).showToast();
 
-                            const generateUrl = `/admin/generate-pdf/${data.billId}`;
+                            //Lấy bill vừa lưu
+                            var generateUrl = `/admin/generate-pdf/${data.billId}`;
+                            // Fetch the HTML content from the controller
                             await fetch(generateUrl)
                                 .then(response => response.text())
                                 .then(htmlContent => {
-                                    const printWindow = window.open('', '', 'width=800,height=1000');
+
+                                    // Config máy in
+                                    var printWindow = window.open('', '', 'width=800,height=1000');
                                     printWindow.document.open();
+
                                     printWindow.document.write(htmlContent);
                                     printWindow.document.close();
                                     printWindow.print();
+
                                 })
                                 .catch(error => {
                                     $('#loading-overlay').hide();
                                     Swal.fire({
                                         title: "Lỗi",
-                                        text: "Lỗi xuất PDF phía server",
+                                        text: "Lỗi export pdf phía server",
                                         icon: "error"
                                     });
                                 });
                         },
-                        error: function (xhr) {
+                        error: function (xhr, status, error) {
                             $('#loading-overlay').hide();
                             Swal.fire({
                                 title: "Lỗi",
@@ -1571,53 +1575,24 @@
                                 icon: "error"
                             });
                         }
-                    });
-                }
-                // Hàm reset lại các trường
-                function resetPayArea() {
-                    // Reset các trường khách hàng
-                    $(".selected-customer").html('<span class="font-bold italic text-gray-500">--Khách lẻ--</span>');
-
-                    // Reset voucher
-                    $("#voucher-discount").text('0'); // Reset giảm giá voucher về 0
-
-                    // Vô hiệu hóa việc áp dụng voucher
-                    $(".voucher-choose-btn").removeClass('applied'); // Xóa lớp áp dụng voucher
-                    $(".voucher-choose-btn").text('Click vào để chọn'); // Đặt lại text mặc định của nút voucher
-
-                    // Reset tổng tiền và tiền khách đưa
-                    $("#last-price").text('0');
-                    $("#customerPayInput").val('');
-
-                    // Reset tổng tiền hiển thị ở phần tổng cộng
-                    $(".all-price").text('0');
-
-                    // Reset tiền thừa
-                    $("#money-change").text('0');
-
-                    // Đóng mã QR nếu có
-                    $(".qr-payment-container").addClass('hidden');
-
-                    // Reset phương thức thanh toán
-                    $('input[name="paymentMethod"][value="1"]').prop('checked', true);  // Chọn lại phương thức tiền mặt mặc định
+                    })
                 }
 
-
-
-// Xử lý sự kiện nút thanh toán
                 $("#confirm-pay").click(function () {
                     handleAjaxRequest(dataSendIfChuyenKhoan);
                 });
 
-// Xử lý khi đóng modal chuyển khoản
+                // Xử lý click nút close modal khi chuyển khoản
                 $(".close-modal-payment").click(function () {
                     $(".qr-payment-container").addClass('hidden');
-                });
 
-// Format dạng 1.000
+                })
+
+                // Format dạng 1.000
                 function formatNumber(number) {
                     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 }
+
 
 
 //-------------------------- ========XỬ LÝ QUÉT MÃ========== ================================-----------------------------------------------------
