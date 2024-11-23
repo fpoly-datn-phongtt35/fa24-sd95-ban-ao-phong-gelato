@@ -39,7 +39,7 @@ public class BillController {
     public String getBill(
             Model model,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "sort", defaultValue = "createDate,desc") String sortField,
+            @RequestParam(name = "sort", defaultValue = "createDate,asc") String sortField,
             @RequestParam(name = "maDinhDanh", required = false) String maDinhDanh,
             @RequestParam(name = "ngayTaoStart", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoStart,
             @RequestParam(name  = "ngayTaoEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayTaoEnd,
@@ -55,8 +55,8 @@ public class BillController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        if (sortParams.length > 1 && sortParams[1].equalsIgnoreCase("desc")) {
-            sortDirection = Sort.Direction.DESC;
+        if (sortParams.length > 1 && sortParams[1].equalsIgnoreCase("asc")) {
+            sortDirection = Sort.Direction.ASC;
         }
 
         Sort sort = Sort.by(sortDirection, sortFieldName);

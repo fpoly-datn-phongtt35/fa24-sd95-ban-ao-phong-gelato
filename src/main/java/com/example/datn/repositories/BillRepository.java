@@ -23,8 +23,14 @@ import java.util.List;
 
 @Repository
 public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecificationExecutor<Bill> {
-    @Query(value = "SELECT DISTINCT b.id AS maHoaDon, b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber AS soDienThoai, b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType AS loaiDon, pm.name AS hinhThucThanhToan, COALESCE(br.code, '') AS maDoiTra, pmt.orderId AS maGiaoDich FROM Bill b JOIN Payment pmt ON b.id = pmt.bill.id LEFT JOIN Customer a ON b.customer.id = a.id LEFT JOIN BillDetail bd ON b.id = bd.bill.id LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br ON b.id = br.bill.id WHERE b.status = 'CHO_XAC_NHAN'"
-    )
+    @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
+            "AS soDienThoai,b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
+            "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra, pmt.orderId as maGiaoDich " +
+            "FROM Bill b " +
+            "JOIN Payment pmt on b.id = pmt.bill.id " +
+            "LEFT JOIN Customer a ON b.customer.id = a.id " +
+            "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
+            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id")
     Page<BillDtoInterface> listBill(Pageable pageable);
 
     @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
