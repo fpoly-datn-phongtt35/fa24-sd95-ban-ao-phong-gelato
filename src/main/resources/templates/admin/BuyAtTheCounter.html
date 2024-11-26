@@ -1016,6 +1016,9 @@
                 }
 
                 function resetPayArea() {
+                    $("#customerPayInput").val(0)
+                    $("#money-change").text(0)
+                    $("#search-product").val('')
                     // Reset các trường khách hàng
                     $(".selected-customer").html('<span class="font-bold italic text-gray-500">--Khách lẻ--</span>');
 
@@ -1028,13 +1031,12 @@
 
                     // Reset tổng tiền và tiền khách đưa
                     $("#last-price").text('0');
-                    $("#customerPayInput").val('');
 
                     // Reset tổng tiền hiển thị ở phần tổng cộng
                     $(".all-price").text('0');
 
                     // Reset tiền thừa
-                    $("#money-change").text('0');
+
 
                     // Đóng mã QR nếu có
                     $(".qr-payment-container").addClass('hidden');
@@ -1042,8 +1044,6 @@
                     // Reset phương thức thanh toán
                     $('input[name="paymentMethod"][value="1"]').prop('checked', true);  // Chọn lại phương thức tiền mặt mặc định
                 }
-
-
 
                 function calculateAllPrice() {
                     var totalPrice = 0;
