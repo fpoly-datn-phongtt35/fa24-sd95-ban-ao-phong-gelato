@@ -4,46 +4,46 @@
 
 @font-face {
   font-family: Poppins-ExtraLight;
-  src: url('../fonts/Poppins/Poppins-ExtraLight.ttf'); 
+  src: url('../fonts/Poppins/Poppins-ExtraLight.ttf');
 }
 
 
 @font-face {
   font-family: Poppins-Italic;
-  src: url('../fonts/Poppins/Poppins-Italic.ttf'); 
+  src: url('../fonts/Poppins/Poppins-Italic.ttf');
 }
 
 @font-face {
-  font-family: 'Poppins', sans-serif;
-  src: url('../fonts/Poppins/'Poppins', sans-serif.ttf'); 
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/Poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/Poppins/Poppins-SemiBold.ttf');
 }
 
 
 /*---------------------------------------------*/
 @font-face {
   font-family: PlayfairDisplay-Regular;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf'); 
+  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf');
 }
 
 @font-face {
   font-family: PlayfairDisplay-Bold;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf'); 
+  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf');
 }
 
 /*---------------------------------------------*/
 @font-face {
   font-family: Montserrat-Regular;
-  src: url('../fonts/Montserrat/Montserrat-Regular.ttf'); 
+  src: url('../fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
 @font-face {
   font-family: Montserrat-Bold;
-  src: url('../fonts/Montserrat/Montserrat-Bold.ttf'); 
+  src: url('../fonts/Montserrat/Montserrat-Bold.ttf');
 }
 
 
@@ -87,7 +87,7 @@
   position: relative;
   animation: loader-scale 1s ease-out infinite;
   top: 50%;
-  margin: -28px auto 0 auto; 
+  margin: -28px auto 0 auto;
 }
 
 @keyframes loader-scale {
@@ -98,7 +98,7 @@
     opacity: 1; }
   100% {
     transform: scale(1);
-    opacity: 0; } 
+    opacity: 0; }
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -225,7 +225,7 @@
   width: 100%;
   height: 84px;
   top: 40px;
-  left: 0px; 
+  left: 0px;
 
   -webkit-transition: height 0.3s, background-color 0.3s;
   -o-transition: height 0.3s, background-color 0.3s;
@@ -277,8 +277,8 @@
 }
 
 .logo img {
-  max-width: 150%;
-  max-height: 200%;
+  max-width: 130px; /* Chỉnh kích thước mong muốn */
+  max-height: auto;
 }
 
 
@@ -353,7 +353,7 @@
   -ms-box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
 
   visibility: hidden;
-  opacity: 0; 
+  opacity: 0;
 }
 
 .sub-menu li {
@@ -378,7 +378,7 @@
   color: #555;
 
   display: block;
-  padding: 8px 20px; 
+  padding: 8px 20px;
   width: 100%;
 
   transition: all 0.4s;
@@ -401,7 +401,7 @@
 .sub-menu li:hover > .sub-menu {
   visibility: visible;
   opacity: 1;
-} 
+}
 
 .sub-menu li:hover {
   background-color: transparent;
@@ -514,7 +514,7 @@
   font-size: 50px;
   line-height: 1.2;
   color: #333;
-  
+
   padding: 0px 30px 0px 0px;
   width: calc(100% - 70px);
   height: 100%;
@@ -630,8 +630,8 @@
   max-width: calc(100% - 20px);
   max-height: 100%;
   position:absolute;
-  top: 0; 
-  left: 0; 
+  top: 0;
+  left: 0;
   bottom: 0;
   margin: auto;
 }
@@ -771,10 +771,10 @@
   right: 0;
   background-color: rgba(0,0,0,0.0);
   visibility: hidden;
-  
+
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;  
+  -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
 
@@ -787,10 +787,10 @@
   top: 0;
   right: -400px;
   background-color: #fff;
-  
+
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
-  -moz-transition: all 0.34;  
+  -moz-transition: all 0.34;
   transition: all 0.4s;
 
   box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.18);
@@ -847,7 +847,7 @@
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
-  -moz-transition: all 0.34;  
+  -moz-transition: all 0.34;
   transition: all 0.4s;
 }
 
@@ -867,10 +867,10 @@
   right: 0;
   background-color: rgba(0,0,0,0.0);
   visibility: hidden;
-  
+
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;  
+  -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
 
@@ -883,10 +883,10 @@
   top: 0;
   right: -400px;
   background-color: #fff;
-  
+
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
-  -moz-transition: all 0.34;  
+  -moz-transition: all 0.34;
   transition: all 0.4s;
 
   box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.18);
@@ -1194,7 +1194,7 @@
   color: rgba(0,0,0,0.3);
   position: absolute;
   opacity: 0;
-  
+
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -1391,7 +1391,7 @@
 .arrow-slick3 {
   font-size: 25px;
   color: #fff;
-  
+
   position: absolute;
   top: 0;
   width: 40px;
@@ -1596,8 +1596,8 @@ button.mfp-close {
 .swal-overlay {overflow-y: auto;}
 
 .swal-button:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .swal-button {
@@ -1640,7 +1640,7 @@ button.mfp-close {
 }
 
 .swal-footer {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 
@@ -1670,7 +1670,7 @@ button.mfp-close {
   background-color: #f2f2f2;
   border-left: 1px solid #e7e7e7;
   border-bottom: 1px solid #e7e7e7;
-  
+
   transform-origin: center center;
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
@@ -1765,7 +1765,7 @@ input.num-product {
 input.num-product::-webkit-outer-spin-button,
 input.num-product::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0; 
+  margin: 0;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -1806,7 +1806,7 @@ input.num-product::-webkit-inner-spin-button {
   -o-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
-  
+
   visibility: hidden;
   opacity: 0;
 }
@@ -2384,7 +2384,7 @@ input.num-product::-webkit-inner-spin-button {
 
 
 /*==================================================================
-    SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE 
+    SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE SIZE
 ==================================================================*/
 
 
@@ -2607,7 +2607,7 @@ input.num-product::-webkit-inner-spin-button {
 
 
 /*==================================================================
-   BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 
+   BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND
 ==================================================================*/
 .bg-none {background-color: transparent;}
 .bg0 {background-color: #fff;}
@@ -2740,7 +2740,7 @@ input.num-product::-webkit-inner-spin-button {
 
 
 /*==================================================================
- HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW 
+ HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW
 ==================================================================*/
 .plh0::-webkit-input-placeholder { color: #999999;}
 .plh0:-moz-placeholder { color: #999999;}
@@ -3129,16 +3129,16 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 
- #loading-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.7);
-   z-index: 9999;
-   display: none;
- }
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: none;
+}
 
 .loading-spinner {
   position: absolute;
@@ -3280,7 +3280,7 @@ input.num-product::-webkit-inner-spin-button {
   .respon1 {
     font-size: 40px;
   }
-  
+
   /*---------------------------------------------*/
   .respon2 {
     font-size: 20px;
@@ -3300,7 +3300,7 @@ input.num-product::-webkit-inner-spin-button {
     padding-left: 60px;
   }
 
-  
+
 }
 
 
