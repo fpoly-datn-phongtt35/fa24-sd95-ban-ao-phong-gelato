@@ -6,7 +6,10 @@ import com.example.datn.dto.Account.AccountDto;
 import com.example.datn.dto.AddressShipping.AddressShippingDto;
 import com.example.datn.dto.Cart.CartDto;
 import com.example.datn.dto.DiscountCode.DiscountCodeDto;
+import com.example.datn.entities.Account;
 import com.example.datn.exceptions.NotFoundException;
+import com.example.datn.exceptions.ShopApiException;
+import com.example.datn.repositories.AccountRepository;
 import com.example.datn.services.AccountService;
 import com.example.datn.services.AddressShippingService;
 import com.example.datn.services.BillService;
@@ -15,11 +18,14 @@ import com.example.datn.services.serviceImpl.DiscountCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ShoppingCartController {
@@ -70,6 +76,20 @@ public class ShoppingCartController {
     @PostMapping("/api/updateCart")
     public void updateCart(@RequestBody CartDto cartDto) throws NotFoundException {
         cartService.updateCart(cartDto);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/shoping-cart/update-profile", method = RequestMethod.POST)
+    public ResponseEntity<?> updateProfileShopingCart(@RequestBody AccountDto accountDto){
+        try {
+            accountService.updateProfile(accountDto);
+            return ResponseEntity.ok("Cập nhật thông tin thành công !");
+        } catch (ShopApiException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Cập nhật thông tin thất bại !");
+        }
     }
 }
 

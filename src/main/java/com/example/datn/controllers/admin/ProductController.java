@@ -62,7 +62,8 @@ public class ProductController {
 
 
     @GetMapping("/product-all")
-    public String getAllProduct(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+    public String getAllProduct(Model model,
+                                @RequestParam(name = "page", defaultValue = "0") int page,
                                 @RequestParam(name = "sort", defaultValue = "createDate,desc") String sortField,
                                 @RequestParam(name = "maSanPham", required = false) String maSanPham,
                                 @RequestParam(name = "tenSanPham", required = false) String tenSanPham,
@@ -80,20 +81,15 @@ public class ProductController {
         }
 
         Sort sort = Sort.by(sortDirection, sortFieldName);
-
         Pageable pageable = PageRequest.of(page, pageSize, sort);
-        Page<ProductSearchDto> listProducts;
 
-        if (maSanPham == null || tenSanPham == null || nhanHang == null || chatLieu == null || trangThai==null) {
-            listProducts=productService.listSearchProduct(maSanPham,tenSanPham,nhanHang,chatLieu,trangThai,pageable);
-        }else {
-            listProducts = productService.getAll(pageable);
-        }
-        model.addAttribute("maSanPham",maSanPham);
-        model.addAttribute("tenSanPham",tenSanPham);
-        model.addAttribute("nhanHang",nhanHang);
-        model.addAttribute("chatLieu",chatLieu);
-        model.addAttribute("trangThai",trangThai);
+        Page<ProductSearchDto> listProducts = productService.listSearchProduct(maSanPham, tenSanPham, nhanHang, chatLieu, trangThai, pageable);
+
+        model.addAttribute("maSanPham", maSanPham);
+        model.addAttribute("tenSanPham", tenSanPham);
+        model.addAttribute("nhanHang", nhanHang);
+        model.addAttribute("chatLieu", chatLieu);
+        model.addAttribute("trangThai", trangThai);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("sortField", sortField);
         model.addAttribute("items", listProducts);

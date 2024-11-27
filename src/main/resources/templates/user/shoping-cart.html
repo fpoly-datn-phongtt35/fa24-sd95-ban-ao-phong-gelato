@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
 
@@ -175,28 +176,25 @@
                     </h4>
                     <div class="flex-w flex-t bor12 p-b-13" style="margin-bottom: 20px">
                         <div class="size-208">
-									<span class="stext-110 cl2">
-										Tên người nhận:
-									</span>
+                            <span class="stext-110 cl2">Tên người nhận:</span>
                         </div>
-
                         <div class="size-209">
-									<span class="mtext-110 cl2" th:text="${profile.name}">
-
-									</span>
+                            <span id="name-display" class="mtext-110 cl2" th:text="${profile.name}">Placeholder</span>
+                            <input type="text" id="name-input" class="form-control" style="display: none;" value="" />
+                            <i id="edit-name" class="fa fa-edit cl1 pointer" style="margin-left: 10px;"></i>
+                            <i id="save-name" class="fa fa-save cl1 pointer" style="display: none; margin-left: 10px;"></i>
                         </div>
                     </div>
+
                     <div class="flex-w flex-t bor12 p-b-13" style="margin-bottom: 20px">
                         <div class="size-208">
-									<span class="stext-110 cl2">
-										Số điện thoại:
-									</span>
+                            <span class="stext-110 cl2">Số điện thoại:</span>
                         </div>
-
                         <div class="size-209">
-									<span class="mtext-110 cl2" th:text="${profile.phoneNumber}">
-
-									</span>
+                            <span id="phone-display" class="mtext-110 cl2" th:text="${profile.phoneNumber}">Placeholder</span>
+                            <input type="text" id="phone-input" class="form-control" style="display: none;" value="" />
+                            <i id="edit-phone" class="fa fa-edit cl1 pointer" style="margin-left: 10px;"></i>
+                            <i id="save-phone" class="fa fa-save cl1 pointer" style="display: none; margin-left: 10px;"></i>
                         </div>
                     </div>
                     <div class="flex-w flex-t">
@@ -387,7 +385,101 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:inline="javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('edit-name').addEventListener('click', function () {
+                enableEdit('name');
+            });
+            document.getElementById('edit-phone').addEventListener('click', function () {
+                enableEdit('phone');
+            });
+            document.getElementById('save-name').addEventListener('click', function () {
+                saveEdit('name');
+            });
+            document.getElementById('save-phone').addEventListener('click', function () {
+                saveEdit('phone');
+            });
+        });
+
+        function enableEdit(field) {
+            const display = document.getElementById(`${field}-display`);
+            const input = document.getElementById(`${field}-input`);
+            const editIcon = document.getElementById(`edit-${field}`);
+            const saveIcon = document.getElementById(`save-${field}`);
+
+            input.value = display.textContent.trim() || '';
+
+            display.style.display = 'none';
+            input.style.display = 'inline-block';
+            editIcon.style.display = 'none';
+            saveIcon.style.display = 'inline-block';
+        }
+
+        function saveEdit(field) {
+            const display = document.getElementById(`${field}-display`);
+            const input = document.getElementById(`${field}-input`);
+            const editIcon = document.getElementById(`edit-${field}`);
+            const saveIcon = document.getElementById(`save-${field}`);
+
+            const newValue = input.value.trim();
+            if (!newValue) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lỗi !',
+                    text: 'Thông tin không được bỏ trống !'
+                })
+                return;
+            }
+
+            display.textContent = newValue;
+            input.style.display = 'none';
+            display.style.display = 'inline-block';
+            editIcon.style.display = 'inline-block';
+            saveIcon.style.display = 'none';
+
+            const data = {
+                name: document.getElementById('name-display').textContent.trim(),
+                phoneNumber: document.getElementById('phone-display').textContent.trim()
+            };
+
+            console.log('Data being sent to the server:', data);
+
+            fetch('/shoping-cart/update-profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return response.text().then(errorMessage => {
+                            throw new Error(errorMessage);
+                        });
+                    }
+                })
+                .then(result => {
+                    Toastify({
+                        text: result || 'Thông tin đã được sửa thành công!',
+                        className: "info",
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)"
+                        }
+                    }).showToast();
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: error.message,
+                        confirmButtonText: 'Đồng ý'
+                    });
+                });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const btnsUp = document.querySelectorAll('.js-update-cart-up');
             const btnsDown = document.querySelectorAll('.js-update-cart-down');
