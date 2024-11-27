@@ -2,6 +2,7 @@ package com.example.datn.repositories;
 
 
 import com.example.datn.entities.Account;
+import com.example.datn.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

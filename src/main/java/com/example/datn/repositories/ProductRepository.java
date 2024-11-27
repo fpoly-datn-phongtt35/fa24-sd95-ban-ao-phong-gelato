@@ -39,9 +39,15 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "AND p.deleteFlag = false")
     Page<Product> searchProductName(String productName, Pageable pageable);
 
-    @Query(value = "SELECT p.id as idSanPham,p.code as maSanPham,p.name as tenSanPham,p.brand.name as nhanHang,p.material.name as chatLieu,p.status as trangThai FROM Product p where (:maSanPham is null or p.code like CONCAT('%', :maSanPham, '%')) and " +
-            "(:tenSanPham is null or p.name like CONCAT('%', :tenSanPham, '%')) and (:nhanHang is null or p.brand.id=:nhanHang) and " +
-            "(:chatLieu is null or p.material.id=:chatLieu) and (:trangThai is null or p.status=:trangThai) and(p.deleteFlag = false)")
+    @Query(value = "SELECT p.id as idSanPham, p.code as maSanPham, p.name as tenSanPham, " +
+            "p.brand.name as nhanHang, p.material.name as chatLieu, p.status as trangThai " +
+            "FROM Product p " +
+            "WHERE (COALESCE(:maSanPham, '') = '' OR p.code LIKE CONCAT('%', :maSanPham, '%')) " +
+            "AND (COALESCE(:tenSanPham, '') = '' OR p.name LIKE CONCAT('%', :tenSanPham, '%')) " +
+            "AND (:nhanHang IS NULL OR p.brand.id = :nhanHang) " +
+            "AND (:chatLieu IS NULL OR p.material.id = :chatLieu) " +
+            "AND (:trangThai IS NULL OR p.status = :trangThai) " +
+            "AND p.deleteFlag = false")
     Page<ProductSearchDto> listSearchProduct(String maSanPham, String tenSanPham, Long nhanHang, Long chatLieu, Integer trangThai, Pageable pageable);
 
     @Query(value = "SELECT p.id as idSanPham,p.code as maSanPham,p.name as tenSanPham,p.brand.name as nhanHang,p.material.name as chatLieu,p.status as trangThai FROM Product p where p.deleteFlag = false")
