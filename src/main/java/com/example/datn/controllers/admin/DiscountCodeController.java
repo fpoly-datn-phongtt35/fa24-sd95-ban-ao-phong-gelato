@@ -8,6 +8,7 @@ import com.example.datn.services.serviceImpl.DiscountCodeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,10 @@ public class DiscountCodeController {
     public String viewDiscountCodePage(Model model, SearchDiscountCodeDto searchDiscountCodeDto,
                                        @RequestParam(name = "page", defaultValue = "1") Integer page) {
 
-        Page<DiscountCodeDto> discountCodes = discountCodeService.getAllDiscountCode(searchDiscountCodeDto, page);
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        int pageIndex = Math.max(page - 1, 0);
+
+        Page<DiscountCodeDto> discountCodes = discountCodeService.getAllDiscountCode(searchDiscountCodeDto, pageIndex);
 
         model.addAttribute("discountCodes", discountCodes.getContent());
         model.addAttribute("dataSearch", searchDiscountCodeDto);

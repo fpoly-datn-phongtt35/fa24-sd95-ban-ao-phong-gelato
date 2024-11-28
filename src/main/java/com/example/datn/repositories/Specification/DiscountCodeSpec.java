@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class DiscountCodeSpec implements Specification<DiscountCode> {
@@ -20,54 +21,46 @@ public class DiscountCodeSpec implements Specification<DiscountCode> {
     }
 
     @Override
-    public Predicate toPredicate(Root<DiscountCode> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<DiscountCode> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
-        if (searchDiscountCodeDto.getKeyword() != null) {
-            String keyword = searchDiscountCodeDto.getKeyword();
 
-            Predicate productNamePredicate = criteriaBuilder.like(root.get("code"), "%" + keyword + "%");
-            Predicate productCodePredicate = criteriaBuilder.like(root.get("detail"), "%" + keyword + "%");
-            Predicate combinedPredicate = criteriaBuilder.or(productNamePredicate, productCodePredicate);
-
-            predicates.add(combinedPredicate);
-        }
-        if(searchDiscountCodeDto.getCode() != null) {
-            Predicate predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("code")), "%" + searchDiscountCodeDto.getCode() + "%" );
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getKeyword() != null && !searchDiscountCodeDto.getKeyword().trim().isEmpty()) {
+            String keyword = searchDiscountCodeDto.getKeyword().trim().toLowerCase();
+            Predicate codePredicate = cb.like(cb.lower(root.get("code")), "%" + keyword + "%");
+            Predicate detailPredicate = cb.like(cb.lower(root.get("detail")), "%" + keyword + "%");
+            predicates.add(cb.or(codePredicate, detailPredicate));
         }
 
-        if(searchDiscountCodeDto.getDetail() != null) {
-            Predicate predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("detail")), "%" + searchDiscountCodeDto.getDetail() + "%" );
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getCode() != null && !searchDiscountCodeDto.getCode().trim().isEmpty()) {
+            predicates.add(cb.like(cb.lower(root.get("code")), "%" + searchDiscountCodeDto.getCode().trim().toLowerCase() + "%"));
         }
 
-        if(searchDiscountCodeDto.getStartDate() != null) {
-            Predicate predicate = criteriaBuilder.greaterThanOrEqualTo(root.get("startDate"),  searchDiscountCodeDto.getStartDate());
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getDetail() != null && !searchDiscountCodeDto.getDetail().trim().isEmpty()) {
+            predicates.add(cb.like(cb.lower(root.get("detail")), "%" + searchDiscountCodeDto.getDetail().trim().toLowerCase() + "%"));
         }
 
-        if(searchDiscountCodeDto.getEndDate() != null) {
-            Predicate predicate = criteriaBuilder.lessThanOrEqualTo(root.get("endDate"), searchDiscountCodeDto.getEndDate() );
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getStartDate() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), searchDiscountCodeDto.getStartDate()));
         }
 
-        if(searchDiscountCodeDto.getDiscountCodeType() != null) {
-            Predicate predicate = criteriaBuilder.equal(root.get("type"), searchDiscountCodeDto.getDiscountCodeType());
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getEndDate() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), searchDiscountCodeDto.getEndDate()));
         }
 
-        if(searchDiscountCodeDto.getMaximumUsage() != null) {
-            Predicate predicate = criteriaBuilder.equal(root.get("maximumUsage"), searchDiscountCodeDto.getMaximumUsage() );
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getDiscountCodeType() != null) {
+            predicates.add(cb.equal(root.get("type"), searchDiscountCodeDto.getDiscountCodeType()));
         }
 
-        if(searchDiscountCodeDto.getStatus() != null) {
-            Predicate predicate = criteriaBuilder.equal(root.get("status"), searchDiscountCodeDto.getStatus());
-            predicates.add(predicate);
+        if (searchDiscountCodeDto.getMaximumUsage() != null) {
+            predicates.add(cb.equal(root.get("maximumUsage"), searchDiscountCodeDto.getMaximumUsage()));
         }
 
-//        predicates.add(criteriaBuilder.equal(root.get("status"), 1));
-        predicates.add(criteriaBuilder.equal(root.get("deleteFlag"), false));
-        return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+        if (searchDiscountCodeDto.getStatus() != null) {
+            predicates.add(cb.equal(root.get("status"), searchDiscountCodeDto.getStatus()));
+        }
+
+        return cb.and(predicates.toArray(new Predicate[0]));
     }
+
+
 }

@@ -10,6 +10,7 @@ import com.example.datn.repositories.Specification.DiscountCodeSpec;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,12 @@ public class DiscountCodeImpl implements DiscountCodeService {
 
     @Override
     public Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Integer page) {
-        Pageable pageable = PageRequest.of(page -1, 5);
+        int validatedPage = Math.max(page, 0);
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(validatedPage, 5, sort);
         Specification<DiscountCode> spec = new DiscountCodeSpec(searchDiscountCodeDto);
         Page<DiscountCode> discountCodes = discountCodeRepository.findAll(spec, pageable);
+
         return discountCodes.map(this::convertToDto);
     }
 
