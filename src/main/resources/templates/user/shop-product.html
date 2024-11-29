@@ -144,7 +144,7 @@
 
                         <div class="filter-col4 p-b-27">
                             <div class="mtext-102 cl2 p-b-15">
-                                Loại
+                                Thương Hiệu
                             </div>
 
                             <div class="flex-w p-t-4 m-r--5 category-filter">
@@ -300,7 +300,6 @@
         $("#min-price").val("$" + $("#price-slider").slider("values", 0));
         $("#max-price").val("$" + $("#price-slider").slider("values", 1));
 
-        var url = '?page=0'
         $('#filter-btn').on('click', function () {
             var orderBy = $(".filter-order-buy").find('.filter-link-active').attr('data-sort')
             var dataMinPrice = $(".filter-price").find('.filter-link-active').attr('data-min-price')
@@ -315,30 +314,32 @@
                     categoryIds.push(id);
                 });
             }
+            let urlSearchPram=new URLSearchParams(location.search);
             if(orderBy) {
-                url += '&sort=' + orderBy
+                urlSearchPram.set('sort',orderBy)
             }
             if(dataMinPrice) {
-                url += '&minPrice=' + dataMinPrice
+                urlSearchPram.set('minPrice',dataMinPrice)
             }
             if(dataMaxPrice) {
-                url += '&maxPrice=' + dataMaxPrice
+                urlSearchPram.set('maxPrice',dataMaxPrice)
             }
 
             if(categoryIds.length > 1) {
-                url += '&categoryId=' + categoryIds.join(',')
+                urlSearchPram.set('barndId',categoryIds.join(','))
             }
 
             if(categoryIds.length == 1) {
-                url += '&categoryId=' + categoryIds[0]
+                urlSearchPram.set('brandId',categoryIds[0])
             }
-
-            window.location.href = url
+            debugger
+            window.location.href = "?"+urlSearchPram.toString()
         })
         $('#search-btn').on('click', function () {
             if($("#search-product-input").val()) {
-                url += '&keyword=' + $("#search-product-input").val()
-                window.location.href = url
+                let urlSearchPram=new URLSearchParams(location.search);
+                urlSearchPram.set('keyword',$("#search-product-input").val())
+                window.location.href = "?"+urlSearchPram.toString();
             }
         })
 
