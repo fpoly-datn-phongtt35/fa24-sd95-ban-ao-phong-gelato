@@ -32,11 +32,16 @@
                     <option value="">Tất cả</option>
                     <option value="1" th:selected="${dataSearch.status == 1}">Đang hoạt động</option>
                     <option value="0" th:selected="${dataSearch.status == 0}">Đã đóng</option>
+                    <option value="2" th:selected="${dataSearch.status == 2}">Đã hết hạn</option>
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label>Số lượng còn</label>
-                <input type="text" class="form-control" id="maximumUsage" name="maximumUsage" placeholder="1234" th:value="${dataSearch.maximumUsage}">
+                <label>Loại giảm giá</label>
+                <select class="form-control" id="discountCodeType" th:value="${dataSearch.discountCodeType}">
+                    <option value="">Tất cả</option>
+                    <option value="1" th:selected="${dataSearch.discountCodeType == 1}">Theo phần trăm</option>
+                    <option value="2" th:selected="${dataSearch.discountCodeType == 2}">Giảm thẳng</option>
+                </select>
             </div>
         </div>
         <button type="button" id="search-btn" class="btn btn-primary m-1"><i class="fa fa-search"></i> Tìm kiếm</button>
@@ -74,11 +79,15 @@
             <td th:if="${discountCode.getType() == 1}" th:text="${discountCode.getPercentage() + '%'}"></td>
             <td th:if="${discountCode.getType() == 2}" th:text="${#numbers.formatDecimal(discountCode.getDiscountAmount(), 0, 'POINT', 0, 'COMMA')}"></td>
             <td th:text="${discountCode.maximumUsage}"></td>
+
             <td th:if="${discountCode.status == 0}">
                 <span class="border border-danger text-danger rounded px-1">Đã đóng</span>
             </td>
             <td th:if="${discountCode.status == 1}">
-                <span class="border border-success text-success rounded px-1">Hoạt động</span>
+
+                <span th:unless="${discountCode.endDate.before(#dates.createNow())}"   class="border border-success text-success rounded px-1">Hoạt động</span>
+                <span class="border border-danger text-danger rounded px-1" th:if="${discountCode.endDate.before(#dates.createNow())} ">Đã hết hạn</span>
+
             </td>
 
             <td>
@@ -106,21 +115,43 @@
     </table>
     <a th:href="@{'/admin-only/discount-code-create'}" class="btn btn-primary btn-sm">Thêm</a>
     <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm justify-content-end">
+        <ul class="pagination pagination-sm justify-content-end" th:if="${totalPage > 0}">
+            <!-- Previous -->
             <li th:if="${currentPage > 1}" class="page-item">
-                <a class="page-link" th:href="@{'?page=' + ${currentPage - 1}}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                <a class="page-link" href="javascript:void(0)"
+                   th:onclick="'changePage(' + (${currentPage - 1}) + ')'"
+                   aria-label="Previous">
+                    <span aria-hidden="true">«</span>
                 </a>
             </li>
-            <li th:each="i : ${#numbers.sequence(1, totalPage)}" class="page-item" th:classappend="${currentPage == i ? 'active' : ''}">
-                <a class="page-link" th:href="@{'?page=' + ${i}}" th:text="${i}"></a>
+
+            <!-- Số Trang -->
+            <li th:each="i : ${#numbers.sequence(1, totalPage)}" class="page-item"
+                th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" href="javascript:void(0)"
+                   th:onclick="'changePage(' + ${i} + ')'"
+                   th:text="${i}"></a>
             </li>
+
+            <!-- Next -->
             <li th:if="${currentPage < totalPage}" class="page-item">
-                <a class="page-link" th:href="@{'?page=' + ${currentPage + 1}}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <a class="page-link" href="javascript:void(0)"
+                   th:onclick="'changePage(' + (${currentPage + 1}) + ')'"
+                   aria-label="Next">
+                    <span aria-hidden="true">»</span>
                 </a>
             </li>
         </ul>
+
+
+        <script>
+            function changePage(page) {
+                const params = new URLSearchParams(window.location.search);
+                params.set('page', page); // Cập nhật tham số `page`
+                window.location.search = params.toString(); // Reload với URL mới
+            }
+        </script>
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:inline="javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -153,12 +184,13 @@
         let searchParams = new URLSearchParams(baseUrl.search);
 
         $('#search-btn').on('click', function () {
-            searchParams.set('page', 0); // reset page to 0 on new search
-
+            searchParams.set('page', 1); // reset page to 1 on new search
+            debugger
             let code = $('#code').val().trim();
             let startDate = $("#startDate").val();
             let endDate = $("#endDate").val();
             let status = $("#status").val();
+            let discountCodeType = $("#discountCodeType").val();
 
             if (startDate && endDate && startDate >= endDate) {
                 Swal.fire({
@@ -168,10 +200,11 @@
                 return;
             }
 
-            if (code) searchParams.set('code', code);
-            if (startDate) searchParams.set('startDate', startDate);
-            if (endDate) searchParams.set('endDate', endDate);
-            if (status) searchParams.set('status', status);
+            searchParams.set('code', code);
+            searchParams.set('startDate', startDate);
+            searchParams.set('endDate', endDate);
+            searchParams.set('status', status);
+            searchParams.set('discountCodeType', discountCodeType);
 
             window.location.href = baseUrl.pathname + '?' + searchParams.toString();
         });

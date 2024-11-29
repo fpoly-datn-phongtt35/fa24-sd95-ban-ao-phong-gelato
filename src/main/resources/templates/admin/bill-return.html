@@ -10,23 +10,17 @@
 <div layout:fragment="content">
     <h4 class="mt-2">Danh sách đổi trả</h4>
     <div class="my-3">
-        <form th:action="@{/admin-only/bill-return}">
+        <form    th:action="@{/admin-only/bill-return}">
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="fromDate">Bắt đầu</label>
-                    <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="Từ">
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" th:value="${request.fromDate}" placeholder="Từ">
                 </div>
                 <div class="form-group col-md-2">
                     <label for="toDate">Kết thúc</label>
-                    <input type="date" class="form-control" id="toDate" name="toDate" placeholder="Đến">
+                    <input type="date" class="form-control" id="toDate" name="toDate" th:value="${request.toDate}" placeholder="Đến">
                 </div>
-                <div>
-                    <label for="returnStatus">Trạng thái</label>
-                    <select class="form-select" name="returnStatus" id="returnStatus">
-                        <option value="3">Hoàn thành</option>
-                        <option value="4">Đã hủy</option>
-                    </select>
-                </div>
+
                 <!--                <div class="form-group col-md-2">-->
                 <!--                    <label >Khách hàng</label>-->
                 <!--                    <input type="text" class="form-control" placeholder="Họ tên, SĐT Khách hàng">-->
@@ -69,7 +63,9 @@
 
                 </td>
                 <td>
-                    <span th:text="${#numbers.formatDecimal(return.returnMoney, 0, 'POINT', 0, 'COMMA')}"></span>
+                    <span th:text="${return.returnMoney<=0?'Khách trả':'Trả khách'}"></span>
+                    <span th:text="${#numbers.formatDecimal((return.returnMoney<0?-return.returnMoney:return.returnMoney), 0, 'POINT', 0, 'COMMA')}"></span>
+
                 </td>
                 <td>
                     <span th:if="${return.returnReason}" th:text="${return.returnReason}"></span>
@@ -129,22 +125,39 @@
     <!--        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
 
     <script th:inline="javascript">
-        $('#myTable').DataTable();
-        new DataTable('#myTable', {
-            order: [],
+        debugger
+        let table= $('#myTable').DataTable({
+            order: [  [0, 'desc'] ],
             language: {
-                search: "Tìm kiếm:",
-                "lengthMenu": "Hiển thị _MENU_ bản ghi 1 trang",
-                "zeroRecords": "Không tìm thấy bản ghi nào",
-                "info": "Hiển thị trang _PAGE_ trong _PAGES_",
-                "infoEmpty": "Không có bản ghi nào",
-                "paginate": {
-                    "first":      "<<",
-                    "last":       ">>",
-                    "next":       ">",
-                    "previous":   "<"
-                },
+                "sProcessing": "Đang xử lý...",
+                "sLengthMenu": "Xem _MENU_ mục",
+                "sZeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix": "",
+                "sSearch": "Tìm:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Đầu",
+                    "sPrevious": "Trước",
+                    "sNext": "Tiếp",
+                    "sLast": "Cuối"
+                }
             }
+            // language: {
+            //     search: "Tìm kiếm:"
+            //     // "lengthMenu": "Hiển thị _MENU_ bản ghi 1 trang",
+            //     // "zeroRecords": "Không tìm thấy bản ghi nào",
+            //     // "info": "Hiển thị trang _PAGE_ trong _PAGES_",
+            //     // "infoEmpty": "Không có bản ghi nào",
+            //     // "paginate": {
+            //     //     "first":      "<<",
+            //     //     "last":       ">>",
+            //     //     "next":       ">",
+            //     //     "previous":   "<"
+            //     // },
+            // }
         });
         $('.return-item').on('dblclick', function () {
             const billReturnId =  $(this).closest('.return-item').attr('data-return-id')

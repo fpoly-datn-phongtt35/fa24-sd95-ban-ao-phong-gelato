@@ -40,10 +40,11 @@ public class BillReturnServiceImpl implements BillReturnService {
     @Override
     public List<BillReturnDto> getAllBillReturns(SearchBillReturnDto searchBillReturnDto) {
         Specification<BillReturn> spec = new BillReturnSpecification(searchBillReturnDto);
-        List<BillReturn> billReturns = billReturnRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "returnDate"));
+        List<BillReturn> billReturns = billReturnRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "id"));
         List<BillReturnDto> billReturnDtos = billReturns.stream().map(this::convertToDto).collect(Collectors.toList());
         return billReturnDtos;
     }
+
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -94,7 +95,7 @@ public class BillReturnServiceImpl implements BillReturnService {
             billDetailRepository.save(billDetail);
         }
 
-        // Tính tiền hàng trả
+        // Tính tiền trả khách
         billReturn.setPercentFeeExchange(billReturnCreateDto.getPercent());
         Double refundToCustomer = totalRefund - totalRefund * billReturnCreateDto.getPercent() / 100;
         if(billReturnCreateDto.getReturnDtos() == null || billReturnCreateDto.getReturnDtos().isEmpty()) {
@@ -135,12 +136,14 @@ public class BillReturnServiceImpl implements BillReturnService {
                 }
 
                 // Tính tiền trả khách
-                if(totalRefund >= totalExchange) {
-                    billReturn.setReturnMoney(totalExchange - totalRefund);
-                }
-                else {
-                    billReturn.setReturnMoney(Double.valueOf(0));
-                }
+//                if(totalRefund >= totalExchange) {
+//                    billReturn.setReturnMoney(totalExchange - totalRefund);
+//                }
+//                else {
+//                    billReturn.setReturnMoney(Double.valueOf(0));
+//                }
+//                TÍnh tiền khách trả chấp nhận âm
+                billReturn.setReturnMoney(totalRefund - totalExchange -  billReturnCreateDto.getPercent()*totalRefund/100);
 
 
                 returnDetailRepository.saveAll(returnDetails);

@@ -718,7 +718,7 @@
                                 </td>
                                 <td class="px-6 py-3 text-lg">
                                     <div class="custom-number-input h-10 w-20">
-                                        <input class="return-quantity border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400" type="number" name="return_quantity" value="0" >
+                                        <input ${product.isPromotionalProduct?'disabled':''} class="return-quantity border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400" type="number" isPromotionalProduct="${product.isPromotionalProduct}" name="return_quantity" value="0" >
                                         <span>/ ${product.soLuong}</span>
                                     </div>
                                 </td>
@@ -729,7 +729,11 @@
                                 <td class="total-price-product px-6 py-3 text-blue-400 font-bold text-lg">
                                     0
                                 </td>
-                                <td><button type="button" class="choose-exchange-product-btn hidden focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Đổi</button></td>
+                                      <td>
+
+                                      <button type="button" class="${product.isPromotionalProduct?'d-none':''} choose-exchange-product-btn hidden focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Đổi</button>
+                                      <button type="button" style="${product.isPromotionalProduct?'':'display:none'}" class=" focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:focus:ring-purple-900" title="Hàng khuyến mại không thể đổi trả">Hàng khuyến mại</button>
+                                      </td>
                            </tr>`
                 })
                 $('.product-select-body').html(html)
@@ -806,16 +810,16 @@
                         return;
                     }
 
-                    if(detail.price < priceCheck) {
-                        Toastify({
-                            text: "Chỉ được chọn sản phẩm có giá lớn hơn hoặc bằng giá sản phẩm trả",
-                            className: "error",
-                            style: {
-                                background: "red",
-                            }
-                        }).showToast();
-                        return
-                    }
+                    // if(detail.price < priceCheck) {
+                    //     Toastify({
+                    //         text: "Chỉ được chọn sản phẩm có giá lớn hơn hoặc bằng giá sản phẩm trả",
+                    //         className: "error",
+                    //         style: {
+                    //             background: "red",
+                    //         }
+                    //     }).showToast();
+                    //     return
+                    // }
 
 
                     if($(this).hasClass('selected font-bold border border-2 border-blue-600 bg-blue-50')) {
@@ -973,6 +977,7 @@
                 });
 
                 $('.return-quantity').on('input change', function () {
+
                     var productSelectItem = $(this).closest('.product-select-item')
                     var productId = productSelectItem.attr('data-product-id')
 
@@ -1188,7 +1193,10 @@
             //    ============================== XỬ LÝ THANH TOÁN ===============================
 
 
-            $('#submitBtn').on('click', handleSubmit);
+            $('#submitBtn').on('click', function (){
+                handleSubmit()
+
+            });
 
             async function handleSubmit() {
                 var dataSend = {
@@ -1238,8 +1246,19 @@
                         })
                     })
                 }
+                Swal.fire({
+                    title: "Thông báo",
+                    text: "Bạn chắc chắn muốn đổi trả sản phẩm này",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Xác nhận",
 
-                await handleCallApi(dataSend)
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        await handleCallApi(dataSend)
+                    }
+                });
+
             }
 
             async function handleCallApi(dataSend) {

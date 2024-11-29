@@ -27,5 +27,7 @@ public class BillDetail implements Serializable {
     private Bill bill;
 
     private Integer returnQuantity;
+    private Boolean isPromotionalProduct;
+
 
 }
