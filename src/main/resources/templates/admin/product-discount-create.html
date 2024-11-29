@@ -188,11 +188,12 @@
                     <div class="flex align-items-center gap-x-2 ml-auto">
                         <div class="flex flex-col">
                             <label for="colorFilter" class="form-label mb-1">Màu sắc</label>
-                            <select id="colorFilter" name="color" class="form-select p-2 border border-gray-300 rounded-lg">
+                            <select id="colorFilter" name="color"
                                     class="form-select p-2 border border-gray-300 rounded-lg">
+                                class="form-select p-2 border border-gray-300 rounded-lg">
                                 <option value="">Chọn màu sắc</option>
                                 <th:block th:each="color : ${colors}">
-                                    <option th:value="${color.name}" th:text="${color.name}"
+                                    <option th:value="${color.id}" th:text="${color.name}"
                                             th:selected="${color.name == selectedColor}"></option>
                                 </th:block>
                             </select>
@@ -204,7 +205,7 @@
                                     class="form-select p-2 border border-gray-300 rounded-lg">
                                 <option value="">Chọn kích cỡ</option>
                                 <th:block th:each="size : ${sizes}">
-                                    <option th:value="${size.name}" th:text="${size.name}"
+                                    <option th:value="${size.id}" th:text="${size.name}"
                                             th:selected="${size.name == selectedSize}"></option>
                                 </th:block>
                             </select>
@@ -334,26 +335,28 @@
 <script th:src="@{/admin/assets/js/validator.js}"></script>
 
 <script th:inline="javascript">
+    function applyFilters() {
+        let colorId = $('#colorFilter').val().toLowerCase();
+        let sizeId = $('#sizeFilter').val().toLowerCase();
+
+        // Lọc danh sách sản phẩm hiện tại theo màu và kích cỡ
+        const filteredProducts = productListSearch.map(product => ({
+            ...product,
+            productDetailDtos: product.productDetailDtos.filter(
+                detail => (sizeId==''||detail.size.id == sizeId) && (colorId===''||detail.color.id == colorId)
+            ),
+        }));
+
+        productListCurrent = filteredProducts
+        setChoosed(filteredProducts)
+        loadHtmlProduct(filteredProducts)
+        paginateProductList(filteredProducts);
+    }
+
     $(document).ready(function () {
         // Sự kiện cho nút Lọc
         $('#filterBtn').on('click', function () {
-            var selectedColor = $('#colorFilter').val().toLowerCase();
-            var selectedSize = $('#sizeFilter').val().toLowerCase();
-
-            // Lọc danh sách sản phẩm hiện tại theo màu và kích cỡ
-            $('.product-item').each(function () {
-                var productColor = $(this).find('.text-sm:contains("Màu:")').next().text().toLowerCase();
-                var productSize = $(this).find('.text-sm:contains("Size:")').next().text().toLowerCase();
-
-                var colorMatch = selectedColor === '' || productColor.includes(selectedColor);
-                var sizeMatch = selectedSize === '' || productSize.includes(selectedSize);
-
-                if (colorMatch && sizeMatch) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
+            applyFilters()
         });
 
         // Sự kiện cho nút Hủy để hiển thị lại tất cả sản phẩm
@@ -365,6 +368,7 @@
     });
 
     var productListInit = []
+    var productListSearch = []
     var productListCurrent = []
     var productSelectedList = []
     var productSelectedListDetailId = []
@@ -420,6 +424,7 @@
         success: function (data) {
             console.log(data); // Kiểm tra dữ liệu trả về
             productListInit = data;
+            productListSearch = data;
             productListCurrent = productListInit;
             loadHtmlProduct(productListInit);
             setInitChoosedFalse();
@@ -444,7 +449,7 @@
     }
 
     function paginateProductList(productList) {
-        var items = $(".product-item");
+        var items = $(".product-item:visible");
         var numItems = items.length;
         var perPage = 5;
 
@@ -464,7 +469,7 @@
 
 
     function paginateSelectedProductList() {
-        var items = $(".product-select-item");
+        var items = $(".product-select-item:visible");
         var numItems = items.length;
         var perPage = 5;
 
@@ -514,13 +519,8 @@
     var debounceTimer;
     $("#search-dropdown").on('input', function () {
         var searchKey = $(this).val().trim()
-        const productId = $('#dropdown-button').attr('selected-id')
-        if (productId) {
-            getListProduct(searchKey, productId)
-        } else {
-            getListProduct(searchKey, null)
+        getListProduct(searchKey)
 
-        }
     })
 
 
@@ -528,18 +528,11 @@
         if (debounceTimer) {
             clearTimeout(debounceTimer);
         }
-
         var url = `/api/products-no-pagination`
         if (keyword != null && keyword.trim() != "") {
             url += `?keyword=${keyword}`
         }
-        if (productId != null && productId.trim() != "") {
-            if (url.includes("?")) {
-                url += `&productId=${productId}`
-            } else {
-                url += `?productId=${productId}`
-            }
-        }
+
 
         debounceTimer = setTimeout(async function () {
             await $.ajax({
@@ -549,9 +542,8 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     productListCurrent = data
-                    setChoosed(productListCurrent)
-                    loadHtmlProduct(productListCurrent)
-                    paginateProductList(productListCurrent)
+                    productListSearch=data
+                    applyFilters();
                 },
                 error: function (xhr, status, error) {
                     Swal.fire({
@@ -603,7 +595,7 @@
                     const colorName = detail.color && detail.color.name ? detail.color.name : 'N/A';
                     const imageUrl = product.imageUrl ? product.imageUrl : 'default-image.jpg';
 
-                    html += `<div class="product-item group ${isChoosedClass} [&.is-choosed]:bg-gray-400/25" data-detail-id="${detail.id}">
+                    html += `<div class="product-item  group ${isChoosedClass} [&.is-choosed]:bg-gray-400/25" size='${sizeName}' color='${colorName}' data-detail-id="${detail.id}">
                            <div class="product-item-inner flex justify-between items-center mb-4 mx-4 py-2 border-b border-blue-200">
                                <div class="product-info flex items-center">
                                    <div class="w-12 h-16 mr-4">

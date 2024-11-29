@@ -70,7 +70,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             " full join bill_detail bd on b.id=bd.bill_id join payment pmt on b.id = pmt.bill_id left join payment_method pm on b.payment_method_id=pm.id where b.id=:maHoaDon",nativeQuery = true)
     BillDetailDtoInterface getBillDetail(@Param("maHoaDon") Long maHoaDon);
 
-    @Query(value = "select pd.id, bd.id as billDetailId, p.id as productId, p.name as tenSanPham,c.name as tenMau, s.name as kichCo, bd.moment_price as giaTien,bd.quantity as soLuong, bd.moment_price*bd.quantity as tongTien,  (\n" +
+    @Query(value = "select pd.id, bd.id as billDetailId, p.id as productId, p.name as tenSanPham,c.name as tenMau, s.name as kichCo, bd.moment_price as giaTien,bd.quantity as soLuong, bd.moment_price*bd.quantity as tongTien, bd.is_promotional_product as isPromotionalProduct,  (\n" +
             "           SELECT top(1) link\n" +
             "           FROM image\n" +
             "           WHERE p.id = image.product_id\n" +
@@ -91,40 +91,35 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
     @Query(value = "select * from bill b where DATEDIFF(DAY, b.create_date, GETDATE()) <= 7 and b.status='HOAN_THANH'", nativeQuery = true)
     Page<Bill> findValidBillToReturn(Pageable pageable);
 
-    @Query(value = "SELECT \n" +
-            "    COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS total\n" +
-            "FROM \n" +
-            "    bill b \n" +
-            "    LEFT JOIN bill_return br ON b.id = br.bill_id \n" +
-            "    LEFT JOIN return_detail rd ON br.id = rd.id \n" +
-            "    LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id \n" +
-            "WHERE \n" +
-            "    b.status = 'HOAN_THANH';", nativeQuery = true)
+    @Query(value = "SELECT COALESCE(SUM(bill.amount), 0) + COALESCE(SUM(-billReturn.return_money), 0) AS total\n" +
+            "FROM bill\n" +
+            "         LEFT JOIN bill_return billReturn ON bill.id = billReturn.bill_id\n" +
+            "WHERE bill.status = 'HOAN_THANH' OR bill.status = 'TRA_HANG' ;\n", nativeQuery = true)
     Double calculateTotalRevenue();
 
     @Query(value = "SELECT " +
-            "COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS total " +
+            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS total " +
             "FROM bill b " +
             "LEFT JOIN bill_return br ON b.id = br.bill_id " +
             "LEFT JOIN return_detail rd ON br.id = rd.id " +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
-            "WHERE b.status = 'HOAN_THANH' " +
+            "WHERE (b.status = 'HOAN_THANH' OR b.status = 'TRA_HANG') " +
             "AND (b.create_date BETWEEN CONVERT(DATETIME, :startDate, 120) AND CONVERT(DATETIME, :endDate, 120))", nativeQuery = true)
     Double calculateTotalRevenueFromDate(String startDate, String endDate);
 
 
-    @Query(value = "SELECT CONVERT(DATE, create_date) AS date, COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue\n" +
+    @Query(value = "SELECT CONVERT(DATE, create_date) AS date, COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
-            "WHERE (YEAR(b.create_date) = :year AND MONTH(b.create_date) = :month AND b.status='HOAN_THANH' ) " +
+            "WHERE (YEAR(b.create_date) = :year AND MONTH(b.create_date) = :month AND (b.status='HOAN_THANH' OR b.status = 'TRA_HANG' )) " +
             "GROUP BY CONVERT(DATE, create_date)\n" +
             "ORDER BY CONVERT(DATE, create_date);", nativeQuery = true)
     List<Object[]> statisticRevenueDayInMonth(String month, String year);
 
-    @Query(value = "SELECT MONTH(create_date) AS month, COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue\n" +
+    @Query(value = "SELECT MONTH(create_date) AS month, COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
-            "WHERE YEAR(b.create_date) = :year and b.status='HOAN_THANH' \n" +
+            "WHERE YEAR(b.create_date) = :year and (b.status='HOAN_THANH' OR b.status = 'TRA_HANG') \n" +
             "GROUP BY MONTH(b.create_date)\n" +
             "ORDER BY MONTH(b.create_date)", nativeQuery = true)
     List<Object[]> statisticRevenueMonthInYear(String year);
@@ -137,10 +132,10 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
 
     @Query(value = "SELECT \n" +
             "FORMAT(b.create_date, 'MM-yyyy') AS date,\n" +
-            "COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue\n" +
+            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
-            "WHERE b.status = 'HOAN_THANH' AND ( (b.create_date BETWEEN :fromDate AND :toDate)) \n" +
+            "WHERE (b.status = 'HOAN_THANH' OR b.status = 'TRA_HANG') AND ( (b.create_date BETWEEN :fromDate AND :toDate)) \n" +
             "GROUP BY \n" +
             "FORMAT(b.create_date, 'MM-yyyy')\n" +
             "ORDER BY \n" +
@@ -148,11 +143,11 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
     List<Object[]> statisticRevenueFormMonth(String fromDate, String toDate);
 
     @Query(value = "SELECT CONVERT(varchar, b.create_date, 23) AS date, " +
-            "COALESCE(SUM(b.amount), 0) - COALESCE(SUM(br.return_money), 0) + COALESCE(SUM(rd.quantity_return * pd.price), 0) AS revenue " +
+            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue " +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id " +
             "LEFT JOIN return_detail rd ON br.id = rd.id " +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
-            "WHERE b.status = 'HOAN_THANH' AND " +
+            "WHERE (b.status = 'HOAN_THANH' OR b.status = 'TRA_HANG') AND " +
             "b.create_date BETWEEN CONVERT(DATETIME, :fromDate, 120) AND CONVERT(DATETIME, :toDate, 120) " +
             "GROUP BY CONVERT(varchar, b.create_date, 23) " +
             "ORDER BY CONVERT(varchar, b.create_date, 23)", nativeQuery = true)

@@ -25,6 +25,7 @@ public class BillReturnController {
     @GetMapping("/admin-only/bill-return")
     public String viewBillReturnPage(SearchBillReturnDto searchBillReturnDto, Model model) {
         List<BillReturnDto> billReturnList = billReturnService.getAllBillReturns(searchBillReturnDto);
+        model.addAttribute("request", searchBillReturnDto);
         model.addAttribute("returnList", billReturnList);
         return "admin/bill-return";
     }

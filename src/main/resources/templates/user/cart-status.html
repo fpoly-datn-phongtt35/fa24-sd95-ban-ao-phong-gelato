@@ -82,7 +82,7 @@
                         <td class="text-center" th:text="${bill.status}"></td>
                         <td class="">
                             <span class="text-primary font-weight-bold js-show-detail cursor-pointer">Hiển thị thông tin sản phẩm</span>
-                            <div class="modal-cart-detail p-4">
+                            <div class="modal-cart-detail p-4" style="max-height: 400px;overflow: auto;border-radius: 10px;border: 1px solid #ccc;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);">
                                 <div th:each="billDetail : *{bill.billDetail}">
                                     <a th:href="'/product-detail/' + ${billDetail.productDetail.product.code}" th:text="${billDetail.productDetail.product.name}"></a>
                                     <div>
