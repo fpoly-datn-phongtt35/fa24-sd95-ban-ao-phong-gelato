@@ -25,10 +25,13 @@ public class DiscountCodeImpl implements DiscountCodeService {
 
     @Override
     public Page<DiscountCodeDto> getAllDiscountCode(SearchDiscountCodeDto searchDiscountCodeDto, Integer page) {
+
         Sort sort=Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(page-1, 5,sort);
+
         Specification<DiscountCode> spec = new DiscountCodeSpec(searchDiscountCodeDto);
         Page<DiscountCode> discountCodes = discountCodeRepository.findAll(spec, pageable);
+
         return discountCodes.map(this::convertToDto);
     }
 

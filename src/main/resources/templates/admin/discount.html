@@ -11,11 +11,37 @@
 <div id="app" layout:fragment="content">
     <h4>Mã giảm giá</h4>
 
-    <div class="my-3">
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="code">Mã giảm giá</label>
-                <input type="text" class="form-control" id="code" name="code" placeholder="OAS123" th:value="${dataSearch.code}">
+    <form th:action="@{/admin-only/discount-code}">
+        <div class="my-3">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="code">Mã giảm giá</label>
+                    <input type="text" class="form-control" id="code" name="code" placeholder="OAS123" th:value="${dataSearch.code}">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Ngày áp dụng</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" th:value="${#dates.format(dataSearch.startDate, 'yyyy-MM-dd')}">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Ngày kết thúc</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" th:value="${#dates.format(dataSearch.endDate, 'yyyy-MM-dd')}">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="status" name="status" th:value="${dataSearch.status}">
+                        <option value="">Tất cả</option>
+                        <option value="1" th:selected="${dataSearch.status == 1}">Đang hoạt động</option>
+                        <option value="0" th:selected="${dataSearch.status == 0}">Đã đóng</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Số lượng còn</label>
+                    <input type="text" class="form-control" id="maximumUsage" name="maximumUsage" placeholder="1234" th:value="${dataSearch.maximumUsage}">
+                </div>
             </div>
 
             <div class="form-group col-md-2">
@@ -42,14 +68,10 @@
                     <option value="1" th:selected="${dataSearch.discountCodeType == 1}">Theo phần trăm</option>
                     <option value="2" th:selected="${dataSearch.discountCodeType == 2}">Giảm thẳng</option>
                 </select>
+
             </div>
         </div>
-        <button type="button" id="search-btn" class="btn btn-primary m-1"><i class="fa fa-search"></i> Tìm kiếm</button>
-        <a th:href="@{/admin-only/discount-code}" class="btn btn-secondary m-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2.57 3h18.86l-6.93 9.817V21h-5v-8.183L2.57 3Zm3.86 2l5.07 7.183V19h1v-6.817L17.57 5H6.43Zm11.45 8.465L20 15.586l2.122-2.121l1.414 1.414L21.415 17l2.121 2.122l-1.414 1.414L20 18.414l-2.12 2.122l-1.415-1.415l2.121-2.12l-2.121-2.122l1.414-1.414Z"/></svg>
-            Hủy bỏ
-        </a>
-    </div>
+    </form>
 
     <div class="alert alert-success" th:if="${message != null}" th:text="${message}"></div>
     <table class="table my-3">
@@ -113,7 +135,7 @@
 
         </tbody>
     </table>
-    <a th:href="@{'/admin-only/discount-code-create'}" class="btn btn-primary btn-sm">Thêm</a>
+
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm justify-content-end" th:if="${totalPage > 0}">
             <!-- Previous -->

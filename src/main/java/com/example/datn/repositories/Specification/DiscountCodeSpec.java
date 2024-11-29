@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 public class DiscountCodeSpec implements Specification<DiscountCode> {
@@ -22,17 +23,16 @@ public class DiscountCodeSpec implements Specification<DiscountCode> {
     }
 
     @Override
-    public Predicate toPredicate(Root<DiscountCode> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<DiscountCode> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
-        if (searchDiscountCodeDto.getKeyword() != null) {
-            String keyword = searchDiscountCodeDto.getKeyword();
 
-            Predicate productNamePredicate = criteriaBuilder.like(root.get("code"), "%" + keyword + "%");
-            Predicate productCodePredicate = criteriaBuilder.like(root.get("detail"), "%" + keyword + "%");
-            Predicate combinedPredicate = criteriaBuilder.or(productNamePredicate, productCodePredicate);
-
-            predicates.add(combinedPredicate);
+        if (searchDiscountCodeDto.getKeyword() != null && !searchDiscountCodeDto.getKeyword().trim().isEmpty()) {
+            String keyword = searchDiscountCodeDto.getKeyword().trim().toLowerCase();
+            Predicate codePredicate = cb.like(cb.lower(root.get("code")), "%" + keyword + "%");
+            Predicate detailPredicate = cb.like(cb.lower(root.get("detail")), "%" + keyword + "%");
+            predicates.add(cb.or(codePredicate, detailPredicate));
         }
+
         if (searchDiscountCodeDto.getCode() != null) {
             Predicate predicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("code")), "%" + searchDiscountCodeDto.getCode() + "%");
             predicates.add(predicate);
@@ -84,5 +84,8 @@ public class DiscountCodeSpec implements Specification<DiscountCode> {
 //        predicates.add(criteriaBuilder.equal(root.get("status"), 1));
         predicates.add(criteriaBuilder.equal(root.get("deleteFlag"), false));
         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+
     }
+
+
 }
