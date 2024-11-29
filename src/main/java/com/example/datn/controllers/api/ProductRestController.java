@@ -25,7 +25,7 @@ public class ProductRestController {
 
 //    @CrossOrigin(origins = "http://localhost:3000") // Thay thế bằng domain của bạn
     @GetMapping("/api/products-no-pagination")
-    public List<ProductDto> getAllProductsApi(@RequestBody(required = false) SearchProductDto searchRequest) {
+    public List<ProductDto> getAllProductsApi(SearchProductDto searchRequest) {
         if (searchRequest == null) {
             searchRequest = new SearchProductDto();
         }

@@ -68,6 +68,11 @@ public class ProductSpecification implements Specification<Product> {
             Predicate predicate = root.get("category").get("id").in(searchProductDto.getCategoryId());
             predicates.add(predicate);
         }
+        if(searchProductDto.getBrandId() != null) {
+            Predicate predicate = root.get("brand").get("id").in(searchProductDto.getBrandId());
+            predicates.add(predicate);
+        }
+
 
         if(searchProductDto.getGender() != null) {
             Predicate predicate = criteriaBuilder.equal(root.get("gender"), searchProductDto.getGender());

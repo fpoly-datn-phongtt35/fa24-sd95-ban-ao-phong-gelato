@@ -18,4 +18,7 @@ public interface BillDetailProduct {
     int getSoLuong();
 
     Double getTongTien();
+
+    boolean getIsPromotionalProduct();
+
 }

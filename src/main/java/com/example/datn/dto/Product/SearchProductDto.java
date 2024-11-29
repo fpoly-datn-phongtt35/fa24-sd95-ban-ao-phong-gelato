@@ -15,6 +15,7 @@ public class SearchProductDto {
     private Double maxPrice;
     private String productName;
     private List<Long> categoryId;
+    private List<Long> brandId;
     private String keyword;
     private String barcode;
     private String sort;
