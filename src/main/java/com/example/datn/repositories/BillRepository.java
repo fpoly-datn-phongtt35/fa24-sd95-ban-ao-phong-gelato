@@ -128,6 +128,8 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
 
     @Query("select count(b) from Bill b where b.status='CHO_XAC_NHAN'")
     int getTotalBillStatusWaiting();
+    @Query("select count(b.status) from Bill b where b.status != 'HUY' AND b.status != 'TRA_HANG'AND b.invoiceType = 'ONLINE'")
+    int getTotalBillStatusWaiting2();
 
     @Query(value = "SELECT \n" +
             "FORMAT(b.create_date, 'MM-yyyy') AS date,\n" +

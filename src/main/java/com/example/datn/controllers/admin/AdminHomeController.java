@@ -40,10 +40,11 @@ public class AdminHomeController {
             Page<ProductDto> productDtos = productService.getAllProductApi(Pageable.ofSize(10));
             double totalRevenue = billRepository.calculateTotalRevenue();
             long totalBillWaiting = billRepository.getTotalBillStatusWaiting();
+            long totalBillWaiting2 = billRepository.getTotalBillStatusWaiting2();
 
             // Truyền dữ liệu sang giao diện
             model.addAttribute("billList", billDtos.getContent());
-            model.addAttribute("totalBillQuantity", billDtos.getTotalElements());
+            model.addAttribute("totalBillQuantity", totalBillWaiting2);
             model.addAttribute("totalProduct", productDtos.getTotalElements());
             model.addAttribute("revenue", totalRevenue);
             model.addAttribute("totalBillWaiting", totalBillWaiting);
