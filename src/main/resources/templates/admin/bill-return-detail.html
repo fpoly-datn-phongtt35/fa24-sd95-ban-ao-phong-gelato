@@ -18,77 +18,7 @@
                                 <a th:href="@{'/admin/getbill-detail/' + ${billReturnDetail.billId}}" class="badge bg-success font-size-12 ms-2" th:text="${'Hóa đơn gốc: '+ billReturnDetail.billCode}"></a><br>
 
                             </h4>
-                            <!--                            <div class="float-end mr-4">-->
-                            <!-- Add class 'active' to progress -->
-                            <!--                                <div class="track"-->
-                            <!--                                     th:if="${billReturnDetail.billReturnStatus != 4}">-->
-                            <!--                                    <div class="step" th:classappend="${-->
-                            <!--                                    billReturnDetail.billReturnStatus == 0 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 1 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 2 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 3  ? 'active' : ''}-->
-                            <!--                                    ">-->
-                            <!--                                            <span class="icon">-->
-                            <!--                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
-                            <!--                                                     viewBox="0 0 256 256">-->
-                            <!--                                                    <path fill="currentColor"-->
-                            <!--                                                          d="M232 136.66A104.12 104.12 0 1 1 119.34 24a8 8 0 0 1 1.32 16A88.12 88.12 0 1 0 216 135.34a8 8 0 0 1 16 1.32ZM120 72v56a8 8 0 0 0 8 8h56a8 8 0 0 0 0-16h-48V72a8 8 0 0 0-16 0Zm40-24a12 12 0 1 0-12-12a12 12 0 0 0 12 12Zm36 24a12 12 0 1 0-12-12a12 12 0 0 0 12 12Zm24 36a12 12 0 1 0-12-12a12 12 0 0 0 12 12Z" />-->
-                            <!--                                                </svg>-->
-                            <!--                                            </span>-->
-                            <!--                                        <span class="text">Chờ xác nhận</span>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="step" th:classappend="${-->
 
-                            <!--                                    billReturnDetail.billReturnStatus == 1 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 2 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 3 ? 'active' : ''}-->
-                            <!--                                    ">-->
-                            <!--                                            <span class="icon">-->
-                            <!--                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
-                            <!--                                                     viewBox="0 0 24 24">-->
-                            <!--                                                    <g fill="none" stroke-width="1.5">-->
-                            <!--                                                        <path fill="currentColor"-->
-                            <!--                                                              d="m2.695 7.185l9 4l.61-1.37l-9-4l-.61 1.37ZM12.75 21.5v-11h-1.5v11h1.5Zm-.445-10.315l9-4l-.61-1.37l-9 4l.61 1.37Z" />-->
-                            <!--                                                        <path stroke="currentColor" stroke-linecap="round"-->
-                            <!--                                                              stroke-linejoin="round"-->
-                            <!--                                                              d="M3 17.11V6.89a.6.6 0 0 1 .356-.548l8.4-3.734a.6.6 0 0 1 .488 0l8.4 3.734A.6.6 0 0 1 21 6.89v10.22a.6.6 0 0 1-.356.548l-8.4 3.734a.6.6 0 0 1-.488 0l-8.4-3.734A.6.6 0 0 1 3 17.11Z" />-->
-                            <!--                                                        <path stroke="currentColor" stroke-linecap="round"-->
-                            <!--                                                              stroke-linejoin="round"-->
-                            <!--                                                              d="m7.5 4.5l8.644 3.842a.6.6 0 0 1 .356.548v3.61" />-->
-                            <!--                                                    </g>-->
-                            <!--                                                </svg>-->
-                            <!--                                            </span>-->
-                            <!--                                        <span class="text"> Chờ lấy hàng</span>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="step" th:classappend="${-->
-                            <!--                                    billReturnDetail.billReturnStatus == 2 ||-->
-                            <!--                                    billReturnDetail.billReturnStatus == 3  ? 'active' : ''}-->
-                            <!--                                    ">-->
-                            <!--                                        <span class="icon"> <i class="fa fa-truck"></i> </span>-->
-                            <!--                                        <span class="text"> Chờ giao hàng </span>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="step" th:classappend="${-->
-
-                            <!--                                    billReturnDetail.billReturnStatus == 3  ? 'active' : ''}-->
-                            <!--                                    ">-->
-                            <!--                                            <span class="icon">-->
-                            <!--                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"-->
-                            <!--                                                     viewBox="0 0 24 24">-->
-                            <!--                                                    <path fill="currentColor"-->
-                            <!--                                                          d="M19 13c.7 0 1.37.13 2 .35V12l-1-5H4l-1 5v2h1v6h9.09c-.05-.33-.09-.66-.09-1c0-1.23.37-2.36 1-3.31V14h1.69c.95-.63 2.08-1 3.31-1m-7 5H6v-4h6v4m-6.96-6l.6-3h12.72l.6 3H5.04M20 6H4V4h16v2m2.5 11.25L17.75 22L15 19l1.16-1.16l1.59 1.59l3.59-3.59l1.16 1.41" />-->
-                            <!--                                                </svg>-->
-                            <!--                                            </span>-->
-                            <!--                                        <span class="text">Hoàn thành</span>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                                <div-->
-                            <!--                                        th:if="${billReturnDetail.billReturnStatus == 4}">-->
-                            <!--                                    <div class="text-danger font-weight-bold border rounded p-2 border-danger">-->
-                            <!--                                        ĐÃ HỦY-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-
-                            <!--                            </div>-->
                             <div class="mb-4">
                                 <h2 class="mb-1 text-muted">Mã đổi trả:[[${billReturnDetail.billReturnCode}]]</h2>
                             </div>

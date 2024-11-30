@@ -346,37 +346,6 @@
                     <div class="mr-2">
                         <span class="text-white font-bold">Danh sách hàng đổi</span>
                     </div>
-                    <!--                        <div class="search-container w- mr-2">-->
-                    <!--                            <div class="relative">-->
-                    <!--                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">-->
-                    <!--                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"-->
-                    <!--                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">-->
-                    <!--                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
-                    <!--                                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />-->
-                    <!--                                    </svg>-->
-                    <!--                                </div>-->
-                    <!--                                <input-->
-                    <!--                                        class="pl-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"-->
-                    <!--                                        type="search" placeholder="Thêm hàng đổi" aria-label="Search" id="search-product"-->
-                    <!--                                        style="width: 500px">-->
-                    <!--                                <div-->
-                    <!--                                        class="list-search-product hidden bg-white mt-2 rounded-md absolute top-9 px-2 py-2 left-0 z-50 shadow-lg right-0 max-h-80 overflow-y-scroll">-->
-
-                    <!--                                </div>-->
-                    <!--                                <div class="no-search-found absolute px-2 py-2 hidden bg-white mt-2 rounded-md absolute top-9 px-2 py-2 left-0 z-50 shadow-lg right-0">-->
-                    <!--                                    <span class="text-gray-400 text italic">Không thấy sản phẩm nào</span>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-
-                    <!--                        <div class="ml-4 mr-2 cursor-pointer hover:bg-black/[.54] rounded-lg" id="enable-camera-button">-->
-                    <!--                            <span>-->
-                    <!--                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 256 256">-->
-                    <!--                                    <path fill="white"-->
-                    <!--                                          d="M232 48v40a8 8 0 0 1-16 0V56h-32a8 8 0 0 1 0-16h40a8 8 0 0 1 8 8ZM72 200H40v-32a8 8 0 0 0-16 0v40a8 8 0 0 0 8 8h40a8 8 0 0 0 0-16Zm152-40a8 8 0 0 0-8 8v32h-32a8 8 0 0 0 0 16h40a8 8 0 0 0 8-8v-40a8 8 0 0 0-8-8ZM32 96a8 8 0 0 0 8-8V56h32a8 8 0 0 0 0-16H32a8 8 0 0 0-8 8v40a8 8 0 0 0 8 8Zm48-16a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm104 88V88a8 8 0 0 0-16 0v80a8 8 0 0 0 16 0Zm-40-88a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm-32 0a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Z" />-->
-                    <!--                                </svg>-->
-                    <!--                            </span>-->
-                    <!--                        </div>-->
 
                 </div>
             </nav>
@@ -1271,22 +1240,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         $('#loading-overlay').hide()
-                        // // Create a new iframe element dynamically
-                        // var iframe = document.createElement('iframe');
-                        // iframe.style.display = 'none'; // Hide the iframe
-                        // document.body.appendChild(iframe);
-                        //
-                        // // Set the iframe source to the specified URL
-                        // iframe.src = `/admin/bill-return-detail-generate/${data.id}`;
-                        //
-                        // // Wait for the iframe to load and then print
-                        // iframe.onload = function() {
-                        //     setTimeout(function() {
-                        //         iframe.contentWindow.print();
-                        //         // Remove the iframe from the DOM after printing
-                        //         document.body.removeChild(iframe);
-                        //     }, 500); // Adjust the delay as needed
-                        // };
+
 
                         resetAll()
 
