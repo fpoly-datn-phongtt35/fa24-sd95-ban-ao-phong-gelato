@@ -30,15 +30,15 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     }
 
     @Override
-    public VerificationCode createVerificationCode(String email){
+    public VerificationCode createVerificationCode(String email) {
         // Tạo mã xác nhận ngẫu nhiên
         String verificationCodeValue = generateRandomCode();
 
         // Thiết lập thời gian hết hạn cho mã xác nhận
-        LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(15);
+        LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(5);
 
         Account account = accountRepository.findByEmail(email);
-        if(account == null) {
+        if (account == null) {
             throw new ShopApiException(HttpStatus.BAD_REQUEST, "Không tìm thấy tài khoản có địa chỉ email của bạn");
         }
 
@@ -48,24 +48,35 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         verificationCode.setCode(verificationCodeValue);
         verificationCode.setExpiryTime(expiryTime);
 
+        // Tính thời gian còn lại bằng giây (hoặc phút, nếu cần)
+        long secondsRemaining = expiryTime.atZone(java.time.ZoneId.systemDefault())
+                .toEpochSecond() - LocalDateTime.now()
+                .atZone(java.time.ZoneId.systemDefault())
+                .toEpochSecond();
 
+        long minutesRemaining = secondsRemaining / 60;
+        long secondsOnly = secondsRemaining % 60;
 
+        // Tạo nội dung email
         StringBuilder str = new StringBuilder();
         str.append("Mã xác nhận của bạn là: ");
-        str.append("<b>");
-        str.append(verificationCodeValue);
-        str.append("</b>");
+        str.append("<b>").append(verificationCodeValue).append("</b><br><br>");
+        str.append("Lưu ý: Mã xác nhận này chỉ có hiệu lực trong vòng ");
+        str.append(minutesRemaining).append(" phút ");
+        str.append(secondsOnly).append(" giây.<br>");
+        str.append("Nếu mã hết hạn, vui lòng yêu cầu mã mới.");
 
         String subject = "Xác nhận đặt lại mật khẩu";
         try {
             emailService.sendEmail(account.getEmail(), subject, str.toString());
-        }catch (MessagingException e) {
+        } catch (MessagingException e) {
             System.out.println("Lỗi không gửi được email");
             e.printStackTrace();
         }
 
         return verificationRepository.save(verificationCode);
     }
+
 
     @Override
     public Account verifyCode(String code) {
