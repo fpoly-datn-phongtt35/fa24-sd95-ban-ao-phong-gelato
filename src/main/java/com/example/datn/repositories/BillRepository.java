@@ -30,7 +30,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "JOIN Payment pmt on b.id = pmt.bill.id " +
             "LEFT JOIN Customer a ON b.customer.id = a.id " +
             "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
-            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id")
+            "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id WHERE b.status = 'CHO_XAC_NHAN'")
     Page<BillDtoInterface> listBill(Pageable pageable);
 
     @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
@@ -88,17 +88,16 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
 
     Page<Bill> findByCustomer_Account_Id(Long id, Pageable pageable);
 
-    @Query(value = "select * from bill b where DATEDIFF(DAY, b.create_date, GETDATE()) <= 7 and b.status='HOAN_THANH'", nativeQuery = true)
-    Page<Bill> findValidBillToReturn(Pageable pageable);
+    @Query(value = "select * from bill b where DATEDIFF(DAY, b.create_date, GETDATE()) <= 7 and b.status='HOAN_THANH' and b.invoice_type='OFFLINE'", nativeQuery = true)    Page<Bill> findValidBillToReturn(Pageable pageable);
 
-    @Query(value = "SELECT COALESCE(SUM(bill.amount), 0) + COALESCE(SUM(-billReturn.return_money), 0) AS total\n" +
+    @Query(value = "SELECT COALESCE(SUM(bill.amount), 0) +COALESCE(SUM(-bill.promotion_price), 0) + COALESCE(SUM(-billReturn.return_money), 0) AS total\n" +
             "FROM bill\n" +
             "         LEFT JOIN bill_return billReturn ON bill.id = billReturn.bill_id\n" +
             "WHERE bill.status = 'HOAN_THANH' OR bill.status = 'TRA_HANG' ;\n", nativeQuery = true)
     Double calculateTotalRevenue();
 
     @Query(value = "SELECT " +
-            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS total " +
+            "COALESCE(SUM(b.amount), 0) +COALESCE(SUM(-b.promotion_price), 0)+ COALESCE(SUM(-br.return_money), 0) AS total " +
             "FROM bill b " +
             "LEFT JOIN bill_return br ON b.id = br.bill_id " +
             "LEFT JOIN return_detail rd ON br.id = rd.id " +
@@ -108,7 +107,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
     Double calculateTotalRevenueFromDate(String startDate, String endDate);
 
 
-    @Query(value = "SELECT CONVERT(DATE, create_date) AS date, COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
+    @Query(value = "SELECT CONVERT(DATE, create_date) AS date, COALESCE(SUM(b.amount), 0)+COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
             "WHERE (YEAR(b.create_date) = :year AND MONTH(b.create_date) = :month AND (b.status='HOAN_THANH' OR b.status = 'TRA_HANG' )) " +
@@ -116,7 +115,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "ORDER BY CONVERT(DATE, create_date);", nativeQuery = true)
     List<Object[]> statisticRevenueDayInMonth(String month, String year);
 
-    @Query(value = "SELECT MONTH(create_date) AS month, COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
+    @Query(value = "SELECT MONTH(create_date) AS month, COALESCE(SUM(b.amount), 0)+COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
             "WHERE YEAR(b.create_date) = :year and (b.status='HOAN_THANH' OR b.status = 'TRA_HANG') \n" +
@@ -132,7 +131,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
 
     @Query(value = "SELECT \n" +
             "FORMAT(b.create_date, 'MM-yyyy') AS date,\n" +
-            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
+            "COALESCE(SUM(b.amount), 0)+COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
             "WHERE (b.status = 'HOAN_THANH' OR b.status = 'TRA_HANG') AND ( (b.create_date BETWEEN :fromDate AND :toDate)) \n" +
@@ -143,7 +142,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
     List<Object[]> statisticRevenueFormMonth(String fromDate, String toDate);
 
     @Query(value = "SELECT CONVERT(varchar, b.create_date, 23) AS date, " +
-            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue " +
+            "COALESCE(SUM(b.amount), 0)+COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue " +
             "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id " +
             "LEFT JOIN return_detail rd ON br.id = rd.id " +
             "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
