@@ -110,7 +110,7 @@
         <tbody>
         <tr th:each="item:${items}" class="clickable-row" th:data-maHoaDon="${item.maHoaDon}">
             <th scope="row" th:text="${item.maDinhDanh}">HD09347</th>
-            <th><a class="text-primary" th:href="@{'/admin-only/bill-return-detail-code/' + ${item.maDoiTra} }" th:text="${item.maDoiTra}"></a></th>
+            <th><a class="text-primary" th:href="@{'/admin/bill-return-detail-code/' + ${item.maDoiTra} }" th:text="${item.maDoiTra}"></a></th>
             <td th:text="${item.hoVaTen}">Mark</td>
             <td th:text="${item.soDienThoai}">03843234</td>
             <td th:text="${#temporals.format(item.ngayTao, 'dd-MM-yyyy HH:mm')}">03843234</td>

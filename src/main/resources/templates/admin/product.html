@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/admin-layout.html}">
+      layout:decorate="~{admin/admin-layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Danh sách sản phẩm</title>
@@ -50,7 +50,7 @@
                 <a th:href="@{/admin/product-all}" class="btn btn-secondary m-1"> Hủy bỏ</a>
             </div>
     </form>
-    <a href="/admin/product-create" class="btn btn-success my-3 float-right"><i class="fa fa-plus-square"></i> <span>Thêm sản phẩm</span></a>
+    <a href="/admin/product-create" class="btn btn-success my-3 float-right"><i class="fa fa-plus-square"></i> <span >Thêm sản phẩm</span></a>
     <table class="table my-3">
         <thead class="thead-light">
         <tr>
@@ -90,7 +90,7 @@
             </td>
 
             <td>
-                <a th:href="@{'/admin/product-edit/' + ${item.maSanPham}}"><i class="fa ti-pencil-alt"></i></a>
+                <a th:href="@{'/admin/product-edit/' + ${item.maSanPham}}"><i class="fa ti-pencil-alt" sec:authorize="hasRole('ADMIN')"></i></a>
                 <!--                <a class="cursor-pointer" th:data-product-id="${item.idSanPham}" id="delete-btn"><i class="fa fa-trash-o"></i></a>-->
             </td>
         </tr>
