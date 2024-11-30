@@ -102,7 +102,7 @@
                        aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Quản lý hóa đơn</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fas fa-file-invoice"></i><a th:href="@{/admin/bill-list}">Hóa đơn</a></li>
-                        <li sec:authorize="hasRole('ADMIN')"><i class="fas fa-exchange-alt"></i><a th:href="@{/admin-only/bill-return}">Đổi trả</a></li>
+                        <li><i class="fas fa-exchange-alt"></i><a th:href="@{/admin/bill-return}">Đổi trả</a></li>
 
                     </ul>
                 </li>
