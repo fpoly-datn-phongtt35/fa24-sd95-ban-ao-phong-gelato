@@ -22,7 +22,7 @@ public class BillReturnController {
         this.billDetailRepository = billDetailRepository;
     }
 
-    @GetMapping("/admin-only/bill-return")
+    @GetMapping("/admin/bill-return")
     public String viewBillReturnPage(SearchBillReturnDto searchBillReturnDto, Model model) {
         List<BillReturnDto> billReturnList = billReturnService.getAllBillReturns(searchBillReturnDto);
         model.addAttribute("request", searchBillReturnDto);
@@ -30,13 +30,13 @@ public class BillReturnController {
         return "admin/bill-return";
     }
 
-    @GetMapping("/admin-only/bill-return-create")
+    @GetMapping("/admin/bill-return-create")
     public String viewBillReturnCreatePage(Model model) {
 
         return "admin/bill-return-create";
     }
 
-    @GetMapping("/admin-only/bill-return-detail/{id}")
+    @GetMapping("/admin/bill-return-detail/{id}")
     public String viewBillReturnDetailPage(Model model, @PathVariable Long id) {
         BillReturnDetailDto billReturnDetailDto = billReturnService.getBillReturnDetailById(id);
 
@@ -61,7 +61,7 @@ public class BillReturnController {
         return "admin/bill-return-detail";
     }
 
-    @GetMapping("/admin-only/bill-return-detail-code/{code}")
+    @GetMapping("/admin/bill-return-detail-code/{code}")
     public String viewBillReturnDetailPageByCode(Model model, @PathVariable String code) {
         BillReturnDetailDto billReturnDetailDto = billReturnService.getBillReturnDetailByCode(code);
 
@@ -121,7 +121,7 @@ public class BillReturnController {
         } catch (Exception e) {
             model.addAttribute("message", "Error updating status");
         }
-        return "redirect:/admin-only/bill-return";
+        return "redirect:/admin/bill-return";
     }
 
     @ResponseBody
