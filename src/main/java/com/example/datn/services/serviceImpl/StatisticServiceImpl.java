@@ -32,6 +32,7 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<DayInMonthStatistic> getDayInMonthStatistic(String month, String year) {
+
         List<Object[]> results = billRepository.statisticRevenueDayInMonth(month, year);
         List<DayInMonthStatistic> dayInMonthStatisticList = new ArrayList<>();
 
@@ -130,9 +131,9 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<MonthInYearStatistic> getMonthInYearStatistic(String year) {
-        int yearInt = Integer.parseInt(year);
-        LocalDate startDate = LocalDate.of(yearInt, 1, 1);
-        LocalDate endDate = LocalDate.of(yearInt, 12, 31);
+        int yearInt = Integer.parseInt(year); //khai báo năm
+        LocalDate startDate = LocalDate.of(yearInt, 1, 1); //from date
+        LocalDate endDate = LocalDate.of(yearInt, 12, 31); // to date
         List<Object[]> results = billRepository.statisticRevenueMonthInYear(year);
 
         Map<Integer, BigDecimal> revenueMap = new HashMap<>();

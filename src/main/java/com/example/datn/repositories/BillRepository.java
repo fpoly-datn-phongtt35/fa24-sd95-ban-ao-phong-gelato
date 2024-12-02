@@ -115,13 +115,19 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "ORDER BY CONVERT(DATE, create_date);", nativeQuery = true)
     List<Object[]> statisticRevenueDayInMonth(String month, String year);
 
-    @Query(value = "SELECT MONTH(create_date) AS month, COALESCE(SUM(b.amount), 0)+COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue\n" +
-            "FROM bill b LEFT JOIN bill_return br ON b.id = br.bill_id LEFT JOIN return_detail rd ON br.id = rd.id\n" +
-            "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id\n" +
-            "WHERE YEAR(b.create_date) = :year and (b.status='HOAN_THANH' OR b.status = 'TRA_HANG') \n" +
-            "GROUP BY MONTH(b.create_date)\n" +
+    @Query(value = "SELECT MONTH(b.create_date) AS month, " +
+            "COALESCE(SUM(b.amount), 0) + COALESCE(SUM(-b.promotion_price), 0) + COALESCE(SUM(-br.return_money), 0) AS revenue " +
+            "FROM bill b " +
+            "LEFT JOIN bill_return br ON b.id = br.bill_id " +
+            "LEFT JOIN return_detail rd ON br.id = rd.id " +
+            "LEFT JOIN product_detail pd ON rd.product_detail_id = pd.id " +
+            "WHERE YEAR(b.create_date) = :year " +
+            "AND b.status NOT IN ('HUY', 'TRA_HANG') " +  // Trừ các trạng thái 'HUY' và 'TRA_HANG'
+            "GROUP BY YEAR(b.create_date), MONTH(b.create_date) " +
             "ORDER BY MONTH(b.create_date)", nativeQuery = true)
     List<Object[]> statisticRevenueMonthInYear(String year);
+
+
 
     @Query("select b from Bill b where b.status = 'HOAN_THANH' AND b.createDate between :fromDate and :toDate")
     List<Bill> findAllCompletedByDate(@Param("fromDate") LocalDateTime fromDate,@Param("toDate") LocalDateTime toDate);
