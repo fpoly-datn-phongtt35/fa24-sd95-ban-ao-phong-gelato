@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm kích cỡ mới</title>
+    <th:block layout:fragment="head_link"></th:block>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Thêm kích cỡ mới</h1>
+    <hr>
+    <form th:action="@{/admin/size-create}" th:object="${size}" method="post">
+        <div class="form-group">
+            <label for="code">Mã kích cỡ:</label>
+            <input type="text" th:field="*{code}" class="form-control" id="code" placeholder="Nhập mã kích cỡ">
+        </div>
+        <div class="form-group">
+            <label for="name">Tên kích cỡ:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Nhập tên kích cỡ">
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm kích cỡ</button>
+        <a th:href="@{/admin/size-all}" class="btn btn-dark">Hủy</a>
+    </form>
+</div>
+</body>
+<th:block layout:fragment="bottom_link"></th:block>
+</html>

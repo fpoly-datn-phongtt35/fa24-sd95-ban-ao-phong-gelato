@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #16a085;
+            padding: 15px 0;
+            border-radius: 10px 10px 0 0;
+        }
+        form {
+            padding: 20px 0;
+        }
+        .row {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .row input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .row input:focus {
+            border-color: #16a085;
+            box-shadow: 0 0 8px rgba(22, 160, 133, 0.2);
+        }
+        .row i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #16a085;
+            font-size: 18px;
+        }
+        .row input::placeholder {
+            color: #aaa;
+        }
+        .button input {
+            width: 100%;
+            padding: 12px;
+            background-color: #16a085;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button input:hover {
+            background-color: #13896c;
+        }
+        .pass a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #16a085;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+        .pass a:hover {
+            color: #13896c;
+        }
+        .signup-link {
+            text-align: center;
+            font-size: 15px;
+            color: #555;
+        }
+        .signup-link a {
+            color: #16a085;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .signup-link a:hover {
+            color: #13896c;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">Đăng nhập</div>
+    <form th:action="@{/admin/admin_login}" method="post" id="login-form">
+        <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" name="email" id="email" placeholder="Username hoặc email" required>
+        </div>
+        <span class="error"></span>
+        <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
+        </div>
+        <span class="error"></span>
+        <div class="pass">
+            <input type="checkbox" name="rememberme" id="rememberme">&nbsp;Nhớ mật khẩu
+        </div>
+        <div th:if="${param.error}">
+            <p style="color: red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+        <div class="button">
+            <input type="submit" value="Đăng nhập">
+        </div>
+        <!-- <div class="signup-link">Chưa có tài khoản? <a href="#">Đăng ký ngay</a></div> -->
+    </form>
+</div>
+</body>
+</html>
