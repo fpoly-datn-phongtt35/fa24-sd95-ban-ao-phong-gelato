@@ -3,6 +3,7 @@ package com.example.datn.repositories;
 import com.example.datn.dto.Bill.BillDetailDtoInterface;
 import com.example.datn.dto.Bill.BillDetailProduct;
 import com.example.datn.dto.Bill.BillDtoInterface;
+import com.example.datn.dto.Bill.InStoreInvoiceDetail;
 import com.example.datn.dto.Refund.RefundDto;
 import com.example.datn.dto.Statistic.OrderStatistic;
 import com.example.datn.entities.Bill;
@@ -32,7 +33,6 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "LEFT JOIN BillDetail bd ON b.id = bd.bill.id " +
             "LEFT JOIN PaymentMethod pm ON b.paymentMethod.id = pm.id LEFT JOIN BillReturn br on b.id = br.bill.id WHERE b.status = 'CHO_XAC_NHAN'")
     Page<BillDtoInterface> listBill(Pageable pageable);
-
     @Query(value = "SELECT DISTINCT b.id AS maHoaDon,b.code AS maDinhDanh, a.name AS hoVaTen, a.phoneNumber " +
             "AS soDienThoai, b.createDate AS ngayTao, b.amount AS tongTien, b.status AS trangThai, b.invoiceType " +
             "AS loaiDon, pm.name AS hinhThucThanhToan, coalesce(br.code, '') as maDoiTra " +
@@ -197,4 +197,9 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
                                            @Param("loaiDon") InvoiceType loaiDon,
                                            @Param("soDienThoai") String soDienThoai,
                                            @Param("hoVaTen") String hoVaTen);
+    @Query("Select b.id from Bill b where b.status=com.example.datn.entities.enumClass.BillStatus.TAI_QUAY")
+    List<Long> findAllByStatus(BillStatus billStatus);
+
+    @Query(value = "select * from Bill", nativeQuery = true)
+    List<InStoreInvoiceDetail> findAllInStoreInvoiceDetail(List<Long> ids);
 }

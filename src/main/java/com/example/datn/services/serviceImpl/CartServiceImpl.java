@@ -40,9 +40,10 @@ public class CartServiceImpl implements CartService {
     private final PaymentRepository paymentRepository;
     private final PayMentMethodRepository paymentMethodRepository;
     private final BillDetailRepository billDetailRepository;
+    private final TempProductQuantityService tempProductQuantityService;
     private AtomicLong invoiceCounter = new AtomicLong(1);
 
-    public CartServiceImpl(CartRepository cartRepository, ProductDiscountRepository productDiscountRepository, CustomerRepository customerRepository, AccountRepository accountRepository, ProductRepository productRepository, ProductDetailRepository productDetailRepository, BillRepository billRepository, DiscountCodeRepository discountCodeRepository, PaymentRepository paymentRepository, PayMentMethodRepository paymentMethodRepository, BillDetailRepository billDetailRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ProductDiscountRepository productDiscountRepository, CustomerRepository customerRepository, AccountRepository accountRepository, ProductRepository productRepository, ProductDetailRepository productDetailRepository, BillRepository billRepository, DiscountCodeRepository discountCodeRepository, PaymentRepository paymentRepository, PayMentMethodRepository paymentMethodRepository, BillDetailRepository billDetailRepository, TempProductQuantityService tempProductQuantityService) {
         this.cartRepository = cartRepository;
         this.productDiscountRepository = productDiscountRepository;
         this.customerRepository = customerRepository;
@@ -54,6 +55,7 @@ public class CartServiceImpl implements CartService {
         this.paymentRepository = paymentRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.billDetailRepository = billDetailRepository;
+        this.tempProductQuantityService = tempProductQuantityService;
     }
 
     @Override
@@ -284,6 +286,13 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public OrderDto orderAdmin(OrderDto orderDto) {
+        try {
+            tempProductQuantityService.delete(orderDto.getCreateId());
+            System.out.println("Đã hoàn nguyên số lượng khi tạo hóa đơn");
+
+        }catch (Exception e) {
+            System.out.println("Lỗi hoàn nguyên số lượng khi tạo hóa đơn");
+        }
         Bill billCurrent = billRepository.findTopByOrderByIdDesc();
         int nextCode = (billCurrent == null) ? 1 : Integer.parseInt(billCurrent.getCode().substring(2)) + 1;
         String billCode = "HD" + String.format("%03d", nextCode);
@@ -375,7 +384,7 @@ public class CartServiceImpl implements CartService {
         payment.setOrderId(RandomUtils.generateRandomOrderId(8));
         paymentRepository.save(payment);
 
-        return new OrderDto(billNew.getId().toString(), orderDto.getCustomer(), billNew.getInvoiceType(), billNew.getStatus(), billNew.getPaymentMethod().getId(), billNew.getBillingAddress(), billNew.getPromotionPrice(), null, null, null);
+        return new OrderDto(billNew.getId().toString(), orderDto.getCustomer(), billNew.getInvoiceType(), billNew.getStatus(), billNew.getPaymentMethod().getId(), billNew.getBillingAddress(), billNew.getPromotionPrice(), null, null, null,null);
     }
 
 

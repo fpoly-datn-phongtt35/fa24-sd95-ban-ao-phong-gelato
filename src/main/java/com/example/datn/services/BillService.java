@@ -10,10 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface BillService {
+    List<Long> findAllInStoreInvoiceId();
+    List<InStoreInvoiceDto> findAllInStoreInvoice(List<Long> ids);
+
     Page<BillDtoInterface> findAll(Pageable pageable);
     List<BillDtoInterface> findAll();
 
