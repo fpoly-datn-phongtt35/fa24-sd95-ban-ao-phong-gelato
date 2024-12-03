@@ -165,8 +165,8 @@
                                         </div>
                                     </div>
                                     <span class="remaning-product" style="font-size: 12px"></span>
-                                    <div class="d-flex justify-content-between">
-                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-buynow-detail">
+                                    <div class="d-flex justify-content-between mt-10">
+                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-buynow-detail mr-3">
                                             Mua ngay
                                         </button>
                                         <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
@@ -602,89 +602,6 @@
                     }
                     return true
                 }
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const btnNumProductDown = document.querySelectorAll(".btn-num-product-down");
-                    const btnNumProductUp = document.querySelectorAll(".btn-num-product-up");
-                    btnNumProductDown.forEach(function (btn) {
-                        btn.addEventListener("click", function () {
-                            const input = btn.nextElementSibling;
-                            let value = parseInt(input.value, 10);
-                            if (!isNaN(value) && value > 1) {
-                                input.value = value - 1;
-                            }
-                        });
-                    });
-                    btnNumProductUp.forEach(function (btn) {
-                        btn.addEventListener("click", function () {
-                            const input = btn.previousElementSibling;
-                            let value = parseInt(input.value, 10);
-                            if (!isNaN(value)) {
-                                input.value = value + 1;
-                            }
-                        });
-                    });
-                });
-
-                // async function addToCarted() {
-                //     const remainingQuantity = parseInt($("#remaining-quantity").attr('data-quantity'));
-                //     const quantity = parseInt($('.num-product').val());
-                //     const nameProduct = $('.js-name-detail').text();
-                //     const productDetailId = $("#productDetailId").val();
-                //
-                //     if (!checkColorAndSizeSelect()) {
-                //         return;
-                //     }
-                //
-                //     if (remainingQuantity <= 0) {
-                //         swal("Lỗi", "Sản phẩm với thuộc tính này đã hết hàng", "error");
-                //         return;
-                //     }
-                //
-                //     if (quantity > remainingQuantity) {
-                //         swal("Lỗi", "Số lượng thêm vào giỏ hàng lớn hơn số lượng tồn", "error");
-                //         return;
-                //     }
-                //
-                //     const dataSend = {
-                //         detail: {id: productDetailId},
-                //         quantity: quantity
-                //     };
-                //     try {
-                //         $('#loading-overlay').show();
-                //
-                //         const response = await $.ajax({
-                //             type: 'POST',
-                //             url: '/api/addToCart',
-                //             contentType: "application/json; charset=utf-8",
-                //             data: JSON.stringify(dataSend),
-                //         });
-                //
-                //         $('#loading-overlay').hide();
-                //         Swal.fire({
-                //             title: "T"
-                //         });
-                //
-                //         if (isUserLoggedIn) {
-                //             const cartData = await $.ajax({
-                //                 type: 'GET',
-                //                 url: 'http://localhost:8080/api/getAllCart',
-                //                 dataType: 'json',
-                //             });
-                //
-                //             $(".js-show-cart").attr("data-notify", cartData.length);
-                //             localStorage.setItem("cartQuantity", cartData.length.toString());
-                //         }
-                //     } catch (error) {
-                //         $('#loading-overlay').hide();
-                //
-                //         const errorMessage = error.responseJSON?.message || "Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng.";
-                //         swal("Lỗi", errorMessage, "error");
-                //
-                //         $('.num-product').val(1);
-                //     }
-                // }
-
                 async function addToCart() {
                     const remainingQuantity = parseInt($("#remaining-quantity").attr('data-quantity'));
                     const quantity = parseInt($('.num-product').val());

@@ -1,5 +1,6 @@
 package com.example.datn.services.serviceImpl;
 
+import com.example.datn.exceptions.ShopApiException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BaseFont;
 import com.example.datn.dto.Bill.*;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
@@ -123,20 +125,31 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill updateStatus(String status, Long id) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy bill có mã: " + id));
 
-        // Nếu hủy thì cộng lại số lượng tồn
-        if(status.equals("HUY")) {
+        // Kiểm tra trạng thái mới
+        BillStatus newStatus = BillStatus.valueOf(status);
+        BillStatus currentStatus = bill.getStatus();
+
+        // Nếu trạng thái mới là CHO_LAY_HANG và trạng thái hiện tại là CHO_XAC_NHAN, trừ số lượng
+        if (newStatus == BillStatus.CHO_LAY_HANG && currentStatus == BillStatus.CHO_XAC_NHAN) {
+            deductProductQuantitiesOnStatusChange(id);
+        }
+
+        // Nếu trạng thái là HỦY, cộng lại số lượng sản phẩm
+        if (newStatus == BillStatus.HUY) {
             List<BillDetailProduct> billDetailProducts = billRepository.getBillDetailProduct(id);
             billDetailProducts.forEach(item -> {
-                ProductDetail productDetail = productDetailRepository.findById(item.getId()).orElseThrow(() -> new NotFoundException("Không tìm thấy thuộc tính " + item.getId()));
-                int quantityBefore = productDetail.getQuantity();
-                productDetail.setQuantity(quantityBefore + item.getSoLuong());
+                ProductDetail productDetail = productDetailRepository.findById(item.getId())
+                        .orElseThrow(() -> new NotFoundException("Không tìm thấy thuộc tính sản phẩm: " + item.getId()));
+                productDetail.setQuantity(productDetail.getQuantity() + item.getSoLuong());
                 productDetailRepository.save(productDetail);
             });
         }
 
-        Bill bill = billRepository.findById(id).orElseThrow(() -> new NotFoundException("Không tìm thấy bill có mã" + id));
-        bill.setStatus(BillStatus.valueOf(status));
+        // Cập nhật trạng thái đơn hàng
+        bill.setStatus(newStatus);
         bill.setUpdateDate(LocalDateTime.now());
         return billRepository.save(bill);
     }
@@ -449,6 +462,24 @@ public class BillServiceImpl implements BillService {
         }
         billDto.setTotalAmount(total);
         return billDto;
+    }
+
+    @Override
+    public void deductProductQuantitiesOnStatusChange(Long billId) {
+        List<BillDetailProduct> billDetailProducts = billRepository.getBillDetailProduct(billId);
+
+        billDetailProducts.forEach(item -> {
+            ProductDetail productDetail = productDetailRepository.findById(item.getId())
+                    .orElseThrow(() -> new NotFoundException("Không tìm thấy thuộc tính sản phẩm: " + item.getId()));
+
+            if (productDetail.getQuantity() < item.getSoLuong()) {
+                throw new ShopApiException(HttpStatus.BAD_REQUEST,
+                        "Không đủ số lượng sản phẩm trong kho: " + productDetail.getProduct().getName());
+            }
+
+            productDetail.setQuantity(productDetail.getQuantity() - item.getSoLuong());
+            productDetailRepository.save(productDetail);
+        });
     }
 
 }

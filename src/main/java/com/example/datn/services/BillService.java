@@ -68,4 +68,6 @@ public interface BillService {
     Page<BillDto> searchBillJson(SearchBillDto searchBillDto, Pageable pageable);
 
     Page<BillDto> getAllValidBillToReturn( Pageable pageable);
+
+    void deductProductQuantitiesOnStatusChange(Long billId);
 }
