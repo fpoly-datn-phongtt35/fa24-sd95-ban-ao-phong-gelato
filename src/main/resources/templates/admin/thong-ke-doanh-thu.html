@@ -103,8 +103,8 @@
                             <option value="10">10</option>
                             <option value="11" selected>11</option>
                             <option value="12">12</option>
-
                         </select>
+
                         <select class="form-select" id="year" style="width: 100px;">
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
@@ -190,6 +190,20 @@
 <!--            </div>-->
 <!--        </div>-->
 
+        <script>
+            // Hàm tự động chọn tháng và năm hiện tại
+            window.onload = function() {
+                // Lấy tháng và năm hiện tại
+                var currentMonth = new Date().getMonth() + 1; // Lấy tháng hiện tại (1 đến 12)
+                var currentYear = new Date().getFullYear();  // Lấy năm hiện tại
+
+                // Cập nhật giá trị cho select tháng
+                document.getElementById('month').value = currentMonth;
+
+                // Cập nhật giá trị cho select năm
+                document.getElementById('year').value = currentYear;
+            };
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -287,11 +301,17 @@
                     }
                 };
 
-
-                callApiGetInMonth(11, 2023)
-                callApiGetInYear(2023)
+                var currentMonth = new Date().getMonth()+1 ; // Lấy tháng hiện tại (1 đến 12)
+                var currentYear = new Date().getFullYear();  // Lấy năm hiện tại
+                console.log("Month: " + currentMonth);
+                console.log("Year: " + currentYear);
+                $('#month').val(currentMonth);
+                $('#year').val(currentYear);
+                callApiGetInMonth(currentMonth, currentYear);
+                callApiGetInYear(currentYear)
 
                 function callApiGetInMonth(month, year) {
+                    console.log("Calling API for month:", month, "year:", year);
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
@@ -310,6 +330,7 @@
                 }
 
                 function callApiGetInYear(year) {
+                    console.log("Calling API for year:", year);
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
@@ -556,7 +577,7 @@
                         var lableList = []
                         var dataList = []
                         data.forEach(item => {
-                            lableList.push(item.month)
+                            lableLifst.push(item.month)
                             dataList.push(item.revenue)
                         })
                         loadChartInTime(lableList, dataList)
