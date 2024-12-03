@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
-<!--    <script th:src="@{/js/sweetalert.min.js}"></script>-->
+    <!--    <script th:src="@{/js/sweetalert.min.js}"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.js"></script>
 
@@ -156,31 +156,39 @@
 <div class="scan-container z-10 bg-white p-12 rounded-lg shadow-md absolute left-1/4 top-1/4 hidden">
     <video id="qr-video" width="300" height="200" autoplay class="mb-4"></video>
     <canvas id="qr-canvas" width="300" height="200" style="display: none"></canvas>
-    <button type="button" class="close-modal-scan absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="crypto-modal">
-                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                         fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                              stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-</div>
-
-<div class="qr-payment-container z-10 bg-white p-x-20 pt-20 pb-10 rounded-lg shadow-md absolute left-1/4 top-1/4 -translate-y-1/4 hidden">
-    <img src="" id="qr-payment" width="400" height="300" class="mb-4">
-    <button type="button" class="close-modal-payment absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+    <button type="button"
+            class="close-modal-scan absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="crypto-modal">
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+        <span class="sr-only">Close modal</span>
+    </button>
+</div>
+
+<div class="qr-payment-container z-10 bg-white p-x-20 pt-20 pb-10 rounded-lg shadow-md absolute left-1/4 top-1/4 -translate-y-1/4 hidden">
+    <img src="" id="qr-payment" width="400" height="300" class="mb-4">
+    <button type="button"
+            class="close-modal-payment absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="crypto-modal">
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
         </svg>
         <span class="sr-only">Close modal</span>
     </button>
     <div class="flex justify-center">
-        <button type="button" class="close-modal-payment outline outline-1 outline-blue-700 hover:outline-blue-800 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:outline-blue-600 dark:hover:outline-blue-700">Hủy</button>
-        <button id="confirm-pay" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">XÁC NHẬN ĐÃ THANH TOÁN</button>
+        <button type="button"
+                class="close-modal-payment outline outline-1 outline-blue-700 hover:outline-blue-800 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:outline-blue-600 dark:hover:outline-blue-700">
+            Hủy
+        </button>
+        <button id="confirm-pay" type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            XÁC NHẬN ĐÃ THANH TOÁN
+        </button>
     </div>
 </div>
 
@@ -194,7 +202,7 @@
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
                 <input
@@ -215,7 +223,7 @@
                 <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                      viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
+                          d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9"/>
                 </svg>
             </a>
         </div>
@@ -223,13 +231,13 @@
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 256 256">
                         <path fill="white"
-                              d="M232 48v40a8 8 0 0 1-16 0V56h-32a8 8 0 0 1 0-16h40a8 8 0 0 1 8 8ZM72 200H40v-32a8 8 0 0 0-16 0v40a8 8 0 0 0 8 8h40a8 8 0 0 0 0-16Zm152-40a8 8 0 0 0-8 8v32h-32a8 8 0 0 0 0 16h40a8 8 0 0 0 8-8v-40a8 8 0 0 0-8-8ZM32 96a8 8 0 0 0 8-8V56h32a8 8 0 0 0 0-16H32a8 8 0 0 0-8 8v40a8 8 0 0 0 8 8Zm48-16a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm104 88V88a8 8 0 0 0-16 0v80a8 8 0 0 0 16 0Zm-40-88a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm-32 0a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Z" />
+                              d="M232 48v40a8 8 0 0 1-16 0V56h-32a8 8 0 0 1 0-16h40a8 8 0 0 1 8 8ZM72 200H40v-32a8 8 0 0 0-16 0v40a8 8 0 0 0 8 8h40a8 8 0 0 0 0-16Zm152-40a8 8 0 0 0-8 8v32h-32a8 8 0 0 0 0 16h40a8 8 0 0 0 8-8v-40a8 8 0 0 0-8-8ZM32 96a8 8 0 0 0 8-8V56h32a8 8 0 0 0 0-16H32a8 8 0 0 0-8 8v40a8 8 0 0 0 8 8Zm48-16a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm104 88V88a8 8 0 0 0-16 0v80a8 8 0 0 0 16 0Zm-40-88a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Zm-32 0a8 8 0 0 0-8 8v80a8 8 0 0 0 16 0V88a8 8 0 0 0-8-8Z"/>
                     </svg>
                 </span>
         </div>
         <div class="tab-container" data-tab-number="1">
             <div class="tab-list">
-                <div data-tab-number="1" class="tab active font-bold relative cursor-pointer">
+                <div  data-tab-number="1" class="tab active font-bold relative cursor-pointer">
 
                     Đơn <span>1</span>
                 </div>
@@ -238,7 +246,7 @@
                     <div>
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                             <path fill="white"
-                                  d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-1 5v5h-5v2h5v5h2v-5h5v-2h-5v-5h-2z" />
+                                  d="M16 3C8.832 3 3 8.832 3 16s5.832 13 13 13s13-5.832 13-13S23.168 3 16 3zm0 2c6.087 0 11 4.913 11 11s-4.913 11-11 11S5 22.087 5 16S9.913 5 16 5zm-1 5v5h-5v2h5v5h2v-5h5v-2h-5v-5h-2z"/>
                         </svg>
                     </div>
                 </span>
@@ -281,9 +289,9 @@
                         <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody data-tab-number="1" class="product-select-body active">
-
+                    <tbody th:attr="create-id=${#dates.createNow().time} " data-tab-number="1" class="product-select-body active">
                     </tbody>
+
                 </table>
             </div>
 
@@ -301,18 +309,19 @@
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                  stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                  stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
                     <button id="add-customer-btn" data-modal-target="crypto-modal" data-modal-toggle="crypto-modal"
                             class="absolute inset-y-0 right-0 top-1 flex items-center justify-center inline-block h-8 w-8 mr-2 cursor-pointer rounded-full hover:bg-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z" />
+                            <path fill="currentColor" d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"/>
                         </svg>
                     </button>
                     <input
                             class="pl-10 w-full bg-gray-100 border border-gray-300 text-gray-900 text-md outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-1.5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            type="text" placeholder="Thêm khách hàng (tùy chọn)" aria-label="Search" id="search-customer">
+                            type="text" placeholder="Thêm khách hàng (tùy chọn)" aria-label="Search"
+                            id="search-customer">
                     <div id="crypto-modal" tabindex="-1" aria-hidden="true"
                          class="fixed hidden top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full left-1/4 top-1/4">
@@ -324,7 +333,7 @@
                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                          fill="none" viewBox="0 0 14 14">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                              stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                              stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                     </svg>
                                     <span class="sr-only">Close modal</span>
                                 </button>
@@ -339,7 +348,8 @@
                                     <form id="add-customer-form">
                                         <div class="mb-4 form-group">
                                             <label for="customerCode"
-                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Mã khách hàng
+                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Mã
+                                                khách hàng
                                             </label>
                                             <input type="customerCode" name="customerCode" id="customerCode"
                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -347,7 +357,8 @@
                                         </div>
                                         <div class="mb-4 form-group">
                                             <label for="fullName"
-                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Họ và
+                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Họ
+                                                và
                                                 tên <span class="text-red-500"> *</span></label>
 
                                             <input type="fullName" name="fullName" id="fullName"
@@ -357,7 +368,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="phoneNumber"
-                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Số điện thoại<span class="text-red-500"> *</span></label>
+                                                   class="block mb-1 text-md font-bold text-gray-900 dark:text-white">Số
+                                                điện thoại<span class="text-red-500"> *</span></label>
 
                                             <input type="phoneNumber" name="phoneNumber" id="phoneNumber"
                                                    placeholder="012345678"
@@ -367,10 +379,14 @@
                                         </div>
                                         <div class="mt-4 flex items-center justify-end">
                                             <button type="button"
-                                                    class="close-modal-customer text-blue-700 bg-white border border-1 border-blue-700 hover:text-blue-800 hover:border-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Hủy</button>
+                                                    class="close-modal-customer text-blue-700 bg-white border border-1 border-blue-700 hover:text-blue-800 hover:border-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+                                                Hủy
+                                            </button>
 
                                             <button id="save-customer-btn"
-                                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">Lưu</button>
+                                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">
+                                                Lưu
+                                            </button>
 
                                         </div>
                                     </form>
@@ -402,7 +418,7 @@
                     <h5>Voucher: </h5>
                 </div>
                 <div class="col">
-                    <h6 class="text-red-500 cursor-pointer voucher-choose-btn" >Click vào để chọn</h6>
+                    <h6 class="text-red-500 cursor-pointer voucher-choose-btn">Click vào để chọn</h6>
                     <div class="selected-voucher active"></div>
                 </div>
             </div>
@@ -419,7 +435,7 @@
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                  fill="none" viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                      stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                             </svg>
                             <span class="sr-only">Close modal</span>
                         </button>
@@ -433,14 +449,20 @@
                         <div class="px-6 py-6 vourcher-list max-h-80 overflow-y-auto">
                             <div class="flex items-center shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 rounded cursor-pointer mb-2">
                                 <div class="flex items-center justify-center rounded w-14 bg-blue-100 h-20 mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.79 21L3 11.21v2c0 .53.21 1.04.59 1.41l7.79 7.79c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.79 21z"/><path fill="currentColor" d="M11.38 17.41c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.63.58A2.04 2.04 0 0 0 11.21 0H5C3.9 0 3 .9 3 2v6.21c0 .53.21 1.04.59 1.41l7.79 7.79zM7.25 3a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                              d="M12.79 21L3 11.21v2c0 .53.21 1.04.59 1.41l7.79 7.79c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.79 21z"/>
+                                        <path fill="currentColor"
+                                              d="M11.38 17.41c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.63.58A2.04 2.04 0 0 0 11.21 0H5C3.9 0 3 .9 3 2v6.21c0 .53.21 1.04.59 1.41l7.79 7.79zM7.25 3a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5z"/>
+                                    </svg>
                                 </div>
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.04 8.71V4h-4.7L12 .69L8.71 4H4v4.71L.69 12L4 15.34v4.7h4.71L12 23.35l3.34-3.31h4.7v-4.7L23.35 12l-3.31-3.29M8.83 7.05c.98 0 1.77.79 1.77 1.78a1.77 1.77 0 0 1-1.77 1.77c-.99 0-1.78-.79-1.78-1.77c0-.99.79-1.78 1.78-1.78M15.22 17c-.98 0-1.77-.8-1.77-1.78a1.77 1.77 0 0 1 1.77-1.77c.98 0 1.78.79 1.78 1.77A1.78 1.78 0 0 1 15.22 17m-6.72.03L7 15.53L15.53 7l1.5 1.5l-8.53 8.53Z"/></svg>-->
+                                <!--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.04 8.71V4h-4.7L12 .69L8.71 4H4v4.71L.69 12L4 15.34v4.7h4.71L12 23.35l3.34-3.31h4.7v-4.7L23.35 12l-3.31-3.29M8.83 7.05c.98 0 1.77.79 1.77 1.78a1.77 1.77 0 0 1-1.77 1.77c-.99 0-1.78-.79-1.78-1.77c0-.99.79-1.78 1.78-1.78M15.22 17c-.98 0-1.77-.8-1.77-1.78a1.77 1.77 0 0 1 1.77-1.77c.98 0 1.78.79 1.78 1.77A1.78 1.78 0 0 1 15.22 17m-6.72.03L7 15.53L15.53 7l1.5 1.5l-8.53 8.53Z"/></svg>-->
 
                                 <div class="w-full">
                                     <p class="font-bold">Giảm <span>10K</span></p>
                                     <p class="text-black text-sm">Cho đơn từ </p>
-                                    <span class="mr-2 text-sm text-gray-600">HSD: </span> <span class="text-sm text-gray-600">Đã dùng: </span>
+                                    <span class="mr-2 text-sm text-gray-600">HSD: </span> <span
+                                        class="text-sm text-gray-600">Đã dùng: </span>
                                 </div>
                             </div>
                         </div>
@@ -518,6 +540,7 @@
 
 
                 updateTime()
+
                 function updateTime() {
                     var currentDate = new Date();
                     var formattedDate = formatDate(currentDate);
@@ -535,8 +558,9 @@
 
                 // Update the time every minute (60000 milliseconds)
                 setInterval(updateTime, 60000);
+
                 function formatDate(date) {
-                    var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
                     return date.toLocaleDateString('en-GB', options);
                 }
             })
@@ -544,12 +568,12 @@
         <script th:inline="javascript">
 
 
-            $(document).ready(() => {
+            $(document).ready(async () => {
                 let voucherChoosed;
-                var maxQuantiyAllow=99999999;
+                var maxQuantiyAllow = 99999999;
                 let tabQuantity = 1;
                 var currentUserRole = /*[[${#authentication.getPrincipal().getAuthorities()}]]*/ [];
-                if(currentUserRole[0].authority == 'ROLE_EMPLOYEE') {
+                if (currentUserRole[0].authority == 'ROLE_EMPLOYEE') {
                     maxQuantiyAllow = 20;
                 }
 
@@ -581,7 +605,7 @@
                 $('.add-tab-btn').click(function () {
 
                     // Set mở tối đa 7 tab
-                    if($('.tab').length > 6) {
+                    if ($('.tab').length > 6) {
                         Toastify({
                             text: "Bạn chỉ được mở tối đa 7 đơn",
                             className: "error",
@@ -608,7 +632,8 @@
 
                     // Thêm tab mới vào danh sách
                     $('.tab-list').append(newTab);
-                    var body  = $(`<tbody data-tab-number="${lastTabNumber + 1}" class="product-select-body hidden"></tbody>`)
+                    let time=new Date().getTime();
+                    var body = $(`<tbody create-id='${time}'" data-tab-number="${lastTabNumber + 1}" class="product-select-body hidden"></tbody>`)
                     $('table').append(body)
 
                     var selectedCustomer = $(`<div class="selected-customer mt-2 border border-blue-400 rounded-md hidden">
@@ -638,6 +663,9 @@
                     });
 
                     // Bắt sự kiện click nút "Xóa tab"
+
+
+
                     $('.remove-tab-btn').on('click', function (e) {
                         e.stopPropagation()
                         // // Lấy số thứ tự của tab cần xóa
@@ -649,10 +677,10 @@
                         // var previousElement = element.prev('.product-select-body');
                         // previousElement.addClass('active')
                         // previousElement.removeClass('hidden')
-                        if(element.hasClass('active')) {
-                            $(`.tab[data-tab-number='${tabNumber-1}']`).addClass('active')
-                            $(`.product-select-body[data-tab-number='${tabNumber-1}']`).addClass('active')
-                            $(`.product-select-body[data-tab-number='${tabNumber-1}']`).removeClass('hidden')
+                        if (element.hasClass('active')) {
+                            $(`.tab[data-tab-number='${tabNumber - 1}']`).addClass('active')
+                            $(`.product-select-body[data-tab-number='${tabNumber - 1}']`).addClass('active')
+                            $(`.product-select-body[data-tab-number='${tabNumber - 1}']`).removeClass('hidden')
                             calculateAllPrice()
                             calculateLastPrice()
                         }
@@ -663,11 +691,9 @@
                 });
 
 
-
-
                 // Handle search product
                 var debounceTimer;
-                $("#search-product").on('input', function () {
+                $("#search-product").on('input click', function () {
                     if (debounceTimer) {
                         clearTimeout(debounceTimer);
                     }
@@ -697,7 +723,7 @@
                 })
 
                 $("#search-product").on('focus', function () {
-                    if($(this).val().trim() != "") {
+                    if ($(this).val().trim() != "") {
                         $('.no-search-found').addClass('hidden')
                         $('.list-search-product').removeClass('hidden')
                     }
@@ -720,6 +746,7 @@
                 var productList = []
 
                 function handleAddToOrder(productDetailSe, productDetailId, canAdd, product) {
+
                     if (productDetailSe.quantity == 0) {
                         Toastify({
                             text: "Sản phẩm này đã hết",
@@ -776,7 +803,7 @@
                     const discountedPrice = productDetailSe.discountedPrice
                     var discountedPriceFormatted
                     var htmlPrice = ''
-                    if(discountedPrice) {
+                    if (discountedPrice) {
                         discountedPriceFormatted = formatNumber(discountedPrice)
                         htmlPrice = `<td class=" px-6 py-4 text-lg">
                                         <span class="flex flex-col">
@@ -787,7 +814,7 @@
                                 <td class="total-price-product px-6 py-4 text-blue-400 font-bold text-lg">
                                     ${discountedPriceFormatted}
                                 </td>`
-                    }else  {
+                    } else {
                         htmlPrice = `<td class="product-select-price px-6 py-4 text-lg">
                                     ${productPrice}
                                 </td>
@@ -849,6 +876,14 @@
                     calculateLastPrice()
 
                     deleteButton.on('click', () => {
+                        let productDetailId,create_id;
+                        productDetailId = deleteButton.closest('tr').attr('data-product-detail-id');
+                        create_id = deleteButton.closest('tbody').attr('create-id');
+                        $.ajax({
+                            type: 'Delete',
+                            url: `/api/admin/temp-product-quantity?create_id=${create_id}&product_detail_id=${productDetailId}`,
+                            contentType: "application/json; charset=utf-8",
+                        });
                         const productItem = deleteButton.parent()
                         productItem.remove()
                         // const idToRemove = productItem.attr('data-product-detail-id')
@@ -869,7 +904,7 @@
                     })
 
                     $('.product-select-quantity').on('focusout', function () {
-                        if($(this).val() == 0 || $(this).val() == "") {
+                        if ($(this).val() == 0 || $(this).val() == "") {
                             $(this).val(1)
                             $(this).trigger("change")
                         }
@@ -877,9 +912,9 @@
                     $('.product-select-quantity').on('input change', function (e) {
 
                         var val;
-                        if($(this).val() == "") {
+                        if ($(this).val() == "") {
                             val = 1
-                        }else  {
+                        } else {
                             val = parseInt($(this).val())
                         }
                         const productItem = $(this).parent().parent().parent().parent()
@@ -893,7 +928,7 @@
                             $(this).val(maxQuan)
                         }
 
-                        if(val > maxQuantiyAllow) {
+                        if (val > maxQuantiyAllow) {
                             Swal.fire({
                                 title: "Lỗi",
                                 text: "Bạn chỉ được cho phép bán tối đa " + maxQuantiyAllow,
@@ -922,13 +957,12 @@
                         productList.forEach(product => {
                             product.productDetailDtos.forEach(productDetail => {
                                 var price = ``
-                                if(productDetail.discountedPrice) {
+                                if (productDetail.discountedPrice) {
                                     price = `<span>
                                                 <span class="product-old-price text-sm line-through text-gray-500 italic">${productDetail.price}</span>
                                                 <span class="product-price text-md font-bold text-blue-500">${productDetail.discountedPrice}</span>
                                             </span>`
-                                }
-                                else {
+                                } else {
                                     price = `<span>
                                                 <span class="product-price text-md font-bold text-blue-500">${productDetail.price}</span>
                                             </span>`
@@ -984,15 +1018,54 @@
 
                             handleAddToOrder(productDetailSe, productDetailId, canAdd, product);
 
+                            $("#search-product").trigger('click')
                         })
 
-                    }
-                    else {
+                    } else {
                         $(".list-search-product").html('')
                         $('.no-search-found').removeClass('hidden')
                     }
                 }
-
+                function syncProductDetail(){
+                    let mapInvoice=new Map();
+                    $('tbody[create-id]').find('tr').each(function (index, item) {
+                        debugger
+                       let createId= $(item).closest('tbody').attr('create-id');
+                        let productDetailId=$(item).attr('data-product-detail-id');
+                        let quantity=$(item).find('input').val();
+                        if(mapInvoice.get(createId)){
+                            let arr=mapInvoice.get(createId);
+                            arr.push({
+                                productDetailId: productDetailId,
+                                quantity: quantity
+                            })
+                        }else{
+                            mapInvoice.set(createId, [{
+                                productDetailId: productDetailId,
+                                quantity: quantity
+                            }])
+                        }
+                    })
+                    let dataSend=[...mapInvoice.entries()].map(item => {
+                        return  {
+                                    createId : item[0],
+                                    productDetail : item[1]
+                                }
+                    })
+                    $.ajax({
+                        method: 'POST',
+                        dateType: 'json',
+                        url: `/api/admin/temp-product-quantity`,
+                        data: JSON.stringify(dataSend),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            console.log(data)
+                        },
+                        error: function (xhr, status, error) {
+                            
+                        }
+                    })
+                }
                 function loadOrdreNumber() {
                     var productSelectItems = document.querySelectorAll('.product-select-body.active .product-select-item')
                     productSelectItems.forEach((item, index) => {
@@ -1053,32 +1126,66 @@
                     pay.totalMoney = totalPrice;
                     allPrice.innerText = formatNumber(totalPrice)
                     calculateVoucherPrice()
+                    autoApplyVoucher(totalPrice);
+                    syncProductDetail()
+                }
+
+                async function autoApplyVoucher(totalMoney) {
+
+                    let listVoucher = [];
+                    listVoucher = await loadVoucher();
+                    let validCouponCode = listVoucher
+                        .filter(voucher => voucher.minimumAmountInCart <= totalMoney)
+                        .map(voucher=>{
+                            let amountReduced=0;
+                            if(voucher.type==1){
+                                let value = Math.round(totalMoney * voucher.percentage / 100)
+                                if (value > voucher.maximumAmount) {
+                                    amountReduced = voucher.maximumAmount
+                                } else {
+                                    amountReduced = value
+                                }
+
+                            }else {
+                                if (voucher.discountAmount) {
+                                    amountReduced = value;
+                                }
+                            }
+                            return {
+                                amountReduced:amountReduced,
+                                voucher:voucher
+                            }
+                        })
+                        .sort((a, b) => -(a.amountReduced - b.amountReduced))
+                    console.log(validCouponCode);
+                    loadClickVoucher(validCouponCode[0].voucher.id)
+
                 }
 
                 function calculateVoucherPrice() {
-                    if(voucherChoosed) {
-                        if(pay.totalMoney < voucherChoosed.minimumAmountInCart) {
+
+                    if (voucherChoosed) {
+                        if (pay.totalMoney < voucherChoosed.minimumAmountInCart) {
                             $('.selected-voucher.active').html('')
                             $('.selected-voucher.active').attr('selected-id', '')
                             voucherChoosed = null
                             return
                         }
-                        if(voucherChoosed.percentage) {
+                        if (voucherChoosed.percentage) {
                             var value = Math.round(pay.totalMoney * voucherChoosed.percentage / 100)
-                            if(value > voucherChoosed.maximumAmount) {
+                            if (value > voucherChoosed.maximumAmount) {
                                 pay.vourcher = voucherChoosed.maximumAmount
-                            }
-                            else {
+                            } else {
                                 pay.vourcher = value
                             }
                             voucherDiscount.innerText = formatNumber(pay.vourcher)
-                        }else {
-                            if(voucherChoosed.discountAmount) {
+                        } else {
+                            if (voucherChoosed.discountAmount) {
                                 voucherDiscount.innerText = formatNumber(voucherChoosed.discountAmount)
 
                             }
                         }
-                    }else {
+                    } else {
                         voucherDiscount.innerText = '0'
                         calculateLastPrice()
                     }
@@ -1091,11 +1198,10 @@
                         lastPrice.innerText = formatNumber(lastPriceValue.toString())
                         pay.requireMoney = lastPriceValue
                         pay.customerChange = pay.customerPay - pay.requireMoney
-                        if(pay.customerPay > 0) {
+                        if (pay.customerPay > 0) {
                             updateCustomerChange()
                         }
-                    }
-                    else {
+                    } else {
                         lastPrice.innerText = '0'
                         pay.requireMoney = 0;
                     }
@@ -1141,10 +1247,9 @@
 
                 function updateCustomerChange() {
                     pay.customerChange = pay.customerPay - pay.requireMoney
-                    if(pay.customerChange > 0) {
+                    if (pay.customerChange > 0) {
                         $("#money-change").text(formatNumber(pay.customerChange))
-                    }
-                    else {
+                    } else {
                         $("#money-change").text(0)
 
                     }
@@ -1237,7 +1342,7 @@
                         $('.list-search-customer').html(html)
 
                         // var customerInfo = {}
-                        $('.search-customer-item').on('click', function(e) {
+                        $('.search-customer-item').on('click', function (e) {
                             var item = $(e.currentTarget);
                             var customerCode = item.find('.customer-code').text()
                             var customerName = item.find('.customer-name').text()
@@ -1249,15 +1354,14 @@
                             loadHtmlCustomerSelected(customerId, customerName, customerCode, customerPhone);
                         })
 
-                    }
-                    else {
+                    } else {
                         $(".list-search-customer").html('')
                         $('.no-search-customer-found').removeClass('hidden')
                     }
                 }
 
                 $("#search-customer").on('focus', function () {
-                    if($(this).val().trim() != "") {
+                    if ($(this).val().trim() != "") {
                         $('.no-search-customer-found').addClass('hidden')
                         $('.list-search-customer').removeClass('hidden')
                     }
@@ -1312,7 +1416,43 @@
                 });
 
 
+                // Cấu trúc
+                // {
+                //     "id": 15,
+                //     "code": "123",
+                //     "detail": null,
+                //     "type": 2,
+                //     "percentage": null,
+                //     "maximumAmount": null,
+                //     "status": 1,
+                //     "startDate": "2024-12-01T17:00:00.000+00:00",
+                //     "endDate": "2024-12-30T17:00:00.000+00:00",
+                //     "discountAmount": 1234,
+                //     "minimumAmountInCart": 12346,
+                //     "maximumUsage": 100
+                // }
+                async function loadVoucher() {
+                    return new Promise((resolve, reject) => {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/private/discount-code-valid?sort=end_date',
+                            dataType: 'json',
+                            success: function (data) {
+                                if(data.content.length!=listVoucher){
+                                    listVoucher=data.content;
+                                    loadHtmlVoucherSelectList(listVoucher);
+                                }
+                                resolve(data.content); // Trả về dữ liệu khi thành công
+                            },
+                            error: function () {
+                                console.log('Lỗi khi lấy voucher');
+                                reject([]); // Trả về mảng rỗng khi có lỗi
+                            }
+                        });
+                    });
+                }
 
+                var listVoucher=[];
                 //========================== XỬ LÝ VOUCHER ======================
                 $(".voucher-choose-btn").on('click', async function () {
                     $('#loading-overlay').show();
@@ -1321,8 +1461,8 @@
                         url: `/api/private/discount-code-valid?sort=start_date,desc`,
                         dataType: 'json',
                         success: function (data) {
-                            const voucherList = data.content;
-                            loadHtmlVoucherSelectList(voucherList);
+                            listVoucher = data.content;
+                            loadHtmlVoucherSelectList(listVoucher);
                             $('#loading-overlay').hide();
                             $('#overlay').show()
                             $('#voucher-modal').removeClass('hidden')
@@ -1342,7 +1482,7 @@
 
                 function loadHtmlVoucherSelectList(voucherList) {
                     var html = ''
-                    if(voucherList.length > 0) {
+                    if (voucherList.length > 0) {
                         voucherList.forEach(item => {
                             var amount = parseInt(item.discountAmount);
                             var minimumAmountInCart = parseInt(item.minimumAmountInCart);
@@ -1360,16 +1500,16 @@
                                        </svg>`
                                 htmlAmount = `<p class="font-bold">Giảm <span>${item.percentage}%</span></p>`
                             }
-                            if(type == 2) {
+                            if (type == 2) {
                                 svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.79 21L3 11.21v2c0 .53.21 1.04.59 1.41l7.79 7.79c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.79 21z"/><path fill="currentColor" d="M11.38 17.41c.78.78 2.05.78 2.83 0l6.21-6.21c.78-.78.78-2.05 0-2.83L12.63.58A2.04 2.04 0 0 0 11.21 0H5C3.9 0 3 .9 3 2v6.21c0 .53.21 1.04.59 1.41l7.79 7.79zM7.25 3a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5z"/></svg>`
                                 htmlAmount = `<p class="font-bold">Giảm <span>${amount} đ</span></p>`
                             }
 
-                            if(maximumAmount) {
+                            if (maximumAmount) {
                                 htmlMaxAmount = `<span class="ml-2">Giảm tối đa: ${maximumAmount}</span>`
                             }
 
-                            html+=`<div data-voucher="${item.id}" class="flex items-center shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 rounded cursor-pointer mb-2 voucher-item">
+                            html += `<div data-voucher="${item.id}" class="flex items-center shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 rounded cursor-pointer mb-2 voucher-item">
                                 <div class="flex items-center justify-center rounded w-14 bg-blue-100 h-20 mr-2">
                                     ${svg}
                                 </div>
@@ -1381,8 +1521,7 @@
                                 </div>
                             </div>`
                         })
-                    }
-                    else html = '<div class="font-italic text-gray-400">Không có mã giảm giá nào</div>'
+                    } else html = '<div class="font-italic text-gray-400">Không có mã giảm giá nào</div>'
                     $('.vourcher-list').html(html)
 
                     handleClickVoucher(voucherList)
@@ -1390,10 +1529,16 @@
 
                 function handleClickVoucher(voucherList) {
                     //Xử lý chọn voucher
-                    $('.voucher-item').on('click', function () {
-                        const voucherId = $(this).attr('data-voucher')
-                        const item = voucherList.find(item => item.id == voucherId)
-                        if(item.minimumAmountInCart > parseFloat(removeAnyNonDigit(allPrice.textContent))) {
+                    $('.voucher-item').on('click',function (){
+                        const voucherId = $(this).attr('data-voucher');
+                        loadClickVoucher(voucherId);
+                    } )
+                }
+                function loadClickVoucher(voucherId){
+
+
+                        const item = listVoucher.find(item => item.id == voucherId)
+                        if (item.minimumAmountInCart > parseFloat(removeAnyNonDigit(allPrice.textContent))) {
                             Swal.fire({
                                 title: "Lỗi",
                                 text: "Giá trị đơn hàng không đủ để áp dụng mã giảm giá này",
@@ -1420,7 +1565,7 @@
                                             <path fill="currentColor" d="M20.04 8.71V4h-4.7L12 .69L8.71 4H4v4.71L.69 12L4 15.34v4.7h4.71L12 23.35l3.34-3.31h4.7v-4.7L23.35 12l-3.31-3.29M8.83 7.05c.98 0 1.77.79 1.77 1.78a1.77 1.77 0 0 1-1.77 1.77c-.99 0-1.78-.79-1.78-1.77c0-.99.79-1.78 1.78-1.78M15.22 17c-.98 0-1.77-.8-1.77-1.78a1.77 1.77 0 0 1 1.77-1.77c.98 0 1.78.79 1.78 1.77A1.78 1.78 0 0 1 15.22 17m-6.72.03L7 15.53L15.53 7l1.5 1.5l-8.53 8.53Z"/>
                                        </svg>`
                         }
-                        if(type == 2) {
+                        if (type == 2) {
                             amount = parseInt(item.discountAmount);
                             textHead = `<p class="font-bold text-sm">Giảm <span>${amount}</span></p>
 `
@@ -1428,7 +1573,7 @@
 `
                         }
 
-                        if(maximumAmount) {
+                        if (maximumAmount) {
                             htmlMaxAmount = `<span class="ml-2">Giảm tối đa: ${maximumAmount}</span>`
                         }
 
@@ -1450,7 +1595,7 @@
                         $('#overlay').hide()
                         $('#voucher-modal').addClass('hidden')
 
-                        calculateAllPrice()
+                        // calculateAllPrice()
                         calculateLastPrice()
                         closeModalVoucher()
 
@@ -1461,11 +1606,11 @@
                             voucherChoosed = null
                             calculateVoucherPrice()
                         })
-                    })
-                }
 
+                }
                 // Đóng modal chọn voucher
                 $('.close-modal-voucher').on('click', closeModalVoucher)
+
                 function closeModalVoucher() {
                     $('#overlay').hide()
                     $('#voucher-modal').addClass('hidden')
@@ -1487,7 +1632,7 @@
                             quantity: $(this).find(".product-select-quantity").val()
                         });
                     });
-
+                    let createId=$(".product-select-body.active").attr('create-id')
                     if (orderDetails.length <= 0) {
                         Swal.fire({
                             title: "Lỗi",
@@ -1504,12 +1649,13 @@
                     const paymentMethodId = $('input[name="paymentMethod"]:checked').val();
 
                     const dataSend = {
-                        customer: { id: customerId },
+                        customer: {id: customerId},
                         paymentMethodId: paymentMethodId,
                         billingAddress: "Gelato Shop",
                         promotionPrice: promotionPrice,
                         voucherId: voucherId,
-                        orderDetailDtos: orderDetails
+                        orderDetailDtos: orderDetails,
+                        createId: createId
                     };
 
                     if (paymentMethodId == 3) {
@@ -1594,7 +1740,6 @@
                 }
 
 
-
 //-------------------------- ========XỬ LÝ QUÉT MÃ========== ================================-----------------------------------------------------
                 var video = document.getElementById("qr-video");
                 var canvas = document.getElementById("qr-canvas");
@@ -1606,7 +1751,7 @@
                     if (!stream) {
                         $(".scan-container").removeClass('hidden')
                         navigator.mediaDevices
-                            .getUserMedia({ video: true })
+                            .getUserMedia({video: true})
                             .then(function (cameraStream) {
                                 stream = cameraStream;
                                 video.srcObject = stream;
@@ -1629,7 +1774,7 @@
                     }
                 });
 
-                $('.close-modal-scan').click(function() {
+                $('.close-modal-scan').click(function () {
                     $(".scan-container").addClass('hidden')
                     if (stream) {
                         stream.getTracks().forEach(function (track) {
@@ -1660,23 +1805,23 @@
                                     var productDetail = data.productDetailDtos[0];
                                     var result = handleAddToOrder(productDetail, productDetail.id, true, data);
                                     var text = ''
-                                    if(result == 1) {
+                                    if (result == 1) {
                                         Swal.fire({
                                             title: "Thông báo",
                                             text: "Sản phẩm này đã hết",
                                             icon: "error"
                                         }).then((result) => {
-                                            if(result.isConfirmed) {
+                                            if (result.isConfirmed) {
                                                 scanInterval = setInterval(scanBarcode, 60);
                                             }
                                         });
-                                    }else {
+                                    } else {
                                         Swal.fire({
                                             title: "Thông báo",
                                             text: "Thêm sản phẩm mới thành công",
                                             icon: "success"
                                         }).then((result) => {
-                                            if(result.isConfirmed) {
+                                            if (result.isConfirmed) {
                                                 scanInterval = setInterval(scanBarcode, 60);
                                             }
                                         });
@@ -1689,7 +1834,7 @@
                                         text: xhr.responseJSON.message,
                                         icon: "error"
                                     }).then((result) => {
-                                        if(result.isConfirmed) {
+                                        if (result.isConfirmed) {
                                             scanInterval = setInterval(scanBarcode, 60);
                                         }
                                     })
@@ -1708,6 +1853,7 @@
 
             //current ROle
             var currentUserRole = /*[[${#authentication.getPrincipal().getAuthorities()}]]*/ [];
+
             function onlyAllowNumberInput(e) {
                 const key = e.key;
                 if (key === '-') {
@@ -1715,6 +1861,17 @@
                 }
             }
         </script>
+<!--        Load lại hóa đơn cũ-->
+        <script th:inline="javascript">
+            async function getListInStoreInvoice() {
+                const response= await fetch(`/admin/list-in-store-invoice`);
+                return await response.json();
+            }
+            getListInStoreInvoice().then((response) => {
+                console.log(response)
+            })
+        </script>
+
     </div>
 </div>
 </body>

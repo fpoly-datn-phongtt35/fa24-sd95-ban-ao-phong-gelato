@@ -31,9 +31,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+
 @Service
 public class BillServiceImpl implements BillService {
     @Autowired
@@ -41,6 +40,20 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     private ProductDetailRepository productDetailRepository;
+
+    @Override
+    public List<Long> findAllInStoreInvoiceId() {
+        return billRepository.findAllByStatus(BillStatus.TAI_QUAY);
+    }
+    @Override
+    public List<InStoreInvoiceDto> findAllInStoreInvoice(List<Long> ids) {
+        Map<Long,InStoreInvoiceDto> map = new HashMap<>();
+        billRepository.findAllInStoreInvoiceDetail(ids).forEach(invoiceDetail -> {
+//                    if(map.add)
+                }
+        );
+        return null;
+    }
 
     @Override
     public Page<BillDtoInterface> findAll(Pageable pageable){
