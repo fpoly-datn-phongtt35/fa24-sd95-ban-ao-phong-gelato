@@ -22,7 +22,7 @@ public class ScheduledApp {
     public void checkAndSetExpiredStatus() {
         Date currentDate = new Date();
         List<DiscountCode> expiredDiscountCodes = null;
-        if(!expiredDiscountCodes.isEmpty()) {
+        if(!(expiredDiscountCodes ==null)) {
             for (DiscountCode discountCode : expiredDiscountCodes) {
                 if (currentDate.after(discountCode.getEndDate())) {
                     discountCode.setStatus(3);

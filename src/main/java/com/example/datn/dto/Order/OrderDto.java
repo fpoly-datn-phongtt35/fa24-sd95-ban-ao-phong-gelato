@@ -24,4 +24,5 @@ public class OrderDto {
     private Long voucherId;
     private String orderId;
     private List<OrderDetailDto> orderDetailDtos;
+    private Long createId;
 }

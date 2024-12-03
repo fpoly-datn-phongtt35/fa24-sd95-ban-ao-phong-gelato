@@ -33,6 +33,16 @@ import java.util.List;
 public class BillController {
     @Autowired
     private BillService billService;
+    @GetMapping("/list-in-store-invoice")
+    public ResponseEntity<?> listInStoreInvoice() {
+
+       var listBillId=billService.findAllInStoreInvoiceId();
+       listBillId.forEach(id->{
+
+       });
+       return null;
+
+    }
 
 
     @GetMapping("/bill-list")
