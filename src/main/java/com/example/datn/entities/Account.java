@@ -35,6 +35,7 @@ public class Account {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = true)
+
     private Customer customer;
 
 

@@ -9,5 +9,6 @@ public enum BillStatus {
 
     HOAN_THANH,
     HUY,
-    TRA_HANG
+    TRA_HANG,
+    TAI_QUAY
 }
