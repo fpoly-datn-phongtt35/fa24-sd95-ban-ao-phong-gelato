@@ -36,6 +36,9 @@
                 <div class="tab-item" data-status="">
                     Tất cả
                 </div>
+                <div class="tab-item" data-status="CHO_HANG_VE">
+                    Chờ hàng về
+                </div>
                 <div class="tab-item" data-status="CHO_XAC_NHAN">
                     Chờ xác nhận
                 </div>
@@ -69,6 +72,7 @@
                         <th class="text-center">Hình thức thanh toán</th>
                         <th class="text-center">Trạng thái</th>
                         <th class="text-center">Thông tin chi tiết</th>
+                        <th class="text-center">Ghi chú</th>
                         <th class="text-center">Hành động</th>
                     </tr>
                     <tr th:if="${bills.content.size() == 0}" class="text-center">
@@ -96,8 +100,14 @@
                             </div>
                         </td>
                         <td>
+                            <span th:if="${bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE}"
+                                  th:text="'Hiện tại, hàng trong kho đã hết. Quý khách vui lòng đợi từ 1-2 hôm nữa !'">
+                            </span>
+                        </td>
+                        <td>
                             <form method="POST" th:action="'/cancel-bill/' + ${bill.id}" class="form-cancel-order">
                                 <button type="submit" class="btn btn-danger" id="cancel-bill" th:if="${
+                                    bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE ||
                                     bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
                                      bill.status == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG }">
                                     Hủy đơn
