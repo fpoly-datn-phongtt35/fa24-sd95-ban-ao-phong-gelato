@@ -128,17 +128,20 @@ public class BillServiceImpl implements BillService {
         Bill bill = billRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Không tìm thấy bill có mã: " + id));
 
-        // Kiểm tra trạng thái mới
         BillStatus newStatus = BillStatus.valueOf(status);
         BillStatus currentStatus = bill.getStatus();
 
-        // Nếu trạng thái mới là CHO_LAY_HANG và trạng thái hiện tại là CHO_XAC_NHAN, trừ số lượng
         if (newStatus == BillStatus.CHO_LAY_HANG && currentStatus == BillStatus.CHO_XAC_NHAN) {
-            deductProductQuantitiesOnStatusChange(id);
+            try {
+                deductProductQuantitiesOnStatusChange(id);
+            } catch (ShopApiException e) {
+                bill.setStatus(BillStatus.CHO_HANG_VE);
+                bill.setCreateDate(LocalDateTime.now());
+                return billRepository.save(bill);
+            }
         }
 
-        // Nếu trạng thái là HỦY, cộng lại số lượng sản phẩm
-        if (newStatus == BillStatus.HUY) {
+        if (newStatus == BillStatus.HUY || newStatus == BillStatus.THAT_BAI) {
             List<BillDetailProduct> billDetailProducts = billRepository.getBillDetailProduct(id);
             billDetailProducts.forEach(item -> {
                 ProductDetail productDetail = productDetailRepository.findById(item.getId())
@@ -148,7 +151,6 @@ public class BillServiceImpl implements BillService {
             });
         }
 
-        // Cập nhật trạng thái đơn hàng
         bill.setStatus(newStatus);
         bill.setUpdateDate(LocalDateTime.now());
         return billRepository.save(bill);

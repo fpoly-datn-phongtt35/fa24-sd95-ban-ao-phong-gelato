@@ -31,10 +31,12 @@
                     <label for="trangThai">Trạng thái</label>
                     <select class="form-select" id="trangThai" name="trangThai">
 
+                        <option value="CHO_HANG_VE" th:selected="${trangThai == 'CHO_HANG_VE'}">Chờ hàng về</option>
                         <option value="CHO_XAC_NHAN" th:selected="${trangThai == 'CHO_XAC_NHAN'}">Chờ xác nhận</option>
                         <option value="CHO_LAY_HANG" th:selected="${trangThai == 'CHO_LAY_HANG'}">Chờ lấy hàng</option>
                         <option value="CHO_GIAO_HANG" th:selected="${trangThai == 'CHO_GIAO_HANG'}">Chờ giao hàng</option>
                         <option value="HOAN_THANH" th:selected="${trangThai == 'HOAN_THANH'}">Hoàn thành</option>
+                        <option value="THAT_BAI" th:selected="${trangThai == 'THAT_BAI'}">Thất bại</option>
                         <option value="HUY" th:selected="${trangThai == 'HUY'}">Hủy</option>
                         <option value="TRA_HANG" th:selected="${trangThai == 'TRA_HANG'}">Trả hàng</option>
                     </select>
@@ -135,7 +137,9 @@
 
             </td>
             <td>
-
+                     <span class="text-warning p-1 rounded border border-warning font-weight-bold"
+                           th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE}"><i class="fas fa-check-square"></i>&nbsp;Chờ hàng về
+                    </span>
                     <span class="text-warning p-1 rounded border border-warning font-weight-bold"
                          th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN}"><i class="fas fa-check-square"></i>&nbsp;Chờ xác nhận
                     </span>
@@ -150,6 +154,9 @@
                     <span  class="text-success p-1 rounded border border-success font-weight-bold"
                           th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH}"><i class="fas fa-check-square"></i>&nbsp;Hoàn
                         thành
+                    </span>
+                    <span  class="text-success p-1 rounded border border-success font-weight-bold"
+                       th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI}"><i class="fas fa-check-square"></i>&nbsp;Thất bại
                     </span>
                     <span  class="text-dark p-1 rounded border border-dark font-weight-bold"
                        th:if="${item.trangThai == T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}"><i class="fas fa-check-square"></i>&nbsp;
@@ -172,7 +179,7 @@
                     </form>
 
                     <form th:action="@{'/admin/update-bill-status/' + ${item.maHoaDon}}" method="get">
-                        <span type="button" th:if="${item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH &&
+                        <span type="button" th:if="${item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH && item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI &&
                 item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).HUY && item.trangThai != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}"
                                 class=" hover-green btn-update-status" data--toggle="tooltip" data-placement="top" th:data-status="${item.trangThai}"
                                 title="Chuyển sang trạng thái tiếp">
@@ -289,6 +296,10 @@
                 var nextStatus;
                 var statusMessage;
                 switch (currentStatus) {
+                    case "CHO_HANG_VE":
+                        nextStatus = "CHO_LAY_HANG";
+                        statusMessage = "Chờ lấy hàng";
+                        break;
                     case "CHO_XAC_NHAN":
                         nextStatus = "CHO_LAY_HANG";
                         statusMessage = "Chờ lấy hàng";

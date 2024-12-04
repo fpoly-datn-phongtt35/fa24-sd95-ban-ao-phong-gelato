@@ -24,6 +24,7 @@
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
                                     ">
                                             <span class="icon">
@@ -39,6 +40,7 @@
 
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}
                                     ">
                                             <span class="icon">
@@ -60,13 +62,14 @@
                                     </div>
                                     <div class="step" th:classappend="${
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
                                     ">
                                         <span class="icon"> <i class="fa fa-truck"></i> </span>
                                         <span class="text"> Chờ giao hàng </span>
                                     </div>
                                     <div class="step" th:classappend="${
-
+                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
                                     billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
                                     ">
                                             <span class="icon">
@@ -308,7 +311,15 @@
                                             <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận chuyển cho shipper</span>
                                     <span class="btn btn-success  text-wrap rounded"
                                           th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}">
-                                            <i class="far fa-check-square"></i>&nbsp; Xác nhận đã giao hàng</span>
+                                            <i class="far fa-check-square"></i>Giao hàng thành công</span>
+                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
+                                          method="get">
+                                        <input type="hidden" name="trangThaiDonHang" value="THAT_BAI" />
+                                        <button type="button" class="failed-btn btn btn-danger rounded mt-4" style="float: right; margin-bottom: 10px"
+                                                th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}">
+                                            <i class="far fa-times-circle"></i>&nbsp;Giao hàng thất bại
+                                        </button>
+                                    </form>
                                 </div>
                             </form>
                         </div>
@@ -335,6 +346,27 @@
                 }
             });
         });
+
+        $(".failed-btn").on("click", function (e) {
+            e.stopPropagation();
+
+            Swal.fire({
+                title: "Xác nhận?",
+                text: "Đơn hàng chuyển sang trạng thái Giao hàng thất bại",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Hủy",
+                confirmButtonText: "Xác nhận",
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = $(this).closest("form");
+                    form.find("input[name='trangThaiDonHang']").val("THAT_BAI");
+                    form.submit();
+                }
+            });
+        });
+
 
         $(".btn-update-status").on("click", function (e) {
             e.stopPropagation();
