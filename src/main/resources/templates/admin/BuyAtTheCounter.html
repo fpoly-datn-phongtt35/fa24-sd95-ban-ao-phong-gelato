@@ -1017,7 +1017,6 @@
                             var productDetailSe = productDetailList.find(x => x.id == productDetailId)
 
                             handleAddToOrder(productDetailSe, productDetailId, canAdd, product);
-
                             $("#search-product").trigger('click')
                         })
 
@@ -1062,7 +1061,11 @@
                             console.log(data)
                         },
                         error: function (xhr, status, error) {
-
+                            Swal.fire({
+                                title: "Lỗi",
+                                text: xhr.responseJSON.message,
+                                icon: "error"
+                            });
                         }
                     })
                 }
@@ -1159,6 +1162,7 @@
                         .sort((a, b) => -(a.amountReduced - b.amountReduced))
                     console.log(validCouponCode);
                     loadClickVoucher(validCouponCode[0].voucher.id)
+                    calculateVoucherPrice();
 
                 }
 
