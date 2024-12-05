@@ -142,6 +142,7 @@ public class BillServiceImpl implements BillService {
         }
 
         if (newStatus == BillStatus.HUY || newStatus == BillStatus.THAT_BAI) {
+            if (currentStatus != BillStatus.CHO_HANG_VE && currentStatus != BillStatus.CHO_XAC_NHAN) {
             List<BillDetailProduct> billDetailProducts = billRepository.getBillDetailProduct(id);
             billDetailProducts.forEach(item -> {
                 ProductDetail productDetail = productDetailRepository.findById(item.getId())
@@ -149,6 +150,7 @@ public class BillServiceImpl implements BillService {
                 productDetail.setQuantity(productDetail.getQuantity() + item.getSoLuong());
                 productDetailRepository.save(productDetail);
             });
+            }
         }
 
         bill.setStatus(newStatus);
