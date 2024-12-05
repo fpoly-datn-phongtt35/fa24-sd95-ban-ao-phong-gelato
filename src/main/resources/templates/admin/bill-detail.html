@@ -3,7 +3,7 @@
       layout:decorate="~{admin/admin-layout.html}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 
@@ -19,82 +19,106 @@
                             <div class="float-end mr-4">
                                 <!-- Add class 'active' to progress -->
                                 <div class="track"
-                                     th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG && billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HUY}">
-                                    <div class="step" th:classappend="${
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
-                                    ">
-                                            <span class="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 256 256">
-                                                    <path fill="currentColor"
-                                                          d="M232 136.66A104.12 104.12 0 1 1 119.34 24a8 8 0 0 1 1.32 16A88.12 88.12 0 1 0 216 135.34a8 8 0 0 1 16 1.32ZM120 72v56a8 8 0 0 0 8 8h56a8 8 0 0 0 0-16h-48V72a8 8 0 0 0-16 0Zm40-24a12 12 0 1 0-12-12a12 12 0 0 0 12 12Zm36 24a12 12 0 1 0-12-12a12 12 0 0 0 12 12Zm24 36a12 12 0 1 0-12-12a12 12 0 0 0 12 12Z" />
-                                                </svg>
-                                            </span>
+                                     th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG
+                 && billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HUY}">
+                                    <!-- Step 1: Chờ xác nhận -->
+                                    <div class="step"
+                                         th:classappend="${
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+            <span class="icon">
+                <!-- Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+                    <path fill="currentColor" d="M232 136.66A104.12...Z"/>
+                </svg>
+            </span>
                                         <span class="text">Chờ xác nhận</span>
                                     </div>
-                                    <div class="step" th:classappend="${
 
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}
-                                    ">
-                                            <span class="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24">
-                                                    <g fill="none" stroke-width="1.5">
-                                                        <path fill="currentColor"
-                                                              d="m2.695 7.185l9 4l.61-1.37l-9-4l-.61 1.37ZM12.75 21.5v-11h-1.5v11h1.5Zm-.445-10.315l9-4l-.61-1.37l-9 4l.61 1.37Z" />
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                              stroke-linejoin="round"
-                                                              d="M3 17.11V6.89a.6.6 0 0 1 .356-.548l8.4-3.734a.6.6 0 0 1 .488 0l8.4 3.734A.6.6 0 0 1 21 6.89v10.22a.6.6 0 0 1-.356.548l-8.4 3.734a.6.6 0 0 1-.488 0l-8.4-3.734A.6.6 0 0 1 3 17.11Z" />
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                              stroke-linejoin="round"
-                                                              d="m7.5 4.5l8.644 3.842a.6.6 0 0 1 .356.548v3.61" />
-                                                    </g>
-                                                </svg>
-                                            </span>
-                                        <span class="text"> Chờ lấy hàng</span>
+                                    <!-- Step 2: Chờ hàng về -->
+                                    <div class="step"
+                                         th:classappend="${
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+            <span class="icon">
+                <!-- Icon -->
+                <i class="fa fa-box"></i>
+            </span>
+                                        <span class="text">Chờ hàng về</span>
                                     </div>
-                                    <div class="step" th:classappend="${
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
-                                    ">
-                                        <span class="icon"> <i class="fa fa-truck"></i> </span>
-                                        <span class="text"> Chờ giao hàng </span>
+
+                                    <!-- Step 3: Chờ lấy hàng -->
+                                    <div class="step"
+                                         th:classappend="${
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+            <span class="icon">
+                <!-- Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <g fill="none" stroke-width="1.5">
+                        <path fill="currentColor"
+                              d="m2.695 7.185l9 4l.61-1.37l-9-4l-.61 1.37ZM12.75 21.5v-11h-1.5v11h1.5Zm-.445-10.315l9-4l-.61-1.37l-9 4l.61 1.37Z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              d="M3 17.11V6.89a.6.6 0 0 1 .356-.548l8.4-3.734a.6.6 0 0 1 .488 0l8.4 3.734A.6.6 0 0 1 21 6.89v10.22a.6.6 0 0 1-.356.548l-8.4 3.734a.6.6 0 0 1-.488 0l-8.4-3.734A.6.6 0 0 1 3 17.11Z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              d="m7.5 4.5l8.644 3.842a.6.6 0 0 1 .356.548v3.61"/>
+                    </g>
+                </svg>
+            </span>
+                                        <span class="text">Chờ lấy hàng</span>
                                     </div>
-                                    <div class="step" th:classappend="${
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                                    billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH  ? 'active' : ''}
-                                    ">
-                                            <span class="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                          d="M19 13c.7 0 1.37.13 2 .35V12l-1-5H4l-1 5v2h1v6h9.09c-.05-.33-.09-.66-.09-1c0-1.23.37-2.36 1-3.31V14h1.69c.95-.63 2.08-1 3.31-1m-7 5H6v-4h6v4m-6.96-6l.6-3h12.72l.6 3H5.04M20 6H4V4h16v2m2.5 11.25L17.75 22L15 19l1.16-1.16l1.59 1.59l3.59-3.59l1.16 1.41" />
-                                                </svg>
-                                            </span>
+
+                                    <!-- Step 4: Chờ giao hàng -->
+                                    <div class="step"
+                                         th:classappend="${
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+            <span class="icon">
+                <!-- Icon -->
+                <i class="fa fa-truck"></i>
+            </span>
+                                        <span class="text">Chờ giao hàng</span>
+                                    </div>
+
+                                    <!-- Step 5: Hoàn thành -->
+                                    <div class="step"
+                                         th:classappend="${
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 13c.7 0 1.37...Z"/>
+                </svg>
+            </span>
                                         <span class="text">Hoàn thành</span>
                                     </div>
                                 </div>
-                                <div
-                                        th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HUY}">
+
+                                <!-- ĐÃ HỦY -->
+                                <div th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HUY}">
                                     <div class="text-danger font-weight-bold border rounded p-2 border-danger">
                                         ĐÃ HỦY
                                     </div>
                                 </div>
-                                <div
-                                        th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}">
+
+                                <!-- HOÀN TRẢ -->
+                                <div th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG}">
                                     <div class="text-danger font-weight-bold border rounded p-2 border-danger">
                                         HOÀN TRẢ
                                     </div>
                                 </div>
                             </div>
+
                             <div class="mb-4">
                                 <h2 class="mb-1 text-muted">
                                     Mã HD: [[${billdetail.maDinhDanh}]]
@@ -102,7 +126,7 @@
                             </div>
                             <div class="mb-3">
                                 <h2 class="mb-1 text-muted">
-                                   GELATO SHOP
+                                    GELATO SHOP
                                 </h2>
                             </div>
 
@@ -112,13 +136,13 @@
                                 </p>
                                 <p class="mb-1">
                                     <i class="uil uil-envelope-alt me-1"></i>
-                                   Email: Gelatoshop@gmail.com
+                                    Email: Gelatoshop@gmail.com
                                 </p>
                                 <p><i class="uil uil-phone me-1"></i>SĐT: 0375242863-0975132276 </p>
                             </div>
                         </div>
 
-                        <hr class="my-4" />
+                        <hr class="my-4"/>
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -184,7 +208,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <span>Mã giao dịch: <span class="text-warning font-weight-bold" th:text="${billdetail.maGiaoDich}"></span></span>
+                            <span>Mã giao dịch: <span class="text-warning font-weight-bold"
+                                                      th:text="${billdetail.maGiaoDich}"></span></span>
                         </div>
 
                         <div class="py-2">
@@ -286,43 +311,68 @@
                             </div>
                         </div>
                         <div class="py-2 bill-detail-update-status">
-                            <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
-                                  method="get">
-                                <input type="hidden" name="trangThaiDonHang" value="HUY" />
+                            <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
+                                <input type="hidden" name="trangThaiDonHang" value="HUY"/>
                                 <button type="button" class="cancel-btn btn btn-danger rounded" style="float: right; margin-bottom: 10px"
-                                        th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG &&
-                            billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN
-                            || billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}">
+                                        th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE &&
+                       billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
+                       billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}">
                                     <i class="far fa-times-circle"></i>&nbsp;Hủy đơn này
                                 </button>
                             </form>
 
-                            <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
-                                  method="get">
+                            <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
                                 <div th:data-status="${billdetail.trangThaiDonHang}" class="btn-update-status mt-2" style="max-width: 180px"
                                      th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG &&
-                                billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HUY &&
-                                billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH}">
-                                        <span class="btn btn-secondary text-wrap rounded"
-                                              th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN}">
-                                            <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận, duyệt đơn này</span>
+                     billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HUY &&
+                     billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH}">
+
+                                    <!-- Chờ xác nhận -->
+                                    <span class="btn btn-secondary text-wrap rounded"
+                                          th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN}"
+                                          data-status="CHO_XAC_NHAN"
+                                          data-out-of-stock="${billdetail.isOutOfStock}">
+    <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận, duyệt đơn này
+</span>
+
+                                    <!-- Chờ lấy hàng -->
                                     <span class="btn btn-primary text-wrap rounded"
                                           th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}">
-                                            <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận chuyển cho shipper</span>
-                                    <span class="btn btn-success  text-wrap rounded"
+                <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận chuyển cho shipper
+            </span>
+
+                                    <!-- Chờ hàng về -->
+                                    <span class="btn btn-warning text-wrap rounded"
+                                          th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE}">
+                <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận hàng đã về kho, duyệt đơn này
+            </span>
+                                    <!-- Nút hủy cho trạng thái "Chờ hàng về" -->
+                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
+                                        <input type="hidden" name="trangThaiDonHang" value="HUY"/>
+                                        <button type="button" class="cancel-btn btn btn-danger rounded mt-4" style="float: right; margin-bottom: 10px"
+                                                th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE}">
+                                            <i class="far fa-times-circle"></i>&nbsp; Hủy đơn này
+                                        </button>
+                                    </form>
+
+                                    <!-- Chờ giao hàng -->
+                                    <span class="btn btn-success text-wrap rounded"
                                           th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}">
-                                            <i class="far fa-check-square"></i>Giao hàng thành công</span>
-                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
-                                          method="get">
-                                        <input type="hidden" name="trangThaiDonHang" value="THAT_BAI" />
+                <i class="far fa-check-square"></i> Giao hàng thành công
+            </span>
+
+                                    <!-- Giao hàng thất bại -->
+                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
+                                        <input type="hidden" name="trangThaiDonHang" value="THAT_BAI"/>
                                         <button type="button" class="failed-btn btn btn-danger rounded mt-4" style="float: right; margin-bottom: 10px"
                                                 th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}">
-                                            <i class="far fa-times-circle"></i>&nbsp;Giao hàng thất bại
+                                            <i class="far fa-times-circle"></i>&nbsp; Giao hàng thất bại
                                         </button>
                                     </form>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -334,7 +384,7 @@
             e.stopPropagation();
             Swal.fire({
                 title: "Xác nhận?",
-                text: `Bạn chắc chắn muốn hủy đơn này, thao tác này không thể trở lại!`,
+                text: "Bạn chắc chắn muốn hủy đơn này, thao tác này không thể trở lại!",
                 icon: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Hủy",
@@ -367,12 +417,12 @@
             });
         });
 
-
         $(".btn-update-status").on("click", function (e) {
             e.stopPropagation();
             var currentStatus = $(this).attr("data-status");
             var nextStatus;
             var statusMessage;
+
             switch (currentStatus) {
                 case "CHO_XAC_NHAN":
                     nextStatus = "CHO_LAY_HANG";
@@ -387,9 +437,10 @@
                     statusMessage = "Hoàn thành";
                     break;
             }
+
             Swal.fire({
                 title: "Xác nhận?",
-                text: `Xác nhận chuyển sang ${statusMessage}`,
+                text: "Xác nhận chuyển sang " + statusMessage, // Sử dụng dấu cộng để nối chuỗi
                 icon: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Hủy",
@@ -398,12 +449,13 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const form = $(this).closest("form");
-                    var url = form.attr("action") + `?trangThaiDonHang=${nextStatus}`;
+                    var url = form.attr("action") + "?trangThaiDonHang=" + nextStatus; // Nối chuỗi đúng cách
                     window.location.href = url;
                 }
             });
         });
     </script>
+
 </div>
 </body>
 
