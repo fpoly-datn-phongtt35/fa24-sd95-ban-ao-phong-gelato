@@ -5,6 +5,7 @@ import com.example.datn.entities.Product;
 import com.example.datn.services.BillService;
 import com.example.datn.services.CustomerService;
 import com.example.datn.services.ProductService;
+import com.example.datn.services.serviceImpl.TempProductQuantityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,12 +23,15 @@ public class BuyAtTheCounterController {
     ProductService productService;
     @Autowired
     BillService billService;
+    @Autowired
+    TempProductQuantityService tempProductQuantityService;
 
     @Autowired
     CustomerService customerService;
 
     @GetMapping("/admin/pos")
     public String getIndex(Model model) {
+        tempProductQuantityService.reset();
         Pageable pageable1 = PageRequest.of(0, 2);
         Page<Product> productPage = productService.getAllProduct(pageable1);
         model.addAttribute("products", productPage);
