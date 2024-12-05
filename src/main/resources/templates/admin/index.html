@@ -209,21 +209,30 @@
                         var data = [];
                         for (var i = 0; i < list.length; i++) {
                             switch (list[i].status) {
+                                case 'CHO_GIAO_HANG' :
+                                    labels.push('Chờ giao hàng');
+                                    break;
                                 case 'CHO_XAC_NHAN' :
                                     labels.push('Chờ xác nhận');
+                                    break;
+                                case 'CHO_HANG_VE' :
+                                    labels.push('Chờ hàng về');
                                     break;
                                 case 'CHO_LAY_HANG' :
                                     labels.push('Chờ lấy hàng');
                                     break;
-                                case 'CHO_GIAO_HANG' :
-                                    labels.push('Chờ giao hàng');
-                                    break;
-
                                 case 'HOAN_THANH' :
                                     labels.push('Hoàn thành');
                                     break;
+
                                 case 'TRA_HANG' :
                                     labels.push('Trả hàng');
+                                    break;
+                                case 'HUY' :
+                                    labels.push('Hủy');
+                                    break;
+                                case 'THAT_BAI' :
+                                    labels.push('Thất bại');
                                     break;
                             }
                             data.push(list[i].quantity);
@@ -273,11 +282,14 @@
                             label: 'Đơn hàng',
                             data: data,
                             backgroundColor: [
-                                '#A7C7E7', // Xanh dịu (Light Steel Blue)
-                                '#F9C5D5', // Hồng dịu (Light Pink)
-                                '#F6EAC2', // Vàng dịu (Light Yellow)
-                                '#C5E3C6', // Xanh lá dịu (Mint)
-                                '#FFD3B6'  // Cam dịu (Peach)
+                                '#C5E3C6', // Xanh lá dịu - Hoàn thành
+                                '#F6EAC2', // Vàng dịu - Chờ xác nhận
+                                '#FFD3B6', // Cam dịu - Chờ hàng về
+                                '#A7C7E7', // Xanh dịu - Chờ lấy hàng
+                                '#F9C5D5', // Hồng dịu - Chờ giao hàng
+                                '#E6E6FA', // Tím nhạt - Trả hàng
+                                '#FF6347', // Đỏ tươi - Hủy
+                                '#F5DEB3'
                             ],
                             hoverOffset: 4
                         }]
@@ -300,59 +312,6 @@
 
         })
     </script>
-    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
-    <!--    <script>-->
-    <!--        $(document).ready(function () {-->
-    <!--            // Gọi API để lấy dữ liệu người dùng và đơn hàng-->
-    <!--            getUserStatistics();-->
-    <!--            getOrderStatistics();-->
-
-    <!--            function getUserStatistics() {-->
-    <!--                $.get("/api/user-statistics", function (data) {-->
-    <!--                    const labels = data.map(item => item.month);-->
-    <!--                    const values = data.map(item => item.userCount);-->
-    <!--                    renderLineChart('user-chart', labels, values, 'Người dùng');-->
-    <!--                });-->
-    <!--            }-->
-
-    <!--            function getOrderStatistics() {-->
-    <!--                $.get("/api/order-statistics", function (data) {-->
-    <!--                    const labels = ['Chờ xác nhận', 'Hoàn thành', 'Trả hàng'];-->
-    <!--                    const values = [data.choXacNhan, data.hoanThanh, data.traHang];-->
-    <!--                    renderDoughnutChart('donut-chart', labels, values, 'Đơn hàng');-->
-    <!--                });-->
-    <!--            }-->
-
-    <!--            function renderLineChart(id, labels, values, label) {-->
-    <!--                new Chart(document.getElementById(id), {-->
-    <!--                    type: 'line',-->
-    <!--                    data: {-->
-    <!--                        labels: labels,-->
-    <!--                        datasets: [{-->
-    <!--                            label: label,-->
-    <!--                            data: values,-->
-    <!--                            backgroundColor: 'rgba(0, 123, 255, 0.5)',-->
-    <!--                            borderColor: 'rgba(0, 123, 255, 1)'-->
-    <!--                        }]-->
-    <!--                    }-->
-    <!--                });-->
-    <!--            }-->
-
-    <!--            function renderDoughnutChart(id, labels, values, label) {-->
-    <!--                new Chart(document.getElementById(id), {-->
-    <!--                    type: 'doughnut',-->
-    <!--                    data: {-->
-    <!--                        labels: labels,-->
-    <!--                        datasets: [{-->
-    <!--                            label: label,-->
-    <!--                            data: values,-->
-    <!--                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']-->
-    <!--                        }]-->
-    <!--                    }-->
-    <!--                });-->
-    <!--            }-->
-    <!--        });-->
-    <!--    </script>-->
 
 </div>
 

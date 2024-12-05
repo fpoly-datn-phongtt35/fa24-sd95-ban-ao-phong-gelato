@@ -17,6 +17,6 @@ public class ScheduledTasks {
     public void runTaskEvery1Minutes() {
         tempProductQuantityService.deleteExpried();
         //Hoàn nguyên số lượng
-        System.out.println("Hoàn nguyên số lượng sau 10p");
+
     }
 }
