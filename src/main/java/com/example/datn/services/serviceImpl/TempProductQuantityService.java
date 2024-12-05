@@ -78,7 +78,7 @@ public class TempProductQuantityService {
     }
 
     public void deleteExpried() {
-        var expiredTime = new Date().getTime() + (10 * 60 * 1000);
+        var expiredTime = new Date().getTime() + (10* 60 * 1000);
         var expiredItems = tempProductQuantityRepository.findAllByIdCreateIdGreaterThanEqual(expiredTime);
         expiredItems.forEach(expiredItem -> {
             int quantity = 0;
@@ -91,6 +91,13 @@ public class TempProductQuantityService {
                 productDetailRepository.save(pd);
             }
 
+        });
+    }
+
+    @Transactional
+    public void reset() {
+        tempProductQuantityRepository.findAll().forEach(temp->{
+            delete(temp.getId().getCreateId());
         });
     }
 }
