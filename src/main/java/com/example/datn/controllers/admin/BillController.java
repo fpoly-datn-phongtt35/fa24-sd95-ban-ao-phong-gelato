@@ -107,18 +107,40 @@ public class BillController {
     }
 
     @GetMapping("/update-bill-status/{billId}")
-    public String updateBillStatus2(Model model, @PathVariable Long billId,
-                                    @RequestParam String trangThaiDonHang, RedirectAttributes redirectAttributes) {
+    public String updateBillStatus2(Model model,
+                                    @PathVariable Long billId,
+                                    @RequestParam String trangThaiDonHang,
+                                    RedirectAttributes redirectAttributes) {
         try {
+            // Kiểm tra tính hợp lệ của trạng thái trước khi cập nhật
+            if (!isValidEnumValue(trangThaiDonHang)) {
+                redirectAttributes.addFlashAttribute("error",
+                        "Trạng thái đơn hàng không hợp lệ: " + trangThaiDonHang);
+                return "redirect:/admin/getbill-detail/" + billId;
+            }
+
+            // Gọi service để cập nhật trạng thái
             Bill bill = billService.updateStatus(trangThaiDonHang, billId);
-            redirectAttributes.addFlashAttribute("message", "Hóa đơn " + bill.getCode() + " cập nhật trạng thái thành công!");
+            redirectAttributes.addFlashAttribute("message",
+                    "Hóa đơn " + bill.getCode() + " cập nhật trạng thái thành công!");
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("message", "Error updating status");
+            redirectAttributes.addFlashAttribute("error", "Đã xảy ra lỗi khi cập nhật trạng thái.");
         }
 
-        return "redirect:/admin/getbill-detail/" + billId ;
+        return "redirect:/admin/getbill-detail/" + billId;
     }
+
+    // Hàm kiểm tra giá trị Enum hợp lệ
+    private boolean isValidEnumValue(String value) {
+        for (BillStatus status : BillStatus.values()) {
+            if (status.name().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     @GetMapping("/getbill-detail/{maHoaDon}")
