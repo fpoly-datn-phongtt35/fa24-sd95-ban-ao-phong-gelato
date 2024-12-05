@@ -1817,7 +1817,7 @@
                                             icon: "error"
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                scanInterval = setInterval(scanBarcode, 60);
+                                                scanInterval = setInterval(scanBarcode, 200);
                                             }
                                         });
                                     } else {
@@ -1827,7 +1827,7 @@
                                             icon: "success"
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                scanInterval = setInterval(scanBarcode, 60);
+                                                scanInterval = setInterval(scanBarcode, 200);
                                             }
                                         });
                                     }
@@ -1840,7 +1840,7 @@
                                         icon: "error"
                                     }).then((result) => {
                                         if (result.isConfirmed) {
-                                            scanInterval = setInterval(scanBarcode, 60);
+                                            scanInterval = setInterval(scanBarcode, 200);
                                         }
                                     })
                                 }
@@ -1849,7 +1849,7 @@
                     }
 
                     // Start the initial scan interval
-                    scanInterval = setInterval(scanBarcode, 60);
+                    scanInterval = setInterval(scanBarcode, 200);
                 }
             })
 
