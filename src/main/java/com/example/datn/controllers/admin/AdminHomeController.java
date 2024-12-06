@@ -51,16 +51,7 @@ public class AdminHomeController {
 
             return "/admin/index";
         }
-//            Page<BillDtoInterface> billDtos = billService.findAll(Pageable.ofSize(10));
-//            Page<ProductDto> productDtos = productService.getAllProductApi(Pageable.ofSize(10));
-//
-//            model.addAttribute("billList", billRepository.findAll(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createDate"))));
-//            model.addAttribute("totalBillQuantity", billDtos.getTotalElements());
-//            model.addAttribute("totalProduct", productDtos.getTotalElements());
-//            model.addAttribute("revenue", billRepository.calculateTotalRevenue());
-//            model.addAttribute("totalBillWaiting", billRepository.getTotalBillStatusWaiting());
-//            return "/admin/index";
-//        }
+
     }
 
 
