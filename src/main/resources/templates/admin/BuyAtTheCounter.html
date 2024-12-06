@@ -1151,7 +1151,7 @@
 
                             }else {
                                 if (voucher.discountAmount) {
-                                    amountReduced = value;
+                                    amountReduced = voucher.discountAmount>totalMoney?totalMoney:voucher.discountAmount;
                                 }
                             }
                             return {
@@ -1162,8 +1162,8 @@
                         .sort((a, b) => -(a.amountReduced - b.amountReduced))
                     console.log(validCouponCode);
                     loadClickVoucher(validCouponCode[0].voucher.id)
-                    calculateVoucherPrice();
-                    calculateLastPrice();
+                    calculateVoucherPrice()
+                    calculateLastPrice()
 
                 }
 
