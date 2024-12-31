@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout.html}">
+<head th:replace="fragments-admin::page_head('Create Product')">
+    <th:block layout:fragment="head_link"></th:block>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3>Thêm sản phẩm mới</h3>
+    <hr>
+    <form th:action="@{/admin/product-create}" method="post" enctype="multipart/form-data" th:object="${product}">
+        <div class="row">
+            <div class="col">
+                Mã sản phẩm:
+                <input type="text" class="form-control" placeholder="Mời nhập mã sản phẩm" th:field="*{code}" required>
+            </div>
+            <div class="col">
+                Tên sản phẩm:
+                <input type="text" class="form-control" placeholder="Mời nhập tên sản phẩm" th:field="*{name}" required>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                Thương hiệu:
+                <select name="brand" class="form-select" th:field="*{brand}">
+                    <th:block th:each="brand : ${brands}">
+                        <option th:value="${brand.id}" th:text="${brand.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="col">
+                Chất liệu:
+                <select name="material" class="form-select" th:field="*{material}">
+                    <th:block th:each="material : ${materials}">
+                        <option th:value="${material.id}" th:text="${material.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                Trạng thái:
+                <select name="status" class="form-select" th:field="*{status}">
+                    <option value="1">Còn bán</option>
+                    <option value="2">Ngừng bán</option>
+                </select>
+            </div>
+            <div class="col">
+                Giá bán:
+                <input type="number" class="form-control" placeholder="Mời nhập giá bán" th:field="*{price}" required>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                Hình ảnh:
+                <input type="file" class="form-control" accept="image/*" th:field="*{image}" multiple required>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+            <a th:href="@{/admin/product-all}" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
+<th:block th:replace="fragments-admin::script"></th:block>
+</body>
+</html>

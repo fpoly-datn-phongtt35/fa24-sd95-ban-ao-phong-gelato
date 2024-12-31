@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý màu sắc</title>
+    <th:block layout:fragment="head_link"></th:block>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Quản lý màu sắc</h1>
+    <hr>
+    <div class="alert alert-success" role="alert" th:if="${message != null}" th:text="${message}"></div>
+    <a th:href="@{/admin/color-create}" class="btn btn-primary">Thêm màu sắc</a>
+    <div class="col-3" style="float: right">
+        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm màu sắc" onkeyup="filterTable()">
+    </div>
+    <table class="table" id="sizeTable">
+        <thead>
+        <th>#</th>
+        <th>Mã màu sắc</th>
+        <th>Tên màu sắc</th>
+        <th>Thao tác</th>
+        </thead>
+        <tbody id="sizeTableBody">
+        <tr th:each="c, iterStat  : ${color}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.code}"></td>
+            <td th:text="${c.name}"></td>
+            <td>
+                <a th:href="@{/admin/color-update(id=${c.id})}" class="btn btn-dark">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<th:block layout:fragment="bottom_link"></th:block>
+<script>
+    function filterTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#sizeTableBody tr");
+
+        rows.forEach(row => {
+            let sizeCode = row.cells[1].textContent.toLowerCase();
+            let sizeName = row.cells[2].textContent.toLowerCase();
+            row.style.display = (sizeCode.includes(input) || sizeName.includes(input)) ? "" : "none";
+        });
+    }
+</script>
+</html>

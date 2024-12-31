@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-layout.html}">
+<head th:replace="fragments-admin::page_head('Product Detail')">
+    <th:block layout:fragment="head_link"></th:block>
+</head>
+<body >
+<div layout:fragment="content">
+    <h4>Thông tin sản phẩm chi tiết</h4>
+    <hr>
+    <form th:action="${action}" method="post" enctype="multipart/form-data" th:object="${product_detail}">
+        <div id="attributes-container">
+            <div class="row mt-3 attribute-row">
+                <div class="col">
+                    Màu sắc:
+                    <div class="input-group">
+                        <select name="color" class="form-select" th:field="*{color}">
+                            <th:block th:each="color : ${color}">
+                                <option value="${color.id}" th:text="${color.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    Kích cỡ:
+                    <div class="input-group">
+                        <select name="size" class="form-select" th:field="*{size}">
+                            <th:block th:each="size : ${size}">
+                                <option value="${size.id}" th:text="${size.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    Số lượng: <input type="number" class="form-control" placeholder="0" th:field="*{quantity}">
+                </div>
+                <div class="col">
+                    Giá tiền: <input type="number" class="form-control" placeholder="0" th:field="*{price}">
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger mt-3" onclick="addAttribute()">Thêm thuộc tính</button>
+        <hr>
+        <div class="mb-3 mt-3">
+            Hình ảnh:
+            <div id="imagePreviewContainer"></div>
+            <input type="file" class="form-control" accept="image/gif, image/jpeg, image/png" id="imageInput" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>
+
+<script>
+    function addAttribute() {
+        var container = document.getElementById("attributes-container");
+        var attributeRow = document.querySelector(".attribute-row");
+        var newAttributeRow = attributeRow.cloneNode(true);
+        newAttributeRow.querySelectorAll('input').forEach(input => input.value = "");
+        newAttributeRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        container.appendChild(newAttributeRow);
+    }
+
+    document.getElementById('imageInput').addEventListener('change', function() {
+        const files = this.files;
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        previewContainer.innerHTML = '';
+
+        if (files.length > 5) {
+            alert("Bạn chỉ có thể chọn tối đa 5 ảnh.");
+            this.value = "";
+            return;
+        }
+        Array.from(files).forEach(file => {
+            if (file && (
