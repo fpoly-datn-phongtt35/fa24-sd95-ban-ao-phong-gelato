@@ -18,6 +18,7 @@ import com.example.datn.services.ProductService;
 import com.example.datn.utils.QRCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -222,6 +223,43 @@ public class ProductServiceImpl implements ProductService {
         return convertToDto(productRepository.findByProductDetail_Id(detailId));
     }
 
+    @Override
+    public List<ProductDto> getTop10BestSellingProducts() {
+        Pageable pageable = PageRequest.of(0, 10);
+        List<Object[]> result = productRepository.findTop5BestSellingProducts(pageable);
+
+        return result.stream().map(row -> {
+            ProductDto dto = new ProductDto();
+            dto.setName((String) row[0]);
+            dto.setTotalSold((Long) row[1]);
+
+            // Tạo imageUrl giả định dựa trên product code
+            dto.setCode((String) row[2]);
+            dto.setImageUrl("/images/" + (String) row[2] + ".jpg"); // URL giả định
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getTop10NewestProducts() {
+        Pageable pageable = PageRequest.of(0, 10); // Lấy 10 sản phẩm mới nhất
+        List<Product> products = productRepository.findTop10NewProducts(pageable);
+
+        return products.stream().map(product -> {
+            ProductDto dto = new ProductDto();
+            dto.setId(product.getId());
+            dto.setCode(product.getCode());
+            dto.setName(product.getName());
+            dto.setCreateDate(product.getCreateDate());
+            dto.setPriceMin(product.getPrice());
+            dto.setImageUrl("/images/" + product.getCode() + ".jpg");
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
+
 
     private ProductDto convertToDto(Product product) {
         ProductDto productDto = new ProductDto();
@@ -236,7 +274,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDetailDto> productDetailDtoList = new ArrayList<>();
         Double priceMin = Double.valueOf(100000000);
         for (ProductDetail productDetail:
-             product.getProductDetails()) {
+                product.getProductDetails()) {
             if(productDetail.getPrice() < priceMin) {
                 priceMin = productDetail.getPrice();
             }

@@ -99,11 +99,11 @@ public class ProductShopController {
     @GetMapping("/product-detail/{productCode}")
     public String getProductDetail(Model model, @PathVariable String productCode) {
         Product product = productService.getProductByCode(productCode);
-        if(product == null) {
-            return "/error/404";
+        if (product == null) {
+            return "/error/404"; // Chuyển đến trang lỗi nếu sản phẩm không tồn tại
         }
         model.addAttribute("product", product);
-        return "user/product-detail";
+        return "user/product-detail"; // Trả về template chi tiết sản phẩm
     }
 
     @GetMapping("/product/search")
