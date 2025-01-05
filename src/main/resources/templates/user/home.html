@@ -384,12 +384,9 @@
     <section id="custom-carousel" class="bg-light py-5">
         <div class="container">
             <section class="new-collections">
-                <h1 class="new-collections-title">New Collections</h1>
+                <h1 class="new-collections-title">Áo Phông Thời Thượng</h1>
                 <p class="new-collections-description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut
-                    dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate,
-                    eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!
-                </p>
+                    Cập nhật ngay bộ sưu tập áo phông mới nhất với thiết kế trẻ trung, hiện đại, và đầy phong cách. Chất liệu thoáng mát, mềm mại mang lại cảm giác thoải mái trong mọi hoạt động hàng ngày. Dễ dàng kết hợp với nhiều trang phục, áo phông của chúng tôi phù hợp cho mọi phong cách từ năng động, thanh lịch đến phá cách cá tính.                </p>
             </section>
 
         </div>
@@ -466,7 +463,7 @@
                             </div>
                             <div class="category-content">
                                 <div class="product-button">
-                                    <a href="product?page=0&gender=1" class="btn btn-common text-uppercase2">Shop for men</a>
+                                    <a href="product?page=0&gender=1" class="btn btn-common text-uppercase2">Áo phông nam</a>
                                 </div>
                             </div>
                         </div>
@@ -480,7 +477,7 @@
                             </div>
                             <div class="category-content">
                                 <div class="product-button">
-                                    <a href="product?page=0&gender=2" class="btn btn-common text-uppercase2">Shop for women</a>
+                                    <a href="product?page=0&gender=2" class="btn btn-common text-uppercase2">Áo phông nữ</a>
                                 </div>
                             </div>
                         </div>
@@ -494,7 +491,7 @@
                             </div>
                             <div class="category-content">
                                 <div class="product-button">
-                                    <a href="product?page=0&gender=3" class="btn btn-common text-uppercase2">Shop accessories</a>
+                                    <a href="product?page=0&gender=3" class="btn btn-common text-uppercase2">Áo phông unisex</a>
                                 </div>
                             </div>
                         </div>
@@ -537,7 +534,7 @@
                 <div class="col-md-6 p-b-30 m-lr-auto">
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
-                        <img th:src="@{'/images/banner-05.jpg'}" alt="IMG-BANNER">
+                        <img th:src="@{'/images/sp3.jpg'}" alt="IMG-BANNER">
 
                         <a href="product?page=0&gender=1"
                            class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
@@ -589,7 +586,7 @@
                 <div class="col-md-6 col-lg-4 p-b-30 m-lr-auto">
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
-                        <img th:src="@{'/images/banner2.png'}" alt="IMG-BANNER">
+                        <img th:src="@{'/images/sp4.jpg'}" alt="IMG-BANNER">
 
                         <a href="/product"
                            class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
@@ -614,13 +611,13 @@
                 <div class="col-md-6 col-lg-4 p-b-30 m-lr-auto">
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
-                        <img th:src="@{/images/banner-xyz.png}" alt="IMG-BANNER">
+                        <img th:src="@{/images/sp5.jpg}" alt="IMG-BANNER">
 
                         <a href="/product"
                            class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Lịch lãm
+									Năng động
 								</span>
 
                                 <span class="block1-info stext-102 trans-04">
@@ -642,87 +639,26 @@
 
 
     <!--Hàng mới-->
-    <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <section id="new-arrivals" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
-            <!-- Tiêu đề và nút "View All Products" -->
+            <!-- Tiêu đề -->
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="text-uppercase1">Hàng Mới</h4>
-                <a href="/product" class="btn-link">View All Products</a>
+                <a href="/product" class="btn-link">Xem tất cả sản phẩm</a>
             </div>
 
             <!-- Slider -->
             <div class="slider">
                 <div class="slides">
-                    <!-- Slide 1 -->
-                    <div class="slide">
+                    <div th:each="product : ${newestProducts}" class="slide">
                         <div class="product-item">
                             <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-01.jpg" alt="Baggy Shirt" class="product-image img-fluid">
+                                <a th:href="@{'/product-detail/' + ${product.code}}">
+                                    <img th:src="@{'/images/' + ${product.imageUrl}}" alt="Product Image" class="product-image img-fluid">
                                 </a>
                                 <div class="product-content">
                                     <h5 class="product-title">
-                                        <a href="#">Baggy Shirt</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-02.jpg" alt="Cotton Off-White Shirt" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Cotton Off-White Shirt</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-03.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 4 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-04.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 5 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-05.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
+                                        <a th:href="@{'/product-detail/' + ${product.code}}" th:text="${product.name}">Product Name</a>
                                     </h5>
                                 </div>
                             </div>
@@ -741,7 +677,7 @@
     <section class="collection bg-light position-relative py-5">
         <div class="container">
             <div class="row">
-                <div class="title-xlarge text-uppercase txt-fx domino">Collection</div>
+                <div class="title-xlarge text-uppercase txt-fx domino">Bộ Sưu Tập</div>
                 <div class="collection-item d-flex flex-wrap my-5">
                     <div class="col-md-6 column-container">
                         <div class="image-holder">
@@ -750,12 +686,10 @@
                     </div>
                     <div class="col-md-6 column-container bg-white">
                         <div class="collection-content p-5 m-0 m-md-5">
-                            <h3 class="element-title text-uppercase">Classic winter collection</h3>
-                            <p>Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. Ac sed eu
-                                fringilla odio mi. Consequat pharetra at magna imperdiet cursus ac faucibus sit libero. Ultricies quam
-                                nunc, lorem sit lorem urna, pretium aliquam ut. In vel, quis donec dolor id in. Pulvinar commodo mollis
-                                diam sed facilisis at cursus imperdiet cursus ac faucibus sit faucibus sit libero.</p>
-                            <a href="#" class="btn btn-dark text-uppercase mt-3">Shop Collection</a>
+                            <h3 class="element-title text-uppercase">Bộ Sưu Tập Áo Phông Mới</h3>
+                            <p>Khám phá bộ sưu tập áo phông mới nhất của chúng tôi. Thiết kế tối giản, chất liệu thân thiện với môi trường, phù hợp với mọi phong cách.</p>
+                            <p>Mỗi chiếc áo phông trong bộ sưu tập đều mang một câu chuyện riêng, được thiết kế để tôn lên cá tính của bạn.</p>
+                            <a href="/product" class="btn btn-dark text-uppercase mt-3">Khám Phá Ngay</a>
                         </div>
                     </div>
                 </div>
@@ -764,87 +698,27 @@
     </section>
 
     <!--Hàng Bán Chạy-->
-    <section id="best-sellers" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <section id="top-selling-products" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <!-- Tiêu đề và nút "View All Products" -->
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="text-uppercase1">Mặt Hàng Bán Chạy</h4>
-                <a href="/product" class="btn-link">View All Products</a>
+                <a href="/product" class="btn-link">Xem tất cả sản phẩm</a>
             </div>
 
             <!-- Slider -->
             <div class="slider">
                 <div class="slides">
-                    <!-- Slide 1 -->
-                    <div class="slide">
+                    <!-- Loop sản phẩm từ server -->
+                    <div class="slide" th:each="product : ${topProducts}">
                         <div class="product-item">
                             <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-min-03.jpg" alt="Baggy Shirt" class="product-image img-fluid">
+                                <a th:href="@{'/product-detail/' + ${product.code}}">
+                                    <img th:src="@{'/images/' + ${product.imageUrl}}" alt="Product Image" class="product-image img-fluid">
                                 </a>
                                 <div class="product-content">
                                     <h5 class="product-title">
-                                        <a href="#">Baggy Shirt</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-07.jpg" alt="Cotton Off-White Shirt" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Cotton Off-White Shirt</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-08.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 4 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-min-02.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 5 -->
-                    <div class="slide">
-                        <div class="product-item">
-                            <div class="image-holder">
-                                <a href="#">
-                                    <img src="/images/product-10.jpg" alt="Crop Sweater" class="product-image img-fluid">
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="product-title">
-                                        <a href="#">Crop Sweater</a>
+                                        <a th:href="@{'/product-detail/' + ${product.code}}" th:text="${product.name}">Product Name</a>
                                     </h5>
                                 </div>
                             </div>
@@ -865,7 +739,7 @@
             <!-- Tiêu đề và nút "View All Products" -->
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
                 <h4 class="text-uppercase1">Bạn Cũng Có Thể Thích</h4>
-                <a href="/product" class="btn-link">View All Products</a>
+                <a href="/product" class="btn-link">Xem tất cả sản phẩm</a>
             </div>
 
             <!-- Slider -->
@@ -1003,13 +877,13 @@
     <section class="instagram position-relative">
         <div class="container">
             <!-- Nút Follow nằm trên ảnh -->
-            <a href="https://www.instagram.com/liamcung/" class="btn">Follow us on Instagram</a>
+            <a href="#" class="btn">Theo dõi Instagram</a>
 
             <!-- Hình ảnh Instagram -->
             <div class="row g-0">
                 <div class="col-6 col-sm-4 col-md-2">
                     <div class="insta-item">
-                        <a href="https://www.instagram.com/liamcung/" target="_blank">
+                        <a href="#" target="_blank">
                             <img src="images/insta-item1.jpg" alt="Instagram">
                         </a>
                     </div>
@@ -1023,7 +897,7 @@
                 </div>
                 <div class="col-6 col-sm-4 col-md-2">
                     <div class="insta-item">
-                        <a href="https://www.instagram.com/liamcung/" target="_blank">
+                        <a href="#" target="_blank">
                             <img src="images/insta-item3.jpg" alt="instagram" class="insta-image img-fluid">
                         </a>
                     </div>
@@ -1037,14 +911,14 @@
                 </div>
                 <div class="col-6 col-sm-4 col-md-2">
                     <div class="insta-item">
-                        <a href="https://www.instagram.com/liamcung/" target="_blank">
+                        <a href="#" target="_blank">
                             <img src="images/insta-item5.jpg" alt="instagram" class="insta-image img-fluid">
                         </a>
                     </div>
                 </div>
                 <div class="col-6 col-sm-4 col-md-2">
                     <div class="insta-item">
-                        <a href="https://www.instagram.com/liamcung/" target="_blank">
+                        <a href="#" target="_blank">
                             <img src="images/insta-item6.jpg" alt="instagram" class="insta-image img-fluid">
                         </a>
                     </div>

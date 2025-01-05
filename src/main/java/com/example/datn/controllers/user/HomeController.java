@@ -77,9 +77,14 @@ public class HomeController {
         model.addAttribute("url", urlBuilder.toUriString());
         model.addAttribute("products", products);
         model.addAttribute("dataFilter", searchProductDto==null ? new SearchProductDto() : searchProductDto);
-
+        List<ProductDto> topProducts = productService.getTop10BestSellingProducts();
+        model.addAttribute("topProducts", topProducts);
+        List<ProductDto> newestProducts = productService.getTop10NewestProducts();
+        model.addAttribute("newestProducts", newestProducts);
         return "user/home";
     }
+
+
 
     /**
      * Thêm các tham số tìm kiếm vào URL
@@ -116,5 +121,7 @@ public class HomeController {
                 urlBuilder.queryParam("sort", String.join(",", sortStrings));
             }
         }
+
     }
+
 }
