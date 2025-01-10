@@ -12,4 +12,5 @@ public class BillReturnCreateDto {
     private List<ReturnDto> returnDtos;
     // Danh sách hàng trả
     private List<RefundDto> refundDtos;
+    private Double voucherReturn;
 }

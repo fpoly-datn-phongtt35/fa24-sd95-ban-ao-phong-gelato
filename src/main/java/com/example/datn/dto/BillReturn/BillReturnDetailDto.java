@@ -20,4 +20,5 @@ public class BillReturnDetailDto {
     private List<ReturnProductDto> returnProductDtos;
     // Danh sách hàng trả
     private List<RefundProductDto> refundProductDtos;
+    private Double returnVoucher;
 }

@@ -21,4 +21,5 @@ public interface BillDetailProduct {
 
     boolean getIsPromotionalProduct();
 
+    Double getPromotionPerProduct();
 }

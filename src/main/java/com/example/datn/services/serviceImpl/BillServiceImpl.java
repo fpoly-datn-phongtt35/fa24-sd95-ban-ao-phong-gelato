@@ -446,11 +446,16 @@ public class BillServiceImpl implements BillService {
 
     private BillDto convertToDto(Bill bill) {
         BillDto billDto = new BillDto();
+        BillDto.Voucher voucher=  billDto.new Voucher();
+        voucher.setId(bill.getDiscountCode()==null?null:bill.getDiscountCode().getId());
+        voucher.setMinimumValueForDiscount(bill.getDiscountCode()==null?null:bill.getDiscountCode().getMinimumAmountInCart());
+        voucher.setBillDiscount(bill.getPromotionPrice());
         billDto.setId(bill.getId());
         billDto.setCode(bill.getCode());
         billDto.setCreateDate(bill.getCreateDate());
         billDto.setStatus(bill.getStatus());
         billDto.setUpdateDate(bill.getUpdateDate());
+        billDto.setVoucher(voucher.getId()==null?null:voucher);
         CustomerDto customer = new CustomerDto();
         if(bill.getCustomer() != null) {
             customer.setName(bill.getCustomer().getName());
@@ -484,6 +489,14 @@ public class BillServiceImpl implements BillService {
             productDetail.setQuantity(productDetail.getQuantity() - item.getSoLuong());
             productDetailRepository.save(productDetail);
         });
+    }
+
+    @Override
+    public void updateStatusChoHangVe() {
+       billRepository.updateStatusChoHangVe();
+//        listCheck.forEach(bill->{
+//
+//        });
     }
 
 }

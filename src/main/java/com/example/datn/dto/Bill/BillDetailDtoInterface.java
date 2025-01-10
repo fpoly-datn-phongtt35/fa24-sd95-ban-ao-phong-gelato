@@ -3,6 +3,8 @@ import com.example.datn.entities.enumClass.BillStatus;
 import com.example.datn.entities.enumClass.InvoiceType;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 public interface BillDetailDtoInterface {
     String getMaDonHang();
 
@@ -30,4 +32,13 @@ public interface BillDetailDtoInterface {
     String getVoucherName();
 
     LocalDateTime getCreatedDate();
+
+    Integer getDiscountType();
+    Double getDiscountAmount();
+    Double getDiscountPercent();
+    Date getDiscountEndDate();
+    Double getDiscountMaximumAmount();
+    Integer getDiscountUsage();
+    Double getDiscountMinimumAmountInCart();
+
 }

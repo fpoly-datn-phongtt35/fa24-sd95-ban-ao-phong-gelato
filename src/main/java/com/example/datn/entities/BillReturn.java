@@ -41,4 +41,5 @@ public class BillReturn {
 
     @OneToMany(mappedBy = "billReturn", cascade = CascadeType.ALL)
     private List<ReturnDetail> returnDetails;
+    private Double returnVoucher;
 }

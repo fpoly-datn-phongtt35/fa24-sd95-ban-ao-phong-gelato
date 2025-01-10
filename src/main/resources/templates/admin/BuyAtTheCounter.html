@@ -1537,6 +1537,7 @@
                     $('.voucher-item').on('click',function (){
                         const voucherId = $(this).attr('data-voucher');
                         loadClickVoucher(voucherId);
+                        calculateVoucherPrice()
                     } )
                 }
                 function loadClickVoucher(voucherId){

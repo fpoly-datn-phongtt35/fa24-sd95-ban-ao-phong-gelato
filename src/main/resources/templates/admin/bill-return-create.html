@@ -125,7 +125,7 @@
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                          stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
@@ -187,7 +187,7 @@
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                          stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
@@ -222,7 +222,10 @@
 
                         </tbody>
                     </table>
-                    <button type="button" id="choose-exchange-product-list-btn" class="float-right mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Chọn</button>
+                    <button type="button" id="choose-exchange-product-list-btn"
+                            class="float-right mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Chọn
+                    </button>
                 </div>
             </div>
         </div>
@@ -233,12 +236,13 @@
 <div class="scan-container z-10 bg-white p-12 rounded-lg shadow-md absolute left-1/4 top-1/4 hidden">
     <video id="qr-video" width="300" height="200" autoplay class="mb-4"></video>
     <canvas id="qr-canvas" width="300" height="200" style="display: none"></canvas>
-    <button type="button" class="close-modal-scan absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+    <button type="button"
+            class="close-modal-scan absolute top-1 right-1 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="crypto-modal">
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
              fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
         </svg>
         <span class="sr-only">Close modal</span>
     </button>
@@ -252,13 +256,14 @@
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
                 <button type="button" id="select-other-bill-btn"
                         class="pl-8 font-bold bg-gray-50 cursor-pointer border border-gray-300 text-gray-900 text-sm outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-                        style="width: 200px">Chọn đơn khác</button>
+                        style="width: 200px">Chọn đơn khác
+                </button>
 
             </div>
         </div>
@@ -267,7 +272,7 @@
                 <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                      viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
+                          d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9"/>
                 </svg>
             </a>
         </div>
@@ -405,11 +410,20 @@
                     <h5 class="all-price font-bold text-2xl">0</h5>
                 </div>
             </div>
+            <div class=" mb-3">
+                <div class="col">
+                    <h5 class="">Khấu trừ voucher: </h5>
+                </div>
+                <div class="col">
+                    <h5 class="text-xl" id="promotionPrice">0</h5>
+                </div>
+            </div>
             <div class="mb-3">
                 <div class="flex justify-between">
-                    <label >Phí trả hàng: </label>
+                    <label>Phí trả hàng: </label>
                     <div class="fee-exchange-container h-8 w-20">
-                        <input class="fee-exchange border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400" type="text" name="fee-exchange" value="0">
+                        <input class="fee-exchange border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400"
+                               type="text" name="fee-exchange" value="10" disabled>
                         <span>&nbsp;%</span>
                     </div>
                 </div>
@@ -481,7 +495,8 @@
             </div>
             <div class="mt-4">
                 <label>Lý do:</label>
-                <select id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="reason"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="Mặc chật" selected>Mặc chật</option>
                     <option value="Đổi màu">Đổi màu</option>
                     <option value="Khác">Khác</option>
@@ -493,7 +508,8 @@
                     class="mr-2">Tiền mặt</label>
                 <!-- <input type="radio" th:value="4" name="paymentMethod" id="payment-card"> <label
                 class="mr-2">Thẻ</label> -->
-                <input type="radio" value="3" name="paymentMethod" id="payment-online"> <label class="mr-2">Chuyển khoản</label>
+                <input type="radio" value="3" name="paymentMethod" id="payment-online"> <label class="mr-2">Chuyển
+                khoản</label>
             </div>
 
             <button
@@ -513,6 +529,7 @@
 
 
             updateTime()
+
             function updateTime() {
                 var currentDate = new Date();
                 var formattedDate = formatDate(currentDate);
@@ -530,14 +547,47 @@
 
             // Update the time every minute (60000 milliseconds)
             setInterval(updateTime, 60000);
+
             function formatDate(date) {
-                var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
                 return date.toLocaleDateString('en-GB', options);
             }
         })
     </script>
     <script th:inline="javascript">
+        let minimumValueForDiscount = 0;
+        let voucherId = 0;
+        let billDiscount = 0;
+        let isRollBackVoucher = false;
         $(document).ready(function () {
+
+            function calculatePromotionPrice() {
+                let invoiceTotal = 0;
+                let totalProductReturn = 0;
+                isRollBackVoucher = false;
+
+                invoiceTotal = $('tr[data-promotion-per-product]')
+                    .map((i, e) =>
+                        removeAnyNonDigit($(e).find('.product-select-price').text())
+                        * removeAnyNonDigit($(e).find('input').next().text())).get()
+                    .reduce((allPrice, item) => allPrice + item, 0)
+                totalProductReturn = $('tr[data-promotion-per-product]')
+                    .map((i, e) => removeAnyNonDigit($(e).find('.product-select-price').text()) * $(e).find('input').val()).get()
+                    .reduce((allPrice, item) => allPrice + item, 0)
+                if (invoiceTotal - totalProductReturn < minimumValueForDiscount) {
+                    $('#promotionPrice').text(formatNumber(Math.round(billDiscount)))
+                    isRollBackVoucher = true;
+                    return;
+                }
+                let promotionPrice = $('tr[data-promotion-per-product]')
+                    .map((i, e) => $(e).attr('data-promotion-per-product') * $(e).find('input').val()).get()
+                    .reduce((allPrice, item) => allPrice + item, 0)
+                debugger
+                if (promotionPrice === $('tr[data-promotion-per-product]').map((i, e) => $(e).attr('data-promotion-per-product') * removeAnyNonDigit($(e).find('input').next().text())).get().reduce((allPrice, item) => allPrice + item, 0))
+                    isRollBackVoucher = true;
+                $('#promotionPrice').text(formatNumber(Math.round(promotionPrice)))
+            }
+
             var productInBillList = []
             var billList = []
             handleSearchProduct()
@@ -605,10 +655,10 @@
                     const createdDate = formatLocalDateTime(bill.createDate);
                     const totalAmount = formatNumber(bill.totalAmount)
                     var customerName = bill.customer.name
-                    if(customerName == null) {
+                    if (customerName == null) {
                         customerName = 'Khách lẻ'
                     }
-                    html+=`<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    html += `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             ${bill.code}
                                         </th>
@@ -639,10 +689,17 @@
             }
 
             var billObj;
+
             function handleClickSelectBill() {
                 $('.select-bill-btn').on('click', function () {
                     const billId = $(this).attr('data-select-bill')
                     billObj = billList.find(bill => bill.id == billId)
+                    if (billObj.voucher) {
+                        minimumValueForDiscount = billObj.voucher.minimumValueForDiscount | 0;
+                        billDiscount = billObj.voucher.billDiscount | 0;
+                        voucherId = billObj.voucher.id;
+                    }
+
                     $.ajax({
                         type: 'GET',
                         url: `/admin/api/product/${billId}/bill`,
@@ -671,7 +728,7 @@
                 var html = ''
                 productInBillList.forEach(product => {
                     const price = formatNumber(product.giaTien)
-                    html += `<tr data-product-id="${product.productId}" data-product-detail-id="${product.id}" data-bill-detail-id="${product.billDetailId}" data-max-quan="3193" class="product-select-item-${product.productId} bg-white border-b text-gray-700 product-select-item">
+                    html += `<tr data-product-id="${product.productId}" data-promotion-per-product=${product.promotionPerProduct} data-product-detail-id="${product.id}" data-bill-detail-id="${product.billDetailId}" data-max-quan="3193" class="product-select-item-${product.productId} bg-white border-b text-gray-700 product-select-item">
                                 <td class="px-3 py-3 text-lg">
                                     <img src="/${product.imageUrl}" alt="" width="40px">
                                 </td>
@@ -686,7 +743,7 @@
                                 </td>
                                 <td class="px-6 py-3 text-lg">
                                     <div class="custom-number-input h-10 w-20">
-                                        <input ${product.isPromotionalProduct?'disabled':''} class="return-quantity border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400" type="number" isPromotionalProduct="${product.isPromotionalProduct}" name="return_quantity" value="0" >
+                                        <input ${product.isPromotionalProduct ? 'disabled' : ''} class="return-quantity border-b-2 w-8 ouline-0 focus:outline-0 focus:border-b-blue-400" type="number" isPromotionalProduct="${product.isPromotionalProduct}" name="return_quantity" value="0" min="0" max="${product.soLuong}" >
                                         <span>/ ${product.soLuong}</span>
                                     </div>
                                 </td>
@@ -699,8 +756,8 @@
                                 </td>
                                       <td>
 
-                                      <button type="button" class="${product.isPromotionalProduct?'d-none':''} choose-exchange-product-btn hidden focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Đổi</button>
-                                      <button type="button" style="${product.isPromotionalProduct?'':'display:none'}" class=" focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:focus:ring-purple-900" title="Hàng khuyến mại không thể đổi trả">Hàng khuyến mại</button>
+                                      <button type="button" class="${product.isPromotionalProduct ? 'd-none' : ''} choose-exchange-product-btn hidden focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Đổi</button>
+                                      <button type="button" style="${product.isPromotionalProduct ? '' : 'display:none'}" class=" focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-1.5 dark:focus:ring-purple-900" title="Hàng khuyến mại không thể đổi trả">Hàng khuyến mại</button>
                                       </td>
                            </tr>`
                 })
@@ -708,8 +765,10 @@
                 handleChangeQuantityReturn()
                 handleChooseExchangeProduct()
             }
+
             var priceCheck;
             var isExchange;
+
             function handleChooseExchangeProduct() {
                 $('.choose-exchange-product-btn').on('click', function () {
                     $("#overlay").show()
@@ -766,7 +825,7 @@
                     const detailId = $(this).attr('data-product-detail-id')
                     var detail = product.productDetailDtos.find(detail => detail.id == detailId)
 
-                    if(detail.quantity == 0) {
+                    if (detail.quantity == 0) {
 
                         Toastify({
                             text: "Sản phẩm có thuộc tính này đã hết",
@@ -790,10 +849,10 @@
                     // }
 
 
-                    if($(this).hasClass('selected font-bold border border-2 border-blue-600 bg-blue-50')) {
+                    if ($(this).hasClass('selected font-bold border border-2 border-blue-600 bg-blue-50')) {
                         $(this).removeClass('selected font-bold border border-2 border-blue-600 bg-blue-50')
-                    }else {
-                        if($('.selected').length >= quantityExchange) {
+                    } else {
+                        if ($('.selected').length >= quantityExchange) {
                             Toastify({
                                 text: `Lưu ý: sản phẩm hiện tại đang đổi ${quantityExchange} chiếc`,
                                 className: "error",
@@ -808,15 +867,16 @@
                     }
 
 
-                    if($('.selected').length == 0) {
+                    if ($('.selected').length == 0) {
                         $('#choose-exchange-product-list-btn').prop('disabled', true)
-                    }else {
+                    } else {
                         $('#choose-exchange-product-list-btn').prop('disabled', false)
                     }
                 })
             }
 
             var detailSelectedId = []
+
             function handleChooseListProductExchange(product, quantityExchange, detailIdOf) {
                 $('#choose-exchange-product-list-btn').on('click', function () {
 
@@ -826,9 +886,9 @@
                         $(`.detail-${detail.id}`).remove()
                         appendToSelectedList(product, detail, detailIdOf)
 
-                        if(!detailSelectedId.includes(detailId)) {
+                        if (!detailSelectedId.includes(detailId)) {
                             detailSelectedId.push(detailId)
-                        }else {
+                        } else {
                             // const selectedItem = $(`.product-selected-item[data-product-detail-id='${detailId}']`).find('.exchange-quantity')
                             // selectedItem.val(parseInt(selectedItem.val()) + 1)
                         }
@@ -882,9 +942,11 @@
                                 </td>
                            </tr>`
                 $('.product-exchange-selected-list').append(html)
-                $('.exchange-quantity').on('keypress', function (e) {onlyAllowNumberInput(e)})
+                $('.exchange-quantity').on('keypress', function (e) {
+                    onlyAllowNumberInput(e)
+                })
                 $('.exchange-quantity').on('input change', function () {
-                    if($(this).val() < 1) {
+                    if ($(this).val() < 1) {
                         $(this).val(1)
                     }
 
@@ -899,7 +961,7 @@
                     })
 
 
-                    if(total > totalB) {
+                    if (total > totalB) {
                         // Revert the input value to maintain the constraint
                         var oldValue = $(this).data('oldValue') || 1;
                         $(this).val(oldValue);
@@ -921,7 +983,7 @@
                     const detailId = deleteSelectedItem.attr('data-product-detail-id');
                     detailSelectedId = detailSelectedId.filter(item => item != detailId)
                     deleteSelectedItem.remove()
-                    if($('.product-selected-item').length == 0) {
+                    if ($('.product-selected-item').length == 0) {
                         hideExchange()
                         showReturn()
                         isExchange = false
@@ -944,8 +1006,9 @@
                     onlyAllowNumberInput(e)
                 });
 
-                $('.return-quantity').on('input change', function () {
 
+                $('.return-quantity').on('input change', function () {
+                    calculatePromotionPrice();
                     var productSelectItem = $(this).closest('.product-select-item')
                     var productId = productSelectItem.attr('data-product-id')
 
@@ -961,11 +1024,11 @@
                     })
 
                     // Nếu tổng sl đổi lớn hơn tổng số lượng trả
-                    if( totalB < total) {
+                    if (totalB < total) {
                         $(`.product-${productId}`).remove()
                     }
 
-                    if($(this).val() < 0) {
+                    if ($(this).val() < 0) {
                         $(this).val(0)
                     }
                     const $returnQuantity = $(this)
@@ -973,15 +1036,15 @@
                     var $productDetail = $returnQuantity.closest('.product-select-item')
                     var productDetailId = $productDetail.attr('data-product-detail-id')
 
-                    if(quantity > 0) {
+                    if (quantity > 0) {
                         $productDetail.find('.choose-exchange-product-btn').removeClass('hidden')
-                    }else {
+                    } else {
                         $productDetail.find('.choose-exchange-product-btn').addClass('hidden')
                     }
 
                     var productDetailObj = productInBillList.find(item => item.id == productDetailId)
 
-                    if(quantity > productDetailObj.soLuong) {
+                    if (quantity > productDetailObj.soLuong) {
                         $returnQuantity.val(productDetailObj.soLuong)
                         quantity = productDetailObj.soLuong
                     }
@@ -993,10 +1056,9 @@
 
             function loadSelectedBill(bill) {
                 var customerHtml = ''
-                if(bill.customer.name != null) {
+                if (bill.customer.name != null) {
                     customerHtml = `${bill.customer.name}`
-                }
-                else {
+                } else {
                     customerHtml = `Khách lẻ`
                 }
                 var html = `<div class="p-2 text-blue-400 bg-gray-50">#${bill.code} - ${customerHtml}</div>`
@@ -1008,13 +1070,13 @@
                 $('#search-product').on('focus input', function () {
                     var checkQuantity = false
                     $('.return-quantity').each((index, item) => {
-                        if($(item).val() > 0) {
+                        if ($(item).val() > 0) {
                             checkQuantity = true
                             return
                         }
                     })
 
-                    if(!checkQuantity) {
+                    if (!checkQuantity) {
                         Toastify({
                             text: "Bạn cần điền hàng trả trước khi tìm hàng cần đổi",
                             className: "error",
@@ -1022,7 +1084,7 @@
                                 background: "red",
                             }
                         }).showToast();
-                    }else {
+                    } else {
 
                     }
                 })
@@ -1038,8 +1100,8 @@
 
             function calculateCustomerReturn() {
                 var allPrice = getAllPrice()
-                var fee =  getFeeChange()
-                $('#money-change').text(formatNumber(allPrice - fee))
+                var fee = getFeeChangeAndPromotionPrice()
+                $('#money-change').text(formatNumber(formatNumber(Math.round((allPrice - fee) / 1000) * 1000)))
                 calculateAllPriceExchange()
                 calculateLastReturnExchange()
             }
@@ -1071,7 +1133,7 @@
 
             $('.fee-exchange').on('input change', function () {
                 var percentValue = $(this).val()
-                if(percentValue > 100) {
+                if (percentValue > 100) {
                     Toastify({
                         text: "Tối đa 100%",
                         className: "error",
@@ -1093,8 +1155,9 @@
                 return parseFloat(removeAnyNonDigit($('.all-price').text()))
             }
 
-            function getFeeChange() {
-                return parseFloat(removeAnyNonDigit($('#fee-exchangeText').text()))
+            function getFeeChangeAndPromotionPrice() {
+                return parseFloat(removeAnyNonDigit($('#fee-exchangeText').text())) +
+                    parseFloat(removeAnyNonDigit($('#promotionPrice').text()))
             }
 
             function getAllPriceExchange() {
@@ -1105,16 +1168,16 @@
                 const moneyChange = removeAnyNonDigit($('#money-change').text())
 
                 // Nếu tổng tiền hàng đổi lớn hơn tổng tiền hàng trả
-                if(getAllPriceExchange() > parseFloat(moneyChange)) {
+                if (getAllPriceExchange() > parseFloat(moneyChange)) {
                     $('#khachCanTra').show()
                     $('#canTraKhach').hide()
 
                     $('#require-money').text(formatNumber(getAllPriceExchange() - moneyChange))
-                }else {
+                } else {
                     $('#khachCanTra').hide()
                     $('#canTraKhach').show()
-
-                    $('#return-customer-exchange').text(formatNumber(moneyChange - getAllPriceExchange()))
+                    debugger
+                    $('#return-customer-exchange').text(formatNumber(Math.round((moneyChange - getAllPriceExchange()) / 1000) * 1000))
                 }
             }
 
@@ -1122,9 +1185,11 @@
             function formatNumber(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
+
             function removeAnyNonDigit(value) {
                 return value.replace(/\D/g, '');
             }
+
             function onlyAllowNumberInput(e) {
                 const key = e.key;
                 if (!/[\d\b]/.test(key)) {
@@ -1161,8 +1226,9 @@
             //    ============================== XỬ LÝ THANH TOÁN ===============================
 
 
-            $('#submitBtn').on('click', function (){
+            $('#submitBtn').on('click', function () {
                 handleSubmit()
+
 
             });
 
@@ -1173,14 +1239,15 @@
                     reason: $('#reason').val(),
                     shipping: false,
                     refundDtos: [],
-                    returnDtos: []
+                    returnDtos: [],
+                    voucherReturn: 0
                 }
                 var checkQuantity = false;
                 // Lặp các hàng trả
                 $('.product-select-item').each((index, item) => {
                     var $productItem = $(item);
 
-                    if($(item).find('.return-quantity').val() > 0) {
+                    if ($(item).find('.return-quantity').val() > 0) {
                         checkQuantity = true
                     }
 
@@ -1193,7 +1260,7 @@
                     dataSend.refundDtos.push(refund)
                 })
 
-                if(checkQuantity == false) {
+                if (checkQuantity == false) {
                     Swal.fire({
                         title: "Lỗi",
                         text: "Vui lòng nhập hàng đổi trả",
@@ -1214,6 +1281,7 @@
                         })
                     })
                 }
+                dataSend.voucherReturn = removeAnyNonDigit($('#promotionPrice').text()) | 0
                 Swal.fire({
                     title: "Thông báo",
                     text: "Bạn chắc chắn muốn đổi trả sản phẩm này",
@@ -1224,6 +1292,7 @@
                 }).then(async (result) => {
                     if (result.isConfirmed) {
                         await handleCallApi(dataSend)
+
                     }
                 });
 
@@ -1239,11 +1308,15 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         $('#loading-overlay').hide()
-
+                        debugger
+                        if (voucherId !== 0 && isRollBackVoucher)
+                            fetch(`admin/api/bill-detail/rollback-voucher/${voucherId}`)
+                                .then(response => response.json())
+                                .then(result => console.log(result))
 
                         resetAll()
-
                         window.location.href = `/admin/bill-return-detail/${data.id}`
+
 
                     },
                     error: function (xhr, status, error) {
@@ -1257,6 +1330,7 @@
                 })
             }
         })
+
     </script>
 </div>
 </body>

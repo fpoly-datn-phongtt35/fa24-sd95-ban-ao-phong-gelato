@@ -15,5 +15,12 @@ public class BillDto {
     private Boolean returnStatus;
     private CustomerDto customer;
     private Double totalAmount;
+    private Voucher voucher;
 
+    @Data
+    public class Voucher {
+        private Long id;
+        private Double minimumValueForDiscount;
+        private Double billDiscount;
+    }
 }

@@ -48,13 +48,4 @@ public interface ProductService {
     List<ProductDto> getAllProductNoPaginationApi(SearchProductDto searchRequest);
 
     ProductDto getByProductDetailId(Long detailId);
-
-
-    //top10 sp bán chạy
-    List<ProductDto> getTop10BestSellingProducts();
-
-    //Top10 sp mới
-    List<ProductDto> getTop10NewestProducts();
-
-
 }

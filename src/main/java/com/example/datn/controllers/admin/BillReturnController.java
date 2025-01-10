@@ -53,7 +53,10 @@ public class BillReturnController {
                 billReturnDetailDto.getReturnProductDtos()) {
             totalReturn += returnProductDto.getMomentPriceExchange() * returnProductDto.getQuantityReturn();
         }
+        var returnVoucher=billReturnDetailDto.getReturnVoucher();
 
+
+        model.addAttribute("returnVoucher",returnVoucher);
         model.addAttribute("total", total);
         model.addAttribute("totalReturn", totalReturn);
         model.addAttribute("billReturnDetail", billReturnDetailDto);
@@ -78,6 +81,9 @@ public class BillReturnController {
                 billReturnDetailDto.getReturnProductDtos()) {
             totalReturn += returnProductDto.getMomentPriceExchange() * returnProductDto.getQuantityReturn();
         }
+        var returnVoucher=billReturnDetailDto.getReturnVoucher();
+
+        model.addAttribute("returnVoucher",returnVoucher);
 
         model.addAttribute("total", total);
         model.addAttribute("totalReturn", totalReturn);

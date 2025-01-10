@@ -65,7 +65,7 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
     @Query(value = "select distinct b.id as maDonHang,b.code as maDinhDanh,b.billing_address as diaChi," +
             " b.amount as tongTien,b.promotion_price as tienKhuyenMai,a.name as tenKhachHang," +
             "a.phone_number as soDienThoai,a.email as email, b.status as trangThaiDonHang, pmt.order_id as maGiaoDich, " +
-            "pm.name as phuongThucThanhToan,b.invoice_type as loaiHoaDon, dc.code as voucherName, b.create_date as createdDate " +
+            "pm.name as phuongThucThanhToan,b.invoice_type as loaiHoaDon, dc.code as voucherName, dc.type as discountType, dc.discount_amount as discountAmount, dc.percentage as discountPercent, dc.end_date as discountEndDate, dc.maximum_usage as discountUsage, dc.maximum_amount as discountMaximumAmount, dc.minimum_amount_in_cart as discountMinimumAmountInCart, b.create_date as createdDate " +
             "from bill b full join customer a on b.customer_id=a.id full join discount_code dc on b.discount_code_id=dc.id" +
             " full join bill_detail bd on b.id=bd.bill_id join payment pmt on b.id = pmt.bill_id left join payment_method pm on b.payment_method_id=pm.id where b.id=:maHoaDon",nativeQuery = true)
     BillDetailDtoInterface getBillDetail(@Param("maHoaDon") Long maHoaDon);
@@ -75,7 +75,8 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
             "           FROM image\n" +
             "           WHERE p.id = image.product_id\n" +
 
-            "       ) AS imageUrl " +
+            "       ) AS imageUrl, " +
+            " b.promotion_price*(bd.moment_price/b.amount) as promotionPerProduct " +
             "from bill b join bill_detail bd on b.id=bd.bill_id join" +
             " product_detail pd on bd.product_detail_id =pd.id join" +
             " product p on pd.product_id=p.id join color c on pd.color_id=c.id join size s on pd.size_id = s.id " +
@@ -197,9 +198,24 @@ public interface BillRepository  extends JpaRepository<Bill, Long>, JpaSpecifica
                                            @Param("loaiDon") InvoiceType loaiDon,
                                            @Param("soDienThoai") String soDienThoai,
                                            @Param("hoVaTen") String hoVaTen);
-    @Query("Select b.id from Bill b where b.status=com.example.datn.entities.enumClass.BillStatus.TAI_QUAY")
+    @Query("Select b.id from Bill b where b.status=?1")
     List<Long> findAllByStatus(BillStatus billStatus);
 
     @Query(value = "select * from Bill", nativeQuery = true)
     List<InStoreInvoiceDetail> findAllInStoreInvoiceDetail(List<Long> ids);
+    @Modifying
+    @Transactional
+    @Query(value = """
+            UPDATE BILL
+            SET STATUS='CHO_HANG_VE'
+            WHERE ID IN (SELECT BILL.ID
+                         FROM BILL
+                                  LEFT JOIN BILL_DETAIL ON BILL.ID = BILL_DETAIL.BILL_ID
+                                  LEFT JOIN PRODUCT_DETAIL ON BILL_DETAIL.PRODUCT_DETAIL_ID = PRODUCT_DETAIL.ID
+            
+                         WHERE BILL.STATUS = 'CHO_XAC_NHAN'
+                           AND PRODUCT_DETAIL.QUANTITY < BILL_DETAIL.QUANTITY)
+            
+    """, nativeQuery = true)
+    void updateStatusChoHangVe();
 }

@@ -58,6 +58,7 @@ public class BillReturnServiceImpl implements BillReturnService {
         billReturn.setReturnReason(billReturnCreateDto.getReason());
         billReturn.setReturnDate(LocalDateTime.now());
         billReturn.setCancel(false);
+        billReturn.setReturnVoucher(billReturnCreateDto.getVoucherReturn());
 
         Bill bill = billRepository.findById(billReturnCreateDto.getBillId()).orElseThrow(() -> new NotFoundException("Bill not found"));
         if(bill.getStatus() == BillStatus.TRA_HANG) {
@@ -99,7 +100,7 @@ public class BillReturnServiceImpl implements BillReturnService {
         billReturn.setPercentFeeExchange(billReturnCreateDto.getPercent());
         Double refundToCustomer = totalRefund - totalRefund * billReturnCreateDto.getPercent() / 100;
         if(billReturnCreateDto.getReturnDtos() == null || billReturnCreateDto.getReturnDtos().isEmpty()) {
-            billReturn.setReturnMoney(refundToCustomer);
+            billReturn.setReturnMoney(refundToCustomer-billReturnCreateDto.getVoucherReturn());
             billReturn.setReturnStatus(3);
         }
         else {
@@ -143,7 +144,7 @@ public class BillReturnServiceImpl implements BillReturnService {
 //                    billReturn.setReturnMoney(Double.valueOf(0));
 //                }
 //                TÍnh tiền khách trả chấp nhận âm
-                billReturn.setReturnMoney(totalRefund - totalExchange -  billReturnCreateDto.getPercent()*totalRefund/100);
+                billReturn.setReturnMoney(totalRefund - totalExchange -  billReturnCreateDto.getPercent()*totalRefund/100 - billReturn.getReturnVoucher());
 
 
                 returnDetailRepository.saveAll(returnDetails);
@@ -164,7 +165,7 @@ public class BillReturnServiceImpl implements BillReturnService {
         billReturnDetailDto.setBillId(bill.getId());
         billReturnDetailDto.setBillCode(bill.getCode());
         billReturnDetailDto.setReturnDate(billReturn.getReturnDate());
-
+        billReturnDetailDto.setReturnVoucher(billReturn.getReturnVoucher());
         if(bill.getCustomer() != null) {
             billReturnDetailDto.setCustomerDto(new CustomerDto(bill.getCustomer().getId(), bill.getCustomer().getCode(), bill.getCustomer().getName(), bill.getCustomer().getPhoneNumber(), null, null));
         }
@@ -222,6 +223,7 @@ public class BillReturnServiceImpl implements BillReturnService {
         billReturnDetailDto.setBillId(bill.getId());
         billReturnDetailDto.setBillCode(bill.getCode());
         billReturnDetailDto.setReturnDate(billReturn.getReturnDate());
+        billReturnDetailDto.setReturnVoucher(billReturn.getReturnVoucher());
 
         if(bill.getCustomer() != null) {
             billReturnDetailDto.setCustomerDto(new CustomerDto(bill.getCustomer().getId(), bill.getCustomer().getCode(), bill.getCustomer().getName(), bill.getCustomer().getPhoneNumber(), null, null));
