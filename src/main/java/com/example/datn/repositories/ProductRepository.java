@@ -98,20 +98,4 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "GROUP BY\n" +
             "    p.id, p.code, p.name, brand.name;", nativeQuery = true)
     List<ProductStatistic> getStatisticProduct(String fromDate, String toDate);
-
-
-    //Top sp bán chạy
-    @Query("SELECT p.name AS productName, SUM(bd.quantity) AS totalSold, p.code AS productCode " +
-            "FROM BillDetail bd " +
-            "JOIN ProductDetail pd ON bd.productDetail.id = pd.id " +
-            "JOIN Product p ON pd.product.id = p.id " +
-            "GROUP BY p.name, p.code " +
-            "ORDER BY totalSold DESC")
-    List<Object[]> findTop5BestSellingProducts(Pageable pageable);
-
-    //Hàng mới
-    @Query("SELECT p FROM Product p WHERE p.deleteFlag = false ORDER BY p.createDate DESC")
-    List<Product> findTop10NewProducts(Pageable pageable);
-
-
 }

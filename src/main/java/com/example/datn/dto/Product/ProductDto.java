@@ -22,13 +22,4 @@ public class ProductDto {
     private LocalDateTime createDate;
     private LocalDateTime updatedDate;
     private boolean isDiscounted;
-    private Long totalSold;
-
-    public Long getTotalSold() {
-        return totalSold;
-    }
-
-    public void setTotalSold(Long totalSold) {
-        this.totalSold = totalSold;
-    }
 }

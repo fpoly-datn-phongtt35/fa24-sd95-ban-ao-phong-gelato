@@ -126,14 +126,18 @@
                                         <tr>
                                             <th scope="row" colspan="5" class="border-0 text-end">
                                                 Phí :</th>
-                                            <td class="border-0 text-end" th:text="${billReturnDetail.percentFeeExchange}"></td>
+                                            <td class="border-0 text-end" th:text="${billReturnDetail.percentFeeExchange+ '%'}"></td>
                                         </tr>
                                         <!-- end tr -->
 
                                         <!-- end tr -->
                                         <tr>
+                                            <th scope="row" colspan="5" class="border-0 text-end">Hoàn trả khuyến mại:</th>
+                                            <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal(returnVoucher, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row" colspan="5" class="border-0 text-end">Tiền trả khách:</th>
-                                            <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal(total - total*billReturnDetail.percentFeeExchange/100, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
+                                            <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal(total - total*billReturnDetail.percentFeeExchange/100 - returnVoucher, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
                                         </tr>
                                     </th:block>
                                     <!-- end tr -->
@@ -184,20 +188,25 @@
                                             Phí :</th>
                                         <td class="border-0 text-end" th:text="${billReturnDetail.percentFeeExchange}"></td>
                                     </tr>
+                                    <tr>
+                                        <th scope="row" colspan="5" class="border-0 text-end">Hoàn trả khuyến mại</th>
+                                        <td class="text-end" th:text="${#numbers.formatDecimal(returnVoucher, 0, 'POINT', 0, 'COMMA')}">$732.50</td>
+                                    </tr>
                                     <!-- end tr -->
                                     <tr>
                                         <th scope="row" colspan="5" class="border-0 text-end">Tổng tiền đổi</th>
                                         <td class="text-end" th:text="${#numbers.formatDecimal(totalReturn, 0, 'POINT', 0, 'COMMA')}">$732.50</td>
                                     </tr>
+
                                     <!-- end tr -->
-                                    <tr th:if="${totalReturn > (total - total*billReturnDetail.percentFeeExchange/100)}">
+                                    <tr th:if="${totalReturn > (total - total*billReturnDetail.percentFeeExchange/100 - returnVoucher)}">
                                         <th scope="row" colspan="5" class="border-0 text-end">Tiền khách trả</th>
-                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal(totalReturn - (total - total*billReturnDetail.percentFeeExchange/100), 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
+                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal(totalReturn - (total - total*billReturnDetail.percentFeeExchange/100)- returnVoucher, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
                                     </tr>
 
-                                    <tr th:if="${totalReturn <= (total - total*billReturnDetail.percentFeeExchange/100)}">
+                                    <tr th:if="${totalReturn <= (total - total*billReturnDetail.percentFeeExchange/100 - returnVoucher)}">
                                         <th scope="row" colspan="5" class="border-0 text-end">Tiền trả khách</th>
-                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal((total - total*billReturnDetail.percentFeeExchange/100) - totalReturn, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
+                                        <td class="border-0 text-end"><h4 class="m-0 fw-semibold" th:text="${#numbers.formatDecimal((total - total*billReturnDetail.percentFeeExchange/100) - totalReturn - returnVoucher, 0, 'POINT', 0, 'COMMA')}">$739.00</h4></td>
                                     </tr>
                                     <!-- end tr -->
                                     </tbody><!-- end tbody -->

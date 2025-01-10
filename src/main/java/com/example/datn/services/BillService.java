@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.jpa.repository.Query;
 
 
 import java.io.IOException;
@@ -70,4 +71,6 @@ public interface BillService {
     Page<BillDto> getAllValidBillToReturn( Pageable pageable);
 
     void deductProductQuantitiesOnStatusChange(Long billId);
+
+    void updateStatusChoHangVe();
 }

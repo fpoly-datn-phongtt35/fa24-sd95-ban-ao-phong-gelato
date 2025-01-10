@@ -30,9 +30,8 @@
                 <div class="form-group col-md-2">
                     <label for="trangThai">Trạng thái</label>
                     <select class="form-select" id="trangThai" name="trangThai">
-
-                        <option value="CHO_HANG_VE" th:selected="${trangThai == 'CHO_HANG_VE'}">Chờ hàng về</option>
                         <option value="CHO_XAC_NHAN" th:selected="${trangThai == 'CHO_XAC_NHAN'}">Chờ xác nhận</option>
+                        <option value="CHO_HANG_VE" th:selected="${trangThai == 'CHO_HANG_VE'}">Chờ hàng về</option>
                         <option value="CHO_LAY_HANG" th:selected="${trangThai == 'CHO_LAY_HANG'}">Chờ lấy hàng</option>
                         <option value="CHO_GIAO_HANG" th:selected="${trangThai == 'CHO_GIAO_HANG'}">Chờ giao hàng</option>
                         <option value="HOAN_THANH" th:selected="${trangThai == 'HOAN_THANH'}">Hoàn thành</option>

@@ -24,12 +24,11 @@
                                     <!-- Step 1: Chờ xác nhận -->
                                     <div class="step"
                                          th:classappend="${
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE ||
+                 (billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
                  billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
                  billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
                  billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : 'd-none')}">
             <span class="icon">
                 <!-- Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
@@ -42,40 +41,35 @@
                                     <!-- Step 2: Chờ hàng về -->
                                     <div class="step"
                                          th:classappend="${
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+                                         billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE  ? 'active' : 'd-none'}"
+                                    >
             <span class="icon">
-                <!-- Icon -->
-                <i class="fa fa-box"></i>
-            </span>
-                                        <span class="text">Chờ hàng về</span>
-                                    </div>
+                <svg class="w-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M383.5 192c.3-5.3 .5-10.6 .5-16c0-51-15.9-96-40.2-127.6C319.5 16.9 288.2 0 256 0s-63.5 16.9-87.8 48.4C143.9 80 128 125 128 176c0 5.4 .2 10.7 .5 16L240 192l0 128-32 0c-7 0-13.7 1.5-19.7 4.2L68.2 192l28.3 0c-.3-5.3-.5-10.6-.5-16c0-64 22.2-121.2 57.1-159.3C62 49.3 18.6 122.6 4.2 173.6C1.5 183.1 9 192 18.9 192l6 0L165.2 346.3c-3.3 6.5-5.2 13.9-5.2 21.7l0 96c0 26.5 21.5 48 48 48l96 0c26.5 0 48-21.5 48-48l0-96c0-7.8-1.9-15.2-5.2-21.7L487.1 192l6 0c9.9 0 17.4-8.9 14.7-18.4C493.4 122.6 450 49.3 358.9 16.7C393.8 54.8 416 112.1 416 176c0 5.4-.2 10.7-.5 16l28.3 0L323.7 324.2c-6-2.7-12.7-4.2-19.7-4.2l-32 0 0-128 111.5 0z"/></svg>            </span>
+            <span class="text">Chờ hàng về</span>
+         </div>
 
-                                    <!-- Step 3: Chờ lấy hàng -->
-                                    <div class="step"
-                                         th:classappend="${
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
-                 billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
-            <span class="icon">
-                <!-- Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <g fill="none" stroke-width="1.5">
-                        <path fill="currentColor"
-                              d="m2.695 7.185l9 4l.61-1.37l-9-4l-.61 1.37ZM12.75 21.5v-11h-1.5v11h1.5Zm-.445-10.315l9-4l-.61-1.37l-9 4l.61 1.37Z"/>
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                              d="M3 17.11V6.89a.6.6 0 0 1 .356-.548l8.4-3.734a.6.6 0 0 1 .488 0l8.4 3.734A.6.6 0 0 1 21 6.89v10.22a.6.6 0 0 1-.356.548l-8.4 3.734a.6.6 0 0 1-.488 0l-8.4-3.734A.6.6 0 0 1 3 17.11Z"/>
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                              d="m7.5 4.5l8.644 3.842a.6.6 0 0 1 .356.548v3.61"/>
-                    </g>
-                </svg>
-            </span>
-                                        <span class="text">Chờ lấy hàng</span>
-                                    </div>
+        <!-- Step 3: Chờ lấy hàng -->
+                <div class="step"
+                     th:classappend="${
+                         billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG ||
+                         billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG ||
+                         billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).THAT_BAI ||
+                         billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH ? 'active' : ''}">
+                    <span class="icon">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none" stroke-width="1.5">
+                                <path fill="currentColor"
+                                      d="m2.695 7.185l9 4l.61-1.37l-9-4l-.61 1.37ZM12.75 21.5v-11h-1.5v11h1.5Zm-.445-10.315l9-4l-.61-1.37l-9 4l.61 1.37Z"/>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      d="M3 17.11V6.89a.6.6 0 0 1 .356-.548l8.4-3.734a.6.6 0 0 1 .488 0l8.4 3.734A.6.6 0 0 1 21 6.89v10.22a.6.6 0 0 1-.356.548l-8.4 3.734a.6.6 0 0 1-.488 0l-8.4-3.734A.6.6 0 0 1 3 17.11Z"/>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      d="m7.5 4.5l8.644 3.842a.6.6 0 0 1 .356.548v3.61"/>
+                            </g>
+                        </svg>
+                    </span>
+                                                <span class="text">Chờ lấy hàng</span>
+                                            </div>
 
                                     <!-- Step 4: Chờ giao hàng -->
                                     <div class="step"
@@ -186,9 +180,50 @@
                                 <h5>Voucher:</h5>
                             </div>
                             <div th:if="${billdetail.voucherName != null}">
-                                    <span style="color: red; font-size: 16px" th:text="${billdetail.voucherName}">
-                                    </span>
+                                    <p style="color: red; font-size: 16px" th:text="${billdetail.voucherName}">
+                                    </p>
+                                    <th:block th:switch="${billdetail.getDiscountType()}">
+                                        <p th:case="2" class="mb-1" th:if="${billdetail.getDiscountAmount() != null}">
+                                            <span>
+                                                Giảm:
+                                            </span>
+                                            <span th:text="${#numbers.formatInteger(billdetail.getDiscountAmount(),3,'POINT') + 'VND'}"></span>
+                                        </p>
+                                        <p th:case="1" class="mb-1" th:if="${billdetail.getDiscountPercent() != null}">
+                                            <span>
+                                                Giảm:
+                                            </span>
+                                            <span th:text="${#numbers.formatInteger(billdetail.getDiscountPercent(),2,'POINT') + '%'}"></span>
+                                        </p>
+                                    </th:block>
+
+                                    <p class="mb-1" th:if="${billdetail.getDiscountMinimumAmountInCart != null}">
+                                        <span>
+                                            Hóa đơn tối thiểu:
+                                        </span>
+                                        <span th:text="${#numbers.formatInteger(billdetail.getDiscountMinimumAmountInCart(),3,'POINT') + 'VND'}"></span>
+                                    </p>
+
+                                    <p class="mb-1" th:if="${billdetail.getDiscountMaximumAmount != null}">
+                                            <span>
+                                                Giảm tối đa:
+                                            </span>
+                                        <span th:text="${#numbers.formatInteger(billdetail.getDiscountMaximumAmount(),3,'POINT') + 'VND'}"></span>
+                                    </p>
+                                    <p class="mb-1" th:if="${billdetail.getDiscountEndDate() != null}">
+                                                <span>
+                                                    Hiệu lực tới:
+                                                </span>
+                                        <span th:text="${#dates.format(billdetail.getDiscountEndDate(),'HH:mm dd-MM-yyyy')}"></span>
+                                    </p>
+                                    <p class="mb-1" th:if="${billdetail.getDiscountUsage() != null}">
+                                                    <span>
+                                                        Số lượng còn lại:
+                                                    </span>
+                                        <span th:text="${billdetail.getDiscountUsage()}"></span>
+                                    </p>
                             </div>
+
                             <div th:if="${billdetail.voucherName == null}">
                                 <span class="text-muted">Không sử dụng</span>
                             </div>
@@ -230,7 +265,8 @@
                                     <!-- end thead -->
                                     <tbody>
                                     <tr th:each="productDetail : ${billDetailProduct}">
-                                        <td>
+                                        <td th:data-id="${productDetail.id}"
+                                            th:data-quantity="${productDetail.soLuong}">
                                             <div>
                                                 <h6 class="text-truncate font-size-14 mb-1"
                                                     th:text="${productDetail.tenSanPham}">
@@ -313,7 +349,8 @@
                         <div class="py-2 bill-detail-update-status">
                             <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
                                 <input type="hidden" name="trangThaiDonHang" value="HUY"/>
-                                <button type="button" class="cancel-btn btn btn-danger rounded" style="float: right; margin-bottom: 10px"
+                                <button type="button" class="cancel-btn btn btn-danger rounded"
+                                        style="float: right; margin-bottom: 10px"
                                         th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE &&
                        billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_XAC_NHAN ||
                        billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_LAY_HANG}">
@@ -322,7 +359,8 @@
                             </form>
 
                             <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
-                                <div th:data-status="${billdetail.trangThaiDonHang}" class="btn-update-status mt-2" style="max-width: 180px"
+                                <div th:data-status="${billdetail.trangThaiDonHang}" class="btn-update-status mt-2"
+                                     style="max-width: 180px"
                                      th:if="${billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).TRA_HANG &&
                      billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HUY &&
                      billdetail.trangThaiDonHang != T(com.example.datn.entities.enumClass.BillStatus).HOAN_THANH}">
@@ -347,9 +385,11 @@
                 <i class="far fa-check-square text-wrap"></i>&nbsp; Xác nhận hàng đã về kho, duyệt đơn này
             </span>
                                     <!-- Nút hủy cho trạng thái "Chờ hàng về" -->
-                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
+                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
+                                          method="get">
                                         <input type="hidden" name="trangThaiDonHang" value="HUY"/>
-                                        <button type="button" class="cancel-btn btn btn-danger rounded mt-4" style="float: right; margin-bottom: 10px"
+                                        <button type="button" class="cancel-btn btn btn-danger rounded mt-4"
+                                                style="float: right; margin-bottom: 10px"
                                                 th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_HANG_VE}">
                                             <i class="far fa-times-circle"></i>&nbsp; Hủy đơn này
                                         </button>
@@ -362,9 +402,11 @@
             </span>
 
                                     <!-- Giao hàng thất bại -->
-                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}" method="get">
+                                    <form th:action="@{'/admin/update-bill-status/' + ${billdetail.maDonHang}}"
+                                          method="get">
                                         <input type="hidden" name="trangThaiDonHang" value="THAT_BAI"/>
-                                        <button type="button" class="failed-btn btn btn-danger rounded mt-4" style="float: right; margin-bottom: 10px"
+                                        <button type="button" class="failed-btn btn btn-danger rounded mt-4"
+                                                style="float: right; margin-bottom: 10px"
                                                 th:if="${billdetail.trangThaiDonHang == T(com.example.datn.entities.enumClass.BillStatus).CHO_GIAO_HANG}">
                                             <i class="far fa-times-circle"></i>&nbsp; Giao hàng thất bại
                                         </button>
@@ -379,6 +421,7 @@
             <!-- end col -->
         </div>
     </div>
+
     <script>
         $(".cancel-btn").on("click", function (e) {
             e.stopPropagation();
@@ -436,6 +479,10 @@
                     nextStatus = "HOAN_THANH";
                     statusMessage = "Hoàn thành";
                     break;
+                case "CHO_HANG_VE":
+                    nextStatus = "CHO_LAY_HANG";
+                    statusMessage = "Chờ lấy hàng";
+                    break;
             }
 
             Swal.fire({
@@ -447,10 +494,38 @@
                 confirmButtonText: "Xác nhận",
                 reverseButtons: true,
             }).then((result) => {
+                debugger
+
+
                 if (result.isConfirmed) {
-                    const form = $(this).closest("form");
-                    var url = form.attr("action") + "?trangThaiDonHang=" + nextStatus; // Nối chuỗi đúng cách
-                    window.location.href = url;
+                    let data = $('td[data-id]').map((index, item) => ({
+                        productDetailId: $(item).attr("data-id"),
+                        quantity: $(item).attr("data-quantity")
+                    })).get();
+                    fetch('/admin/api/bill-detail/check-bill', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => {
+                            if (response.status === 200) {
+                                response.status // Trả về dữ liệu JSON nếu thành công
+                            } else {
+                                throw new Error(`HTTP error! status: ${response.status}`); // Nếu không phải 200, ném lỗi
+                            }
+                        })
+                        .then(result => {
+                            const form = $(".btn-update-status").closest("form");
+                            var url = form.attr("action") + "?trangThaiDonHang=" + nextStatus; // Nối chuỗi đúng cách
+                            window.location.href = url;
+                        })
+                        .catch(error => {
+                            alert("Không đủ số lượng");
+                            console.error('Error:', error.message); // Xử lý lỗi (lỗi HTTP hoặc lỗi mạng)
+                        });
+
                 }
             });
         });
