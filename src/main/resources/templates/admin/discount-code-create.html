@@ -147,26 +147,62 @@
             });
 
             $("#maximumAmount").on('input', function () {
-                if(parseInt($(this).val()) < 0) {
-                    $(this).val(0);
+                let value = $(this).val();  // Lấy giá trị nhập vào dưới dạng chuỗi
+
+                if (isNaN(value) || value < 0) {  // Nếu không phải là số hoặc là số âm
+                    $(this).val('');  // Xóa giá trị không hợp lệ
+                    $(this).siblings('.error').text('Số tiền giảm tối đa phải là một số dương');  // Hiển thị lỗi
+                } else {
+                    $(this).siblings('.error').text('');  // Xóa thông báo lỗi nếu hợp lệ
                 }
             });
 
             $("#discountAmount").on('input', function () {
-                if(parseInt($(this).val()) < 0) {
-                    $(this).val(0);
+                let value = $(this).val(); // Lấy giá trị nhập vào
+
+                if (isNaN(value) || value < 0 || !Number.isInteger(Number(value))) {
+                    // Nếu không phải số, là số âm hoặc không phải số nguyên
+                    $(this).val(''); // Xóa giá trị không hợp lệ
+                    $(this).siblings('.error').text('Số tiền giảm phải là số nguyên dương'); // Hiển thị lỗi
+                } else {
+                    $(this).siblings('.error').text(''); // Xóa thông báo lỗi nếu hợp lệ
                 }
             });
 
             $("#minimumAmountInCart").on('input', function () {
-                if(parseInt($(this).val()) < 0) {
-                    $(this).val(0);
+                let value = $(this).val();  // Lấy giá trị nhập vào dưới dạng chuỗi
+
+                if (isNaN(value) || value < 0) {  // Nếu không phải là số hoặc là số âm
+                    $(this).val('');  // Xóa giá trị không hợp lệ
+                    $(this).siblings('.error').text('Số tiền áp dụng tối thiểu phải là một số dương');  // Hiển thị lỗi
+                } else {
+                    $(this).siblings('.error').text('');  // Xóa thông báo lỗi nếu hợp lệ
                 }
             });
 
             $("#maximumUsage").on('input', function () {
-                if(parseInt($(this).val()) < 0) {
-                    $(this).val(0);
+                let value = $(this).val();  // Lấy giá trị nhập vào dưới dạng chuỗi
+
+                if (isNaN(value) || value < 0 || !Number.isInteger(Number(value))) {
+                    // Kiểm tra nếu không phải số, là số âm, hoặc không phải số nguyên
+                    $(this).val('');  // Xóa giá trị không hợp lệ
+                    $(this).siblings('.error').text('Số lượng tối đa phải là một số nguyên dương');  // Hiển thị lỗi
+                } else {
+                    $(this).siblings('.error').text('');  // Xóa thông báo lỗi nếu hợp lệ
+                }
+            });
+            $("#percentage").on('input', function () {
+                let value = $(this).val();  // Lấy giá trị nhập vào dưới dạng chuỗi
+
+                // Kiểm tra nếu giá trị không phải là số hợp lệ hoặc là số âm
+                if (isNaN(value) || value < 0) {
+                    $(this).val('');  // Xóa giá trị nếu không phải là số hợp lệ
+                    $(this).siblings('.error').text('Phần trăm giảm giá phải là một số dương');  // Thông báo lỗi
+                } else if (value > 98) {  // Kiểm tra nếu giá trị lớn hơn 98%
+                    $(this).val(98);  // Giới hạn giá trị tối đa là 98
+                    $(this).siblings('.error').text('Phần trăm giảm giá không được lớn hơn 98%');
+                } else {
+                    $(this).siblings('.error').text('');  // Xóa thông báo lỗi nếu nhập đúng
                 }
             });
         });
