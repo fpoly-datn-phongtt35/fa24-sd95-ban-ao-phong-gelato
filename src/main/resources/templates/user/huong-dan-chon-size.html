@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout-user.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Hướng dẫn chọn size</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Title page -->
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+        <h2 class="ltext-105 cl0 txt-center">
+            Hướng dẫn chọn size
+        </h2>
+    </section>
+
+    <!-- Content page -->
+    <section class="bg0 p-t-62 p-b-60">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar bên trái -->
+                <div class="col-md-4 col-lg-3 p-b-80">
+                    <div class="side-menu">
+                        <h4 class="mtext-112 cl2 p-b-33">Danh mục</h4>
+                        <ul>
+                            <li><a href="/chinh-sach-giao-nhan-van-chuyen" class="stext-115 cl6 hov-cl1 trans-04">Chính sách giao nhận - vận chuyển</a></li>
+                            <li><a href="/chinh-sach-bao-mat" class="stext-115 cl6 hov-cl1 trans-04">Chính sách bảo mật</a></li>
+                            <li><a href="/huong-dan-chon-size" class="stext-115 cl6 hov-cl1 trans-04">Hướng dẫn chọn size</a></li>
+                            <li><a href="/chinh-sach-doi-tra" class="stext-115 cl6 hov-cl1 trans-04">Quy định đổi hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nội dung bên phải -->
+                <div class="col-md-8 col-lg-9 p-b-80">
+                    <h3><strong>Hướng dẫn chọn size áo phông</strong></h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>SIZE</th>
+                            <th>NGỰC (cm)</th>
+                            <th>EO (cm)</th>
+                            <th>CHIỀU CAO (cm)</th>
+                            <th>CÂN NẶNG (kg)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>S</td>
+                            <td>82-86</td>
+                            <td>66-70</td>
+                            <td>150-160</td>
+                            <td>45-50</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>86-90</td>
+                            <td>70-75</td>
+                            <td>155-165</td>
+                            <td>51-56</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>90-94</td>
+                            <td>75-80</td>
+                            <td>160-170</td>
+                            <td>56-65</td>
+                        </tr>
+                        <tr>
+                            <td>XL</td>
+                            <td>94-98</td>
+                            <td>80-85</td>
+                            <td>165-175</td>
+                            <td>65-75</td>
+                        </tr>
+                        <tr>
+                            <td>XXL</td>
+                            <td>98-102</td>
+                            <td>85-90</td>
+                            <td>170-180</td>
+                            <td>75-85</td>
+                        </tr>
+                        <tr>
+                            <td>XXXL</td>
+                            <td>102-106</td>
+                            <td>90-95</td>
+                            <td>175-185</td>
+                            <td>85-95</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

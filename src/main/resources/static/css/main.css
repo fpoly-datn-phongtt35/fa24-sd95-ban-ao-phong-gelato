@@ -3706,3 +3706,16 @@ th {
   font-weight: bold;
   cursor: pointer;
 }
+
+footer a {
+  color: white; /* Đổi màu chữ sang trắng */
+  text-decoration: none; /* Loại bỏ gạch chân nếu cần */
+}
+
+footer a:hover {
+  color: #cccccc; /* Thay đổi màu khi hover nếu muốn */
+}
+
+footer p {
+  color: white; /* Đổi màu chữ sang trắng */
+}
