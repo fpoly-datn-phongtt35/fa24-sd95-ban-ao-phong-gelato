@@ -77,9 +77,14 @@ public class HomeController {
         model.addAttribute("url", urlBuilder.toUriString());
         model.addAttribute("products", products);
         model.addAttribute("dataFilter", searchProductDto==null ? new SearchProductDto() : searchProductDto);
-
+        List<ProductDto> topProducts = productService.getTop10BestSellingProducts();
+        model.addAttribute("topProducts", topProducts);
+        List<ProductDto> newestProducts = productService.getTop10NewestProducts();
+        model.addAttribute("newestProducts", newestProducts);
         return "user/home";
     }
+
+
 
     /**
      * Thêm các tham số tìm kiếm vào URL
@@ -116,5 +121,27 @@ public class HomeController {
                 urlBuilder.queryParam("sort", String.join(",", sortStrings));
             }
         }
+
     }
+
+    @GetMapping("/chinh-sach-doi-tra")
+    public String getDoiTra() {
+        return "user/doitra";
+    }
+
+    @GetMapping("/chinh-sach-bao-mat")
+    public String getChinhSachBaoMat() {
+        return "user/chinh-sach-bao-mat";
+    }
+
+    @GetMapping("/huong-dan-chon-size")
+    public String getHuongDanChonSize() {
+        return "user/huong-dan-chon-size";
+    }
+
+    @GetMapping("/chinh-sach-giao-nhan-van-chuyen")
+    public String getVanChuyen() {
+        return "user/chinh-sach-giao-nhan-van-chuyen";
+    }
+
 }

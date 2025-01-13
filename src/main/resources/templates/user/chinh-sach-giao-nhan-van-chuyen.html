@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout-user.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chính sách giao hàng - vận chuyển</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Title page -->
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+        <h2 class="ltext-105 cl0 txt-center">
+            Chính sách giao hàng - vận chuyển
+        </h2>
+    </section>
+
+    <!-- Content page -->
+    <section class="bg0 p-t-62 p-b-60">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar bên trái -->
+                <div class="col-md-4 col-lg-3 p-b-80">
+                    <div class="side-menu">
+                        <h4 class="mtext-112 cl2 p-b-33">Danh mục</h4>
+                        <ul>
+                            <li><a href="/chinh-sach-giao-nhan-van-chuyen" class="stext-115 cl6 hov-cl1 trans-04">Chính sách giao nhận - vận chuyển</a></li>
+                            <li><a href="/chinh-sach-bao-mat" class="stext-115 cl6 hov-cl1 trans-04">Chính sách bảo mật</a></li>
+                            <li><a href="/huong-dan-chon-size" class="stext-115 cl6 hov-cl1 trans-04">Hướng dẫn chọn size</a></li>
+                            <li><a href="/chinh-sach-doi-tra" class="stext-115 cl6 hov-cl1 trans-04">Quy định đổi hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nội dung bên phải -->
+                <div class="col-md-8 col-lg-9 p-b-80">
+                    <h4><strong>Phương thức thanh toán</strong></h4>
+                    <ul>
+                        <li>Khách hàng có thể lựa chọn **thanh toán trước** qua chuyển khoản ngân hàng.</li>
+                        <li>Khách hàng có thể lựa chọn **thanh toán khi nhận hàng (COD)**.</li>
+                    </ul>
+
+                    <h4>Phí vận chuyển</h4>
+                    <ul>
+                        <li>Phí vận chuyển sẽ được tính dựa trên khoảng cách và phương thức giao hàng.</li>
+                        <li>Shop hỗ trợ thông báo chi phí vận chuyển trước khi xác nhận đơn hàng.</li>
+                    </ul>
+
+                    <h4>Chính sách trả hàng và phí ship</h4>
+                    <ul>
+                        <li>Trong trường hợp khách hàng trả lại hàng, khách hàng sẽ chịu trách nhiệm thanh toán toàn bộ phí vận chuyển (bao gồm phí ship ban đầu và phí trả hàng).</li>
+                        <li>Khách hàng vui lòng thông báo trước khi trả hàng để shop hướng dẫn quy trình trả hàng nhanh chóng và thuận tiện.</li>
+                    </ul>
+
+                    <h4>Lưu ý</h4>
+                    <p>
+                        Quý khách vui lòng giữ liên lạc với nhân viên bán hàng để xác nhận tình trạng đơn hàng và các thông tin liên quan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

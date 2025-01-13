@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout-user.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chính sách bảo mật</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Title page -->
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+        <h2 class="ltext-105 cl0 txt-center">
+            Chính sách bảo mật
+        </h2>
+    </section>
+
+    <!-- Content page -->
+    <section class="bg0 p-t-62 p-b-60">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar bên trái -->
+                <div class="col-md-4 col-lg-3 p-b-80">
+                    <div class="side-menu">
+                        <h4 class="mtext-112 cl2 p-b-33">Danh mục</h4>
+                        <ul>
+                            <li><a href="/chinh-sach-giao-nhan-van-chuyen" class="stext-115 cl6 hov-cl1 trans-04">Chính sách giao nhận - vận chuyển</a></li>
+                            <li><a href="/chinh-sach-bao-mat" class="stext-115 cl6 hov-cl1 trans-04">Chính sách bảo mật</a></li>
+                            <li><a href="/huong-dan-chon-size" class="stext-115 cl6 hov-cl1 trans-04">Hướng dẫn chọn size</a></li>
+                            <li><a href="/chinh-sach-doi-tra" class="stext-115 cl6 hov-cl1 trans-04">Quy định đổi hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nội dung bên phải -->
+                <div class="col-md-8 col-lg-9 p-b-80">
+
+                    <p>
+                        Chính sách bảo mật này nhằm giúp Quý khách hiểu về cách website thu thập và sử dụng thông tin cá nhân của mình thông qua việc sử dụng trang web, bao gồm mọi thông tin cá thể cung cấp thông qua trang web khi Quý khách đăng ký tài khoản, đăng ký nhận thông tin liên lạc từ chúng tôi, hoặc khi Quý khách mua sản phẩm, dịch vụ, yêu cầu thêm thông tin từ dịch vụ của chúng tôi.
+                    </p>
+                    <h3 id="privacy"> <strong>Chính sách bảo mật thông tin</strong></h3>
+                    <p></p>
+                    <ul>
+                   <li><h4> <strong>1. Mục đích sử dụng thông tin</strong></h4></li>
+                        <li>- Thiết lập thẻ thành viên.</li>
+                        <li>- Nếu khách hàng đăng ký nhận email thông báo, thời trang Gelato sẽ gửi thông tin liên quan đến sản phẩm, chương trình khuyến mãi và các sự kiện qua email.</li>
+                    </ul>
+
+                    <ul>
+                   <li><h4> <strong>2. Phạm vi sử dụng thông tin</strong></h4></li>
+                        <li>- Thời trang Gelato không cung cấp hay chia sẻ thông tin cá nhân của khách hàng cho một bên thứ ba nào khác.</li>
+                        <li>- Thông tin cá nhân khách hàng sẽ chỉ được sử dụng trong nội bộ với mục đích như trên.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

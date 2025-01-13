@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout-user.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quy định đổi trả</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div layout:fragment="content">
+
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+        <h1 class="ltext-105 cl0 txt-center">
+            Quy định đổi trả
+        </h1>
+    </section>
+    <br>
+    <section class="bg0 p-t-62 p-b-60">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar bên trái -->
+                <div class="col-md-4 col-lg-3 p-b-80">
+                    <div class="side-menu">
+                        <h4 class="mtext-112 cl2 p-b-33">Danh mục</h4>
+                        <ul>
+                            <li><a href="/chinh-sach-giao-nhan-van-chuyen" class="stext-115 cl6 hov-cl1 trans-04">Chính sách giao nhận - vận chuyển</a></li>
+                            <li><a href="/chinh-sach-bao-mat" class="stext-115 cl6 hov-cl1 trans-04">Chính sách bảo mật</a></li>
+                            <li><a href="/huong-dan-chon-size" class="stext-115 cl6 hov-cl1 trans-04">Hướng dẫn chọn size</a></li>
+                            <li><a href="/chinh-sach-doi-tra" class="stext-115 cl6 hov-cl1 trans-04">Quy định đổi hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nội dung bên phải -->
+                <div class="col-md-8 col-lg-9 p-b-80">
+                    <ul>
+                    <p><strong>1.Phạm vi áp dụng:</strong> Áp dụng đổi trả hàng tại hệ thống cửa hàng của chúng tôi.</p>
+                   <li><h4 id="conditions"><strong>2.Điều kiện đổi trả:</strong> </h4></li>
+                        <li>Sản phẩm phải còn nguyên tem mác, không qua sử dụng, giặt ủi hoặc sửa chữa.</li>
+                        <li>Áp dụng cho các lý do: mặc không vừa, hàng lỗi hoặc đổi màu...</li>
+                    </ul>
+                    <ul>
+                   <li><h4 id="rules"><strong>3.Quy định đổi trả và cách tính phí:</strong></h4></li>
+                        <li>Nếu khách hàng muốn **trả hàng**, sẽ bị tính phí 10% tổng giá trị sản phẩm trả.</li>
+                        <li>Nếu khách hàng muốn **đổi sản phẩm**, giá trị sản phẩm mới sẽ được tính theo giá gốc, không phải giá đã giảm.</li>
+                        <li>
+                            Khi đổi sản phẩm, chính sách voucher được áp dụng như sau:
+                            <ul>
+                                <li>Nếu sản phẩm đổi có giá dưới 500.000 VNĐ: Voucher đã áp dụng trước đó sẽ không được trừ tiếp.</li>
+                                <li>Nếu sản phẩm đổi có giá từ 500.000 VNĐ trở lên: Voucher sẽ được áp dụng như ban đầu.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Số tiền hoàn lại cho khách khi trả hàng sẽ được tính như sau:
+                            <ul>
+                                <li>Số tiền trả lại = Giá trị sản phẩm trả - Giá trị voucher đã trừ + Phí 10%.</li>
+                                <li>Ví dụ: Nếu khách hàng mua 5 sản phẩm với tổng giá 5 triệu VNĐ, được giảm giá 100.000 VNĐ, sau đó trả 1 sản phẩm trị giá 1 triệu VNĐ:
+                                    <ul>
+                                        <li>Tiền trả lại = 1 triệu VNĐ (giá trị sản phẩm trả) - 100.000 VNĐ (voucher đã áp dụng) + 10%.</li>
+                                        <li>Tiền trả lại = 1.000.000 - 100.000 + 10% = 990.000 VNĐ.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>4.Khách hàng chỉ được đổi hoặc trả sản phẩm 1 lần/đơn hàng.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

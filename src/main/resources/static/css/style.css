@@ -86,7 +86,7 @@
   z-index: 2; /* Đảm bảo chữ nằm trên ảnh */
   font-size: 18px; /* Kích thước chữ */
   font-weight: bold; /* In đậm chữ */
-  color: #000; 
+  color: #000;
   background-color: rgba(0, 0, 0, 0.6); /* Nền đen mờ */
   padding: 5px 10px; /* Khoảng cách bên trong chữ */
   border-radius: 5px; /* Bo góc mềm mại */
@@ -372,5 +372,71 @@ button.next {
   margin: 0 auto 40px; /* Căn giữa và tạo khoảng cách dưới */
   line-height: 1.8; /* Tăng khoảng cách dòng */
 }
+
+/* Tổng quan */
+.container {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  padding: 20px;
+}
+
+.container ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.container ul li {
+  margin-bottom: 10px;
+}
+
+/* Đoạn văn */
+.container p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Bảng hoặc ví dụ minh họa */
+.container ul ul {
+  list-style-type: circle;
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+/* Sidebar */
+.side-menu {
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: #f9f9f9;
+}
+
+.side-menu h4 {
+  font-size: 20px;
+  color: #111;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu ul li {
+  margin-bottom: 10px;
+}
+
+.side-menu ul li a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.side-menu ul li a:hover {
+  color: #0056b3;
+}
+
 
 
