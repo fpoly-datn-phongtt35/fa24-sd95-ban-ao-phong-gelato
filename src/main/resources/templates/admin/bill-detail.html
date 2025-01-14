@@ -216,12 +216,12 @@
                                                 </span>
                                         <span th:text="${#dates.format(billdetail.getDiscountEndDate(),'HH:mm dd-MM-yyyy')}"></span>
                                     </p>
-                                    <p class="mb-1" th:if="${billdetail.getDiscountUsage() != null}">
-                                                    <span>
-                                                        Số lượng còn lại:
-                                                    </span>
-                                        <span th:text="${billdetail.getDiscountUsage()}"></span>
-                                    </p>
+<!--                                    <p class="mb-1" th:if="${billdetail.getDiscountUsage() != null}">-->
+<!--                                                    <span>-->
+<!--                                                        Số lượng còn lại:-->
+<!--                                                    </span>-->
+<!--                                        <span th:text="${billdetail.getDiscountUsage()}"></span>-->
+<!--                                    </p>-->
                             </div>
 
                             <div th:if="${billdetail.voucherName == null}">
