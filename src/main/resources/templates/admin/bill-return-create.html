@@ -885,6 +885,7 @@
             var detailSelectedId = []
 
             function handleChooseListProductExchange(product, quantityExchange, detailIdOf) {
+                $('#choose-exchange-product-list-btn').off();
                 $('#choose-exchange-product-list-btn').on('click', function () {
 
                     $('.selected').each((index, item) => {

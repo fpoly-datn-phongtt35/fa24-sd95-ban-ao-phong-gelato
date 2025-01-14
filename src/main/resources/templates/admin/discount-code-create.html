@@ -141,8 +141,8 @@
             });
 
             $("#percentage").on('input', function () {
-                if(parseInt($(this).val()) > 98) {
-                    $(this).val(98);
+                if(parseInt($(this).val()) > 90) {
+                    $(this).val(90);
                 }
             });
 
@@ -198,8 +198,8 @@
                 if (isNaN(value) || value < 0) {
                     $(this).val('');  // Xóa giá trị nếu không phải là số hợp lệ
                     $(this).siblings('.error').text('Phần trăm giảm giá phải là một số dương');  // Thông báo lỗi
-                } else if (value > 98) {  // Kiểm tra nếu giá trị lớn hơn 98%
-                    $(this).val(98);  // Giới hạn giá trị tối đa là 98
+                } else if (value > 90) {  // Kiểm tra nếu giá trị lớn hơn 98%
+                    $(this).val(90);  // Giới hạn giá trị tối đa là 98
                     $(this).siblings('.error').text('Phần trăm giảm giá không được lớn hơn 98%');
                 } else {
                     $(this).siblings('.error').text('');  // Xóa thông báo lỗi nếu nhập đúng
