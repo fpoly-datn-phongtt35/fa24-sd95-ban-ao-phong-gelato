@@ -135,7 +135,7 @@
                                             </div>
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
                                                    th:name="'num-product'+${cart.id}" th:value="${cart.quantity}"
-                                                   th:min="1" th:max="20">
+                                            th:min="0">
                                             <div class="btn-num-product-up  cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
@@ -752,7 +752,7 @@
 
             // When quantity is changed, update subtotal and recalculate total
             $(".num-product").on('change', function () {
-                if ($(this).val() > 20) {
+                if ($(this).val() > 500) {
                 }
 
                 $('#selected-voucher').html('')
@@ -808,14 +808,14 @@
                 // var numProduct = Number($(this).prev().val());
                 // $(this).prev().val(numProduct + 1);
                 var row = $(this).closest('.table-row');
-                if (row.find(".num-product").val() > 20) {
+                if (row.find(".num-product").val() > 500) {
                     Swal.fire({
-                        text: 'Bạn chỉ mua được tối đa 20 sản phẩm',
+                        text: 'Bạn chỉ mua được tối đa 500 sản phẩm',
                         title: "Thông báo",
                         icon: 'warning',
                         confirmButtonText: "Đồng ý"
                     })
-                    row.find(".num-product").val(20)
+                    row.find(".num-product").val(500)
                     return
                 }
                 $('#selected-voucher').html('')
@@ -823,11 +823,9 @@
                 voucherChoosed = null
                 calculateVoucherPrice()
 
-
                 updateSubtotal(row);
                 calculateTotal();
                 updateToServer(row, row.find(".num-product").val())
-
             });
 
             $(".voucher-item").on('click', function () {
@@ -924,7 +922,6 @@
 
                 if (paymentMethodId == 3) {
                     const amount = removeAnyNonDigit($('#all-total').text())
-                    // INIT PAYMENT
                     await $.ajax({
                         type: 'POST',
                         dataTye: 'json',
@@ -941,7 +938,6 @@
                     $('#loading-overlay').show();
                     await $.ajax({
                         type: 'POST',
-
                         url: '/api/orderUser',
                         data: JSON.stringify(dataSend),
                         contentType: "application/json; charset=utf-8",
@@ -962,7 +958,6 @@
                                     window.location.reload()
                                 }
                             });
-
                         },
                         error: function (xhr, status, error) {
                             $('#loading-overlay').hide();
@@ -976,7 +971,6 @@
         function removeAnyNonDigit(value) {
             return value.replace(/\D/g, '');
         }
-
 
         function formatNumber(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
