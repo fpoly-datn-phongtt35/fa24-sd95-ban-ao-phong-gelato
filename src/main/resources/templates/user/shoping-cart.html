@@ -135,7 +135,7 @@
                                             </div>
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
                                                    th:name="'num-product'+${cart.id}" th:value="${cart.quantity}"
-                                            th:min="0">
+                                                   th:min="0">
                                             <div class="btn-num-product-up  cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
@@ -180,9 +180,10 @@
                         </div>
                         <div class="size-209">
                             <span id="name-display" class="mtext-110 cl2" th:text="${profile.name}">Placeholder</span>
-                            <input type="text" id="name-input" class="form-control" style="display: none;" value="" />
+                            <input type="text" id="name-input" class="form-control" style="display: none;" value=""/>
                             <i id="edit-name" class="fa fa-edit cl1 pointer" style="margin-left: 10px;"></i>
-                            <i id="save-name" class="fa fa-save cl1 pointer" style="display: none; margin-left: 10px;"></i>
+                            <i id="save-name" class="fa fa-save cl1 pointer"
+                               style="display: none; margin-left: 10px;"></i>
                         </div>
                     </div>
 
@@ -191,10 +192,12 @@
                             <span class="stext-110 cl2">Số điện thoại:</span>
                         </div>
                         <div class="size-209">
-                            <span id="phone-display" class="mtext-110 cl2" th:text="${profile.phoneNumber}">Placeholder</span>
-                            <input type="text" id="phone-input" class="form-control" style="display: none;" value="" />
+                            <span id="phone-display" class="mtext-110 cl2"
+                                  th:text="${profile.phoneNumber}">Placeholder</span>
+                            <input type="text" id="phone-input" class="form-control" style="display: none;" value=""/>
                             <i id="edit-phone" class="fa fa-edit cl1 pointer" style="margin-left: 10px;"></i>
-                            <i id="save-phone" class="fa fa-save cl1 pointer" style="display: none; margin-left: 10px;"></i>
+                            <i id="save-phone" class="fa fa-save cl1 pointer"
+                               style="display: none; margin-left: 10px;"></i>
                         </div>
                     </div>
                     <div class="flex-w flex-t">
@@ -216,7 +219,8 @@
                                 <div class="address-list pt-15">
                                     <div th:if="${addressShippings.size() > 0}" class="pt-15">
                                         <div th:each="address : *{addressShippings}" class="shipping-choose">
-                                            <div th:id="'shipping' + ${address.id}" class="address-item" data-id="${address.id}">
+                                            <div th:id="'shipping' + ${address.id}" class="address-item"
+                                                 data-id="${address.id}">
                                                 <p th:text="${address.address}"></p>
                                             </div>
                                         </div>
@@ -491,6 +495,7 @@
                     });
                 });
         }
+
         $(document).ready(function () {
             var voucherList = [[${discountCodes}]]
             var voucherChoosed;
@@ -623,7 +628,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: "json",
-                        url: `https://vapi.vnappmob.com/api/province/district/01`,
+                        url: `https://api.vnappmob.com/api/v2/province/district/01`,
                         success: function (data) {
                             district = data.results.map(item => ({value: item.district_id, label: item.district_name}))
                             loadDistrictSelect(data)
@@ -636,7 +641,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: `https://vapi.vnappmob.com/api/province/district/01`,
+                url: `https://api.vnappmob.com/api/v2/province/district/01`,
                 success: function (data) {
                     district = data.results.map(item => ({value: item.district_id, label: item.district_name}))
                     loadDistrictSelect(data)
@@ -654,7 +659,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: "json",
-                        url: `https://vapi.vnappmob.com/api/province/ward/${districtId}`,
+                        url: `https://vapi.vnappmob.com/api/v2/province/ward/${districtId}`,
                         success: function (data) {
                             ward = data.results.map(item => ({value: item.ward_id, label: item.ward_name}))
                             loadWardSelect(data)
@@ -699,6 +704,7 @@
 
                 }
             }
+
             function calculateTotal() {
                 var total = 0;
 
