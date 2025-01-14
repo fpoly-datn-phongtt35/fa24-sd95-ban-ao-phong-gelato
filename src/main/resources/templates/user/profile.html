@@ -261,7 +261,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: `https://vapi.vnappmob.com/api/province/district/01`,
+                url: `https://vapi.vnappmob.com/api/v2/province/district/01`,
                 success: function (data) {
                     district = data.results.map(item => ({ value: item.district_id, label: item.district_name }))
                     loadDistrictSelect(data)
@@ -299,7 +299,7 @@
                     await $.ajax({
                         type: 'GET',
                         dataType: "json",
-                        url: `https://vapi.vnappmob.com/api/province/ward/${districtId}`,
+                        url: `https://vapi.vnappmob.com/api/v2/province/ward/${districtId}`,
                         success: function (data) {
                             ward = data.results.map(item => ({value: item.ward_id, label: item.ward_name}))
                             loadWardSelect(data)
